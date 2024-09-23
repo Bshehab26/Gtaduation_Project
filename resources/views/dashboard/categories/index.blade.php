@@ -38,7 +38,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('categories.show', $category->id) }}"
-                                                class="btn btn-sm btn-warning">Edit</a>
+                                                class="btn btn-sm btn-warning">Show</a>
                                             <a href="{{ route('categories.edit', $category->id) }}"
                                                 class="btn btn-sm btn-primary">Edit</a>
                                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
@@ -60,6 +60,15 @@
                                 @endforelse
                             </tbody>
                         </table>
+
+                     <div class="d-flex justify-content-lg-end" >
+                        <form action="{{ route('categories.destroyAll')}}" method="POST"
+                        style="display: inline-block">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">Delete All</button>
+                    </form>
+                     </div>
                         <!-- End Table with stripped rows -->
 
                     </div>

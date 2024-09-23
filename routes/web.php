@@ -24,3 +24,4 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('dashboard')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('dashboard-home');
     Route::resource('/categories', CategoryController::class);});
+Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])->name('categories.destroyAll');

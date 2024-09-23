@@ -13,8 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories=Category::get();
-        return view('dashboard.categories.index',compact('categories'));
+        $categories = Category::get();
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -31,11 +31,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate(
-            ['name'=>'required|unique:categories','description'=>'nullable'] );
-            Category::create($request->all());
-            return redirect()->back()
-        ->with('success', "The category \"" . $request['name'] . "\" has been created successfully.");
-
+            ['name' => 'required|unique:categories', 'description' => 'nullable']
+        );
+        Category::create($request->all());
+        return redirect()->back()
+            ->with('success', "The category \"" . $request['name'] . "\" has been created successfully.");
     }
 
     /**
@@ -43,7 +43,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('dashboard.categories.show', compact('category'));
     }
 
     /**
@@ -51,7 +52,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('dashboard.categories.edit', compact('category'));
     }
 
     /**
@@ -59,7 +61,20 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate(
+            [
+                'name' => 'required|unique:categories,name,' . $id,
+                'description' => 'nullable',
+            ]
+        );
+
+        if (empty($request['description']))
+            $request['description'] = 'it is a product of our company';
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+
+        return redirect()->back()
+            ->with('success', "The category \"" . $request['name'] . "\" has been updated successfully.");
     }
 
     /**
@@ -67,6 +82,22 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return redirect()->back()
+            ->with('success', "The category has been deleted successfully.");
+    }
+     /**
+     * Remove All resource from storage.
+     */
+    public function destroyAll()
+    {
+        $categories = Category::all();
+        foreach ($categories as $category) {
+            $category->delete();
+        }
+        return redirect()->back()
+            ->with('success', "All categories has been deleted successfully.");
     }
 }
