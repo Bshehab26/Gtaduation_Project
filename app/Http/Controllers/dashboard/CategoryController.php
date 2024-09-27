@@ -88,7 +88,7 @@ class CategoryController extends Controller
         return redirect()->back()
             ->with('success', "The category has been deleted successfully.");
     }
-     /**
+    /**
      * Remove All resource from storage.
      */
     public function destroyAll()
