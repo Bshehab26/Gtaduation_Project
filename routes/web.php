@@ -27,6 +27,9 @@ Route::prefix('dashboard')->group(function(){
     Route::get('/',[HomeController::class,'index'])->name('dashboard-home');
     Route::resource('/categories', CategoryController::class)->except('show');
     Route::get('/categories/{id}/{name?}',[CategoryController::class,'show'])->name('categories.show');
+    Route::get('/category/trash', [CategoryController::class,'trash'])->name('categories.trash');
+    Route::get('/category/restore/{id}', [CategoryController::class,'restore'])->name('categories.restore');
+    Route::delete('/category/forceDelete/{id}', [CategoryController::class,'forceDelete'])->name('categories.forceDelete');
 
 });
 Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])->name('categories.destroyAll');

@@ -30,30 +30,46 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            ['name' => 'required|unique:categories', 'description' => 'nullable']
-        );
+        $request->validate([
+            'name'        => 'required|unique:categories',
+            'description' => 'nullable'
+        ]);
+
         Category::create($request->all());
+
         return redirect()->back()
-            ->with('success', "The category \"" . $request['name'] . "\" has been created successfully.");
+        ->with('success', "The category \"" . $request['name'] . "\" has been created successfully.");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        $category = Category::findOrFail($id);
-        return view('dashboard.categories.show', compact('category'));
-    }
+
+    // Method (1): by id as a required parameter (Also we can get the other columns as a required or optional parameter(s))
+        // public function show($id)
+        // {
+        //     $category = Category::findOrFail($id);
+        //     return view('dashboard.categories.show', compact('category'));
+        // }
+
+    // Method (2): by the name only
+        public function show($name)
+        {
+            $category = Category::where('name', $name)->firstOrFail();
+            return view('dashboard.categories.show', compact('category'));
+        }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $category = Category::findOrFail($id);
-        return view('dashboard.categories.edit', compact('category'));
+        if(auth()->user()->user_type == "admin"){
+            $category = Category::findOrFail($id);
+            return view('dashboard.categories.edit', compact('category'));
+        }
+        return redirect()->route('categories.index')
+        ->with('unauthorized_action_edit', 'Sorry, you are unauthorized to do this action as a moderator!');;
     }
 
     /**
@@ -61,20 +77,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate(
-            [
-                'name' => 'required|unique:categories,name,' . $id,
-                'description' => 'nullable',
-            ]
-        );
+        $request->validate([
+            'name'        => 'required|unique:categories,name,' . $id,
+            'description' => 'nullable'
+        ]);
 
-        if (empty($request['description']))
-            $request['description'] = 'it is a product of our company';
         $category = Category::findOrFail($id);
         $category->update($request->all());
 
         return redirect()->back()
-            ->with('success', "The category \"" . $request['name'] . "\" has been updated successfully.");
+        ->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -85,19 +97,36 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->back()
-            ->with('success', "The category has been deleted successfully.");
+        return redirect()->route('categories.index')
+        ->with('success', 'Category deleted successfully.');
     }
-    /**
-     * Remove All resource from storage.
-     */
-    public function destroyAll()
-    {
-        $categories = Category::all();
-        foreach ($categories as $category) {
-            $category->delete();
+
+    // softDelete
+        // trash (Trash/Recycle Bin) [view/blade]
+        public function trash(){
+            $categories = Category::onlyTrashed()->latest()->get();
+            $categories_count = $categories->count();
+            return view('dashboard.categories.trash', compact('categories', 'categories_count'));
         }
-        return redirect()->back()
-            ->with('success', "All categories has been deleted successfully.");
-    }
+
+        // restore (from trash.blade.php) [action]
+        public function restore(string $id){
+            if(auth()->user()->user_type != "moderator"){
+                $category = Category::withTrashed()->find($id);
+                $category->restore();
+                return redirect()->back()
+                ->with('success', "Category \"$category->name\" has been restored successfully.");
+            }
+            return redirect()->back()
+            ->with('unauthorized_action_restore', 'Sorry, you are unauthorized to do this action as a moderator!');
+        }
+
+        // forceDelete (from trash.blade.php) [action]
+        public function forceDelete(string $id){
+            $category = Category::where('id', $id);
+            $category->forceDelete();
+            return redirect()->back()
+            ->with('success', "Category has been permanently deleted successfully.");
+        }
+
 }

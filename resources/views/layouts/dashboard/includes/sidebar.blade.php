@@ -25,6 +25,12 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('categories.trash') }}">
+                        <i class="bi bi-circle"></i><span>Trashed categories ({{ \App\Models\Category::onlyTrashed()->count() }})</span>
+                    </a>
+                </li>
+
 
             </ul>
         </li><!-- End Components Nav -->
