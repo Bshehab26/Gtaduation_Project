@@ -49,9 +49,10 @@ class LoginController extends Controller
     // public function logout()
     public function logout(Request $request)
     {
-        $username=auth()->user()->name;
+        $username = auth()->user()->name;
+
         Auth::logout();
-        // return redirect()->route('dashboard-home');
-        return redirect()->route('dashboard-home')->With('loggedout',"$username you have successfuly logged out.");
+
+        return redirect()->route('home')->With('loggedout',"$username you have successfuly logged out.");
     }
 }

@@ -166,26 +166,33 @@
             </li><!-- End Messages Nav -->
 
             <li class="nav-item dropdown pe-3">
-                {{--
-            @auth
-            @endauth
-            --}}
                 @if (auth()->user())
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
+
                         <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+
                         <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name ?? auth()->user()->username }}</span>
+
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ auth()->user()->name ?? auth()->user()->username  }}</h6>
-                            <span>{{ auth()->user()->user_type }}</span>
+                            <h6 class="mb-2">{{ auth()->user()->name ?? auth()->user()->username  }}</h6>
+                            <p class="mx-auto bg-primary rounded p-1 text-white mb-2" style="width: fit-content;">{{ auth()->user()->user_type }}</p>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-center fs-6" href="{{ route('home') }}">
+                                <span>Website</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-person"></i>
@@ -217,52 +224,19 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
+                                <span>
                                     {{ __('Logout') }}
-                                </a>
+                                </span>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </a>
                         </li>
 
-                    </ul><!-- End Profile Dropdown Items -->
-                @endif
-
-                {{--
-            @guest
-            @endguest
-            --}}
-                @if (!auth()->user())
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Account</span>
-                    </a><!-- End Profile Iamge Icon -->
-
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('register') }}">
-                                <i class="bi bi-card-list"></i>
-                                <span>Register</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{ route('login') }}">
-                                <i class="bi bi-box-arrow-in-right"></i>
-                                <span>Login</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
                     </ul><!-- End Profile Dropdown Items -->
                 @endif
             </li><!-- End Profile Nav -->
