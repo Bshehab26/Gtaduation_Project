@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\dashboard\{HomeController,
     CategoryController};
+use App\Http\Controllers\EventController;
+use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Event\EventCollectionIterator;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +52,63 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
             ->name('categories.destroyAll');
 
     });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::controller(EventController::class)->group(function () {
+
+    Route::resource('/events', EventController::class)
+        ->only(['index', 'show']);
+
+    Route::get('/events/{event:slug}', 'show')
+        ->name('events.show');
+
+        //todo add admin and orgnizer middleware
+    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['create', 'store']));
+
+    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['edit', 'update']));
+
 });

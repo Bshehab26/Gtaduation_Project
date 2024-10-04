@@ -184,7 +184,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center justify-content-center fs-6" href="{{ route('home') }}">
                                 <span>Website</span>
