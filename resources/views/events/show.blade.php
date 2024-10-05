@@ -8,15 +8,16 @@
     <!-- Page Title -->
     <div class="page-title" data-aos="fade" style="background-image: url(/assets/img/page-title-bg.webp);">
         <div class="container position-relative">
-        <h1>Event Detail</h1>
+        <h1>Event Details</h1>
         <nav class="breadcrumbs">
             <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Event Details</li>
+                <li><a href="{{ route('events.index') }}">Events</a></li>
+                <li class="current">{{ $event->name }}</li>
             </ol>
         </nav>
         </div>
-    </div><!-- End Page Title -->
+    </div>
+    <!-- End Page Title -->
 
     <!-- Events Section -->
     <section id="events" class="events section">
@@ -142,5 +143,6 @@
 
         </div>
 
-    </section><!-- /Events Section -->
+    </section>
+    <!-- /Events Section -->
 @endsection

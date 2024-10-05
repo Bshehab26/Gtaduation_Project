@@ -143,9 +143,12 @@
     </div>
     <!-- End Section Title -->
 
-    @livewire('events.event-schedule')
+    <div data-aos="fade-up" data-aos-delay="200">
+        @livewire('events.event-schedule')
+    </div>
 
 </section>
+<!-- /Schedule Section -->
 
 <!-- Venue Section -->
 <section id="venue" class="venue section">

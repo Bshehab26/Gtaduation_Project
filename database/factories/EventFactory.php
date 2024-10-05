@@ -34,6 +34,7 @@ class EventFactory extends Factory
         return [
             'name' => $name,
             'slug' => str_replace(' ', '-', $name),
+            'subject' => fake()->sentence(4),
             'description' => implode('</p><p>', fake()->paragraphs(2)),
             // $table->foreignId('orgnizer_id')->constrained('users');
             // $table->foreignId('venue_id')->constrained('venues');

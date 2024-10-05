@@ -1,12 +1,14 @@
 <?php
 
-use App\Http\Controllers\dashboard\{HomeController,
-    CategoryController};
-use App\Http\Controllers\EventController;
-use App\Models\Event;
+use App\Http\Controllers\dashboard\{
+    HomeController,
+    CategoryController
+};
+use App\Http\Controllers\{
+    EventController,
+};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Event\EventCollectionIterator;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,7 +48,6 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::delete('/category/forceDelete/{id}', [CategoryController::class,'forceDelete'])
             ->name('categories.forceDelete');
-
 
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
@@ -95,9 +96,7 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
 
 
-
-
-
+// THIS LINE SHOULD BE AT EXACTLY 100, OTHERWISE IT MAY CAUSE A CONFLICT
 Route::controller(EventController::class)->group(function () {
 
     Route::resource('/events', EventController::class)
