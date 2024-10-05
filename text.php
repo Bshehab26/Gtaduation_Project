@@ -1,3 +1,3 @@
 <?php
 
-'This is the conflict';
+'This is the conflict ';
