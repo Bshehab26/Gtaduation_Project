@@ -98,20 +98,6 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Route::controller(EventController::class)->group(function () {
 
     Route::resource('/events', EventController::class)
