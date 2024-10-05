@@ -47,11 +47,20 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
     // public function logout()
-    public function logout(Request $request)
-    {
-        $username=auth()->user()->name;
-        Auth::logout();
-        // return redirect()->route('dashboard-home');
-        return redirect()->route('dashboard-home')->With('loggedout',"$username you have successfuly logged out.");
+    // public function logout(Request $request)
+    // {
+    //     $username=auth()->user()->name;
+    //     Auth::logout();
+    //     // return redirect()->route('dashboard-home');
+    //     return redirect()->route('dashboard-home')->With('loggedout',"$username you have successfuly logged out.");
+    // }
+    public function credentials(Request $request){
+        if(is_numeric($request->email)){
+            return ['phone' => $request->email, 'password' => $request->password];
+        } elseif(filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+            return ['email' => $request->email, 'password' => $request->password];
+        } else{
+            return ['username' => $request->email, 'password' => $request->password];
+        }
     }
 }
