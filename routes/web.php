@@ -1,20 +1,9 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\dashboard\{HomeController,
     CategoryController,UserController};
 use App\Http\Controllers\EventController;
 use App\Models\Event;
-=======
-use App\Http\Controllers\dashboard\{
-    HomeController,
-    CategoryController,
-    UserController,
-};
-use App\Http\Controllers\{
-    EventController,
-};
->>>>>>> b899c09e152c880709cc18cdad00743c0e0e9d2a
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
