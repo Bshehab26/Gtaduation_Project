@@ -6,21 +6,9 @@
 </div>
 
 <div class="row mb-3">
-<<<<<<< HEAD
-    <label for="first_name" class="col-sm-2 col-form-label">First_name</label>
-    <div class="col-sm-10">
-        <input type="text" id="first_name" name="first_name" class="form-control" value="{{ old('first_name', $user->first_name) }}">
-    </div>
-</div>
-<div class="row mb-3">
-    <label for="last_name" class="col-sm-2 col-form-label">Last_name</label>
-    <div class="col-sm-10">
-        <input type="text" id="last_name" name="last_name" class="form-control" value="{{ old('last_name', $user->last_name) }}">
-=======
     <label for="name" class="col-sm-2 col-form-label">Name</label>
     <div class="col-sm-10">
         <input type="text" id="name" name="name" class="form-control" value="{{ old('name', $user->name) }}">
->>>>>>> main
     </div>
 </div>
 

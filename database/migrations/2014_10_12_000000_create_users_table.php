@@ -18,15 +18,9 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->text('bio')->nullable();
             $table->string('email')->unique();
-            $table->enum('role', ['customer', 'moderator', 'admin'])->default('customer');
+            $table->enum('user_type', ['customer', 'moderator', 'admin'])->default('customer');
             $table->timestamp('email_verified_at')->nullable();
-<<<<<<< HEAD
-            $table->string('phone')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->integer('id_card')->nullable();
-=======
             $table->string('phone')->nullable()->unique();
->>>>>>> main
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

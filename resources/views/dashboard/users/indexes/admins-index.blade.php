@@ -44,11 +44,7 @@
                         <td @if(auth()->user()->id == $admin->id) class="bg-dark text-white" @endif>{{ $admin->email }}</td>
                         <td @if(auth()->user()->id == $admin->id) class="bg-dark text-white" @endif>
                             <a href="{{ route('users.show', [$admin->username]) }}" class="btn btn-sm btn-warning">Show</a>
-<<<<<<< HEAD
-                            @if(auth()->user()->role == "admin" && auth()->user()->id == $admin->id)
-=======
                             @if(auth()->user()->user_type == "admin" && auth()->user()->id == $admin->id)
->>>>>>> main
                             <a href="{{ route('users.edit', auth()->user()->id) }}" class="btn btn-sm btn-primary">Edit My Data</a>
                             @endif
                         </td>
