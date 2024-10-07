@@ -1,6 +1,6 @@
-<header id="header" class="header d-flex align-items-center fixed-top p-0 flex-column" style="position: relative;">
+<header id="header" class="header d-flex align-items-center fixed-top p-0 flex-column" >
 
-    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-end px-4 gap-4 fs-6 text-white w-100" style="background-color: #000820; max-width: none;">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-end px-4 gap-4 fs-6 text-white w-100" style="background-color: #00000091; max-width: none;">
         @guest
             <a class="text-white py-2" href="{{ route('login') }}">Sign in</a>
             <a class="text-white py-2" href="{{ route('register') }}">Sign up</a>
@@ -48,7 +48,7 @@
         @endguest
     </div>
 
-    <div class="container-fluid container-xl position-relative d-flex align-items-center w-100" style="background-color: #001553; padding: 20px 2rem; gap: 2rem; max-width: none;">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
       <a href="{{ route('home') }}" class="logo d-flex align-items-center me-auto">
         <img src="/assets/img/logo.png" alt="logo">
@@ -65,7 +65,7 @@
                 <a href="#speakers">Speakers</a>
             </li> --}}
             <li>
-                <a href="#schedule" class="{{ Route::is('events.*') ? 'active' : '' }}">Events</a>
+                <a href="{{ route('events.index') }}" class="{{ Route::is('events.*') ? 'active' : '' }}">Events</a>
             </li>
             <li>
                 <a href="#venue">Venue</a>
@@ -98,7 +98,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      @if (Auth::check() && Auth::user()->user_type === 'moderator')
+      @if (Auth::check() && Auth::user()->user_type !== 'customer')
         <a class="cta-btn d-none d-sm-block" href="{{ route('events.create') }}">
             New event
         </a>

@@ -9,23 +9,24 @@ use Livewire\Component;
 class EventSchedule extends Component
 {
 
+    public $date;
+
+    public $day = 0;
+
+    public function changeDate($day)
+    {
+        $this->date = $day;
+        $this->day = $day;
+    }
+
     public function render()
     {
         return view('livewire.events.event-schedule', [
 
-            'eventsDay1' => Event::where('start_time', 'like', Carbon::today()->format('Y-m-d') . '%')
+            'events' => Event::where('start_time', 'like', Carbon::tomorrow()->addDays($this->date)->format('Y-m-d') . '%')
                                 ->where('status', 'upcoming')
                                 ->orderBy('start_time', 'asc')
-                                ->get(),
-
-            'eventsDay2' => Event::where('start_time', 'like', Carbon::today()->addDay()->format('Y-m-d') . '%')
-                                ->where('status', 'upcoming')
-                                ->orderBy('start_time', 'asc')
-                                ->get(),
-
-            'eventsDay3' => Event::where('start_time', 'like', Carbon::today()->addDays(2)->format('Y-m-d') . '%')
-                                ->where('status', 'upcoming')
-                                ->orderBy('start_time', 'asc')
+                                ->limit(5)
                                 ->get(),
 
         ]);
