@@ -14,8 +14,10 @@ class UserSeeder extends Seeder
     {
 $user=User::create([
     "username"=>"ali shehab",
+    "first_name"=>"ali",
+    "last_name"=>"mohamed",
     "email"=>"bshehab26@gmail.com",
-    "user_type"=>"admin",
+    "role"=>"admin",
     "password"=> "123456789"
     // "password"=> bcrypt("123456789")//to bcrypt the Hash
 ]);
