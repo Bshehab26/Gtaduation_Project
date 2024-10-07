@@ -1,12 +1,22 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\dashboard\{HomeController,
     CategoryController,UserController};
 use App\Http\Controllers\EventController;
 use App\Models\Event;
+=======
+use App\Http\Controllers\dashboard\{
+    HomeController,
+    CategoryController,
+    UserController,
+};
+use App\Http\Controllers\{
+    EventController,
+};
+>>>>>>> b899c09e152c880709cc18cdad00743c0e0e9d2a
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Event\EventCollectionIterator;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +65,6 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::delete('/category/forceDelete/{id}', [CategoryController::class,'forceDelete'])
             ->name('categories.forceDelete');
 
-
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
 
@@ -97,26 +106,28 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
 
 
-
-
-
-
-
-
-
-
+Route::get('/events/create', function ($id) {
+    return view('events.create');
+});
 
 Route::controller(EventController::class)->group(function () {
 
     Route::resource('/events', EventController::class)
-        ->only(['index', 'show']);
+        ->only(['index']);
+
 
     Route::get('/events/{event:slug}', 'show')
         ->name('events.show');
 
         //todo add admin and orgnizer middleware
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['create', 'store']));
+    Route::group(['middleware' => 'auth'], function() {
+        Route::resource('/events', EventController::class)->only(['create', 'store']);
+    });
 
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['edit', 'update']));
+    Route::group(['middleware' => 'auth'], function() {
+        Route::resource('/events', EventController::class)->only(['update']);
+        Route::get('/events/{event:slug}/edit', 'edit')
+            ->name('events.edit');
+    });
 
 });
