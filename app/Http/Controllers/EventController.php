@@ -20,7 +20,10 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        // if(auth()->user()->type == 'admin'){
+        //     //
+        // }
+        return view('events.create');
     }
 
     /**
@@ -46,7 +49,9 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return view('events.edit', [
+            'event' => $event,
+        ]);
     }
 
     /**

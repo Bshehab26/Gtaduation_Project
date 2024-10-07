@@ -31,6 +31,11 @@
 
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
+                        @if (Auth::check() && Auth::user()->user_type == 'admin')
+                            <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
+                                Edit this event
+                            </a>
+                        @endif
                         <h2>{{ $event->name }}</h2>
                         <p>
                             {!! $event->description !!}

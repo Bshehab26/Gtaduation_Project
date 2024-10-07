@@ -94,20 +94,29 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
 
 
-
+Route::get('/events/create', function ($id) {
+    return view('events.create');
+});
 
 // THIS LINE SHOULD BE AT EXACTLY 100, OTHERWISE IT MAY CAUSE A CONFLICT
 Route::controller(EventController::class)->group(function () {
 
     Route::resource('/events', EventController::class)
-        ->only(['index', 'show']);
+        ->only(['index']);
+
 
     Route::get('/events/{event:slug}', 'show')
         ->name('events.show');
 
         //todo add admin and orgnizer middleware
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['create', 'store']));
+    Route::group(['middleware' => 'auth'], function() {
+        Route::resource('/events', EventController::class)->only(['create', 'store']);
+    });
 
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['edit', 'update']));
+    Route::group(['middleware' => 'auth'], function() {
+        Route::resource('/events', EventController::class)->only(['update']);
+        Route::get('/events/{event:slug}/edit', 'edit')
+            ->name('events.edit');
+    });
 
 });

@@ -42,6 +42,11 @@ class EventIndex extends Component
         }
     }
 
+    public function search()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
 
@@ -50,6 +55,7 @@ class EventIndex extends Component
 
         $events->when($this->search, function ($q) use ($search){
             $q->where('name', 'like', "%$search%");
+            $this->resetPage();
         });
 
         return view('livewire.events.event-index', [

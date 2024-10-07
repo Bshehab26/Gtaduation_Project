@@ -48,26 +48,67 @@
 
     <div class="d-flex flex-column flex-lg-row mx-auto my-2 mb-4 p-3" style="gap: 2rem;">
 
-        <button class="btn border-error fs-5 px-3 mx-lg-0 text-white" style="width:fit-content; height:fit-content; background-color: #f82249;" id="filters-trigger">
+        <button class="btn border border-danger fs-5 px-3 mx-lg-0 text-white" style="width:fit-content; height:fit-content; background-color: #f82249;" id="filters-trigger">
             Filters
         </button>
 
-        <form wire:submit='$refresh' class="form input-group rounded w-100 bg-light border rounded p-3" style="display: none;" id="filters-form">
+        <form wire:submit='search()' class="form input-group rounded w-100 bg-light border rounded p-3" style="display: none;" id="filters-form">
             <div class="container w-100">
                 <div class="row">
-                    <div class="col-lg-3 border-right">
+                    <div class="col-lg-3 p-1">
                         <h3>Food:</h3>
+                        <div class="px-3">
+                            <div class="my-3">
+                                <input type="radio" name="" id="">
+                                <label for="">Hello</label>
+                            </div>
+                            <div class="my-3">
+                                <input type="radio" name="" id="">
+                                <label for="">Hello</label>
+                            </div>
+                            <div class="my-3">
+                                <input type="radio" name="" id="">
+                                <label for="">Hello</label>
+                            </div>
+                            <div class="my-3">
+                                <input type="radio" name="" id="">
+                                <label for="">Hello</label>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-3 border-right">
                         <h3>Food:</h3>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
                     </div>
                     <div class="col-lg-3 border-right">
                         <h3>Food:</h3>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
+                        <div class="my-2">
+                            <input type="radio" name="" id="">
+                            <label for="">Hello</label>
+                        </div>
                     </div>
-                    <div class="col-lg-3">
-                        <h3>Food:</h3>
-                    </div>
-                    <button type="submit" class="btn border-0" id="search-addon">
+                </div>
+                <div class="row text-end w-100 p-2 pb-0 d-flex justify-content-end">
+                    <button type="submit" class="btn border border-danger text-white" style="background-color: #f82249; width:fit-content; height:fit-content;" id="search-addon">
                         Apply
                     </button>
                 </div>
@@ -80,6 +121,11 @@
 
         <!-- Schdule -->
         <div role="tabpanel" class="col-lg-9 tab-pane fade show active w-100">
+
+            <div>
+                <h3>{{ $events->total() }} results found:</h3>
+            </div>
+
             <div class="row schedule-item px-2 rounded-top" style="background-color: #0e1b4d;">
                 <div class="col-md-1" wire:click="order('start')" style="cursor: pointer;">
                     <h4 class="text-white mb-0">
@@ -118,7 +164,7 @@
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
                         <div class="speaker flex-shrink-0">
-                            <img class="ratio ratio-1x1" src="/assets/img/speakers/speaker-1-2.jpg" alt="Brenden Legros">
+                            <img class="ratio ratio-1x1 object-fit-cover" src="/assets/img/speakers/speaker-1-2.jpg" alt="Brenden Legros" style="image">
                         </div>
                         <h6>
                             Brenden Legros

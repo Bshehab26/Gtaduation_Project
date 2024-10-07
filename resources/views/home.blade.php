@@ -10,33 +10,32 @@
     <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
 
     <div class="container d-flex flex-column align-items-center text-center mt-auto">
-    <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span>MARKETING</span> CONFERENCE</h2>
-    <p data-aos="fade-up" data-aos-delay="200">10-12 December, Downtown Conference Center, New York</p>
-    <div data-aos="fade-up" data-aos-delay="300" class="">
-        <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
-    </div>
+        <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span>MARKETING</span> CONFERENCE</h2>
+        <p data-aos="fade-up" data-aos-delay="200">10-12 December, Downtown Conference Center, New York</p>
+        <div data-aos="fade-up" data-aos-delay="300" class="">
+            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
+        </div>
     </div>
 
     <div class="about-info mt-auto position-relative">
-
-    <div class="container position-relative" data-aos="fade-up">
-        <div class="row">
-        <div class="col-lg-6">
-            <h2>About The Event</h2>
-            <p>Sed nam ut dolor qui repellendus iusto odit. Possimus inventore eveniet accusamus error amet eius aut
-            accusantium et. Non odit consequatur repudiandae sequi ea odio molestiae. Enim possimus sunt inventore in
-            est ut optio sequi unde.</p>
+        <div class="container position-relative" data-aos="fade-up">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2>About The Event</h2>
+                    <p>Sed nam ut dolor qui repellendus iusto odit. Possimus inventore eveniet accusamus error amet eius aut
+                    accusantium et. Non odit consequatur repudiandae sequi ea odio molestiae. Enim possimus sunt inventore in
+                    est ut optio sequi unde.</p>
+                </div>
+                <div class="col-lg-3">
+                    <h3>Where</h3>
+                    <p>Downtown Conference Center, New York</p>
+                </div>
+                <div class="col-lg-3">
+                    <h3>When</h3>
+                    <p>Monday to Wednesday<br>10-12 December</p>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-3">
-            <h3>Where</h3>
-            <p>Downtown Conference Center, New York</p>
-        </div>
-        <div class="col-lg-3">
-            <h3>When</h3>
-            <p>Monday to Wednesday<br>10-12 December</p>
-        </div>
-        </div>
-    </div>
     </div>
 
 </section>
@@ -46,90 +45,90 @@
 <section id="speakers" class="speakers section">
 
 <!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-    <h2>Event Speakers<br></h2>
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Event Speakers<br></h2>
 
-</div><!-- End Section Title -->
+    </div><!-- End Section Title -->
 
-<div class="container">
+    <div class="container">
 
-    <div class="row gy-4">
+        <div class="row gy-4">
 
-    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="member">
-        <img src="assets/img/speakers/speaker-1.jpg" class="img-fluid" alt="">
-        <div class="member-info">
-            <div class="member-info-content">
-            <h4><a href="speaker-details.html">Walter White</a></h4>
-            <span>Quas alias incidunt</span>
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+            <img src="assets/img/speakers/speaker-1.jpg" class="img-fluid" alt="">
+            <div class="member-info">
+                <div class="member-info-content">
+                <h4><a href="speaker-details.html">Walter White</a></h4>
+                <span>Quas alias incidunt</span>
+                </div>
+                <div class="social">
+                <a href=""><i class="bi bi-twitter-x"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
             </div>
-            <div class="social">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
             </div>
-        </div>
-        </div>
-    </div><!-- End Team Member -->
+        </div><!-- End Team Member -->
 
-    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="member">
-        <img src="assets/img/speakers/speaker-2.jpg" class="img-fluid" alt="">
-        <div class="member-info">
-            <div class="member-info-content">
-            <h4><a href="speaker-details.html">Hubert Hirthe</a></h4>
-            <span>Consequuntur odio aut</span>
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+            <img src="assets/img/speakers/speaker-2.jpg" class="img-fluid" alt="">
+            <div class="member-info">
+                <div class="member-info-content">
+                <h4><a href="speaker-details.html">Hubert Hirthe</a></h4>
+                <span>Consequuntur odio aut</span>
+                </div>
+                <div class="social">
+                <a href=""><i class="bi bi-twitter-x"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
             </div>
-            <div class="social">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
             </div>
-        </div>
-        </div>
-    </div><!-- End Team Member -->
+        </div><!-- End Team Member -->
 
-    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="member">
-        <img src="assets/img/speakers/speaker-3.jpg" class="img-fluid" alt="">
-        <div class="member-info">
-            <div class="member-info-content">
-            <h4><a href="speaker-details.html">Amanda Jepson</a></h4>
-            <span>Fugiat laborum et</span>
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+            <img src="assets/img/speakers/speaker-3.jpg" class="img-fluid" alt="">
+            <div class="member-info">
+                <div class="member-info-content">
+                <h4><a href="speaker-details.html">Amanda Jepson</a></h4>
+                <span>Fugiat laborum et</span>
+                </div>
+                <div class="social">
+                <a href=""><i class="bi bi-twitter-x"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
             </div>
-            <div class="social">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
             </div>
-        </div>
-        </div>
-    </div><!-- End Team Member -->
+        </div><!-- End Team Member -->
 
-    <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="member">
-        <img src="assets/img/speakers/speaker-4.jpg" class="img-fluid" alt="">
-        <div class="member-info">
-            <div class="member-info-content">
-            <h4><a href="speaker-details.html">William Anderson</a></h4>
-            <span>Debitis iure vero</span>
+        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="member">
+            <img src="assets/img/speakers/speaker-4.jpg" class="img-fluid" alt="">
+            <div class="member-info">
+                <div class="member-info-content">
+                <h4><a href="speaker-details.html">William Anderson</a></h4>
+                <span>Debitis iure vero</span>
+                </div>
+                <div class="social">
+                <a href=""><i class="bi bi-twitter-x"></i></a>
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
             </div>
-            <div class="social">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
             </div>
+        </div><!-- End Team Member -->
+
         </div>
-        </div>
-    </div><!-- End Team Member -->
 
     </div>
-
-</div>
 
 </section>
 <!-- /Speakers Section -->
