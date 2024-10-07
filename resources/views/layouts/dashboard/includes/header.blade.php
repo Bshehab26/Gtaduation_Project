@@ -172,14 +172,15 @@
 
                         <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
 
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name ?? auth()->user()->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
 
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6 class="mb-2">{{ auth()->user()->name ?? auth()->user()->username  }}</h6>
-                            <p class="mx-auto bg-primary rounded p-1 text-white mb-2" style="width: fit-content;">{{ auth()->user()->user_type }}</p>
+                            <h6>{{ auth()->user()->name }}</h6>
+                            <p class="my-1 mb-2">{{ auth()->user()->email }}</p>
+                            <p class="mx-auto bg-primary rounded p-1 px-3 text-white mb-2" style="width: fit-content;">{{ auth()->user()->user_type }}</p>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
