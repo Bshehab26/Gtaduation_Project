@@ -15,15 +15,13 @@ class Dashboard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->user_type=="customer"){
+        if(auth()->user()->user_type != "admin"){
 
             return abort(403);
-            // ti return to a website
-        //  return redirect()->route('/you are-customer');
+            // to return to a website
+            //  return redirect()->route('/you are-customer');
         }
-        // if(!auth()->user()){
-        //     return redirect()->route('login');
-        //    }
+
         return $next($request);
     }
 }

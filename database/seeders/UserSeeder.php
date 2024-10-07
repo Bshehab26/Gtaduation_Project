@@ -21,6 +21,5 @@ $user=User::create([
     "password"=> "123456789"
     // "password"=> bcrypt("123456789")//to bcrypt the Hash
 ]);
-        //
     }
 }

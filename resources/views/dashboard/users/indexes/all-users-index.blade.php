@@ -43,22 +43,39 @@
                         <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>{{ $user->id }}</td>
                         <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>{{ $user->username }}</td>
                         <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>{{ $user->email }}</td>
+<<<<<<< HEAD
                         <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>{{ ucfirst($user->role) }}</td>
                         <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>
                             <a href="{{ route('users.show', [$user->username]) }}" class="btn btn-sm btn-warning">Show</a>
                             @if(auth()->user()->role == "admin" && $user->role != "admin")
+=======
+                        <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>{{ ucfirst($user->user_type) }}</td>
+                        <td @if(auth()->user()->id == $user->id) class="bg-dark text-white" @endif>
+                            <a href="{{ route('users.show', [$user->username]) }}" class="btn btn-sm btn-warning">Show</a>
+                            @if(auth()->user()->user_type == "admin" && $user->user_type != "admin")
+>>>>>>> main
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             @elseif(auth()->user()->id == $user->id)
                             <a href="{{ route('users.edit', auth()->user()->id) }}" class="btn btn-sm btn-primary">Edit My Data</a>
                             @endif
+<<<<<<< HEAD
                             @if(auth()->user()->role == "admin" && $user->role != "admin")
+=======
+                            @if(auth()->user()->user_type == "admin" && $user->user_type != "admin")
+>>>>>>> main
                             <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the user ({{ $user->username }})?');">Delete</button>
                             </form>
                             @endif
+<<<<<<< HEAD
 
+=======
+                            @if ((auth()->user()->user_type == "admin"||auth()->user()->user_type == "moderator")&& auth()->user()->id == $user->id)
+                            <a href="{{ route('users.create') }}" class="btn btn-sm btn-success"> Create New user </a>
+                            @endif
+>>>>>>> main
                         </td>
                     </tr>
                 @endforeach
