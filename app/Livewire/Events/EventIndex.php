@@ -19,6 +19,8 @@ class EventIndex extends Component
     public $orderQ;
     public $orderBy = 'start_time';
     public $orderType = 'asc';
+    public $time = 'This year';
+    public $duration;
 
     public function order($order)
     {
@@ -52,18 +54,35 @@ class EventIndex extends Component
 
         $events = Event::query();
         $search = $this->search;
+        $time = $this->time;
+        $duration = $this->duration;
 
         $events->when($this->search, function ($q) use ($search){
             $q->where('name', 'like', "%$search%");
             $this->resetPage();
         });
 
+        $events->when($time, function($q) use ($time){
+            switch ($time) {
+                case 'This week':
+                    $q->where('start_time', '<=', Carbon::tomorrow()->addWeek()->format('Y-m-d'));
+                    break;
+                case 'This month':
+                    $q->where('start_time', '<=', Carbon::tomorrow()->addMonth()->format('Y-m-d'));
+                    break;
+                case 'This year':
+                    $q->where('start_time', '<=', Carbon::today()->addYear()->format('Y-m-d'));
+                default:
+                    $q->where('start_time', '<=', Carbon::tomorrow()->addYear()->format('Y-m-d'));
+                    break;
+            }
+        });
+
         return view('livewire.events.event-index', [
-            // 'events' => $events->where('start_time', '>=', Carbon::tomorrow()->format('Y-m-d'))
-            //             ->where('status', 'upcoming')
-            //             ->orderBy($this->orderBy, $this->orderType)
-            //             ->paginate(10),
-            'events' => $events->orderBy($this->orderBy, $this->orderType)->paginate(10),
+            'events' => $events->where('start_time', '>=', Carbon::tomorrow()->format('Y-m-d'))
+                        // ->where('status', 'upcoming')
+                        ->orderBy($this->orderBy, $this->orderType)
+                        ->paginate(10),
         ]);
     }
 }

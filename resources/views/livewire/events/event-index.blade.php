@@ -48,11 +48,11 @@
 
     <div class="d-flex flex-column flex-lg-row mx-auto my-2 mb-4 p-3" style="gap: 2rem;">
 
-        <button class="btn border border-danger fs-5 px-3 mx-lg-0 text-white" style="width:fit-content; height:fit-content; background-color: #f82249;" id="filters-trigger">
+        <button class="btn fs-5 px-3 mx-lg-0 text-white" style="width:fit-content; height:fit-content; background-color: #f82249;" id="filters-trigger">
             Filters
         </button>
 
-        <form wire:submit='search()' class="form input-group rounded w-100 bg-light border rounded p-3" style="display: none;" id="filters-form">
+        <form wire:submit='$refresh' class="form input-group rounded w-100 bg-light border rounded p-3" style="display: none;" id="filters-form">
             <div class="container w-100">
                 <div class="row">
                     <div class="col-lg-3 p-1">
@@ -106,9 +106,28 @@
                             <label for="">Hello</label>
                         </div>
                     </div>
+                    <div class="col-lg-3 border-right">
+                        <div>
+                            <h6 style="font-weight: bold; display: inline-block;">Time:</h6>
+                            <h6
+                                id="event-dropdown-toggle"
+                                class="w-75 dorpdown-toggle px-2"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                style="cursor: pointer; display:inline-block;"
+                                >{{ $time }} <i class="bi bi-chevron-down toggle-dropdown"></i></h6>
+                            <div class="dropdown">
+                                <ul class="dropdown-menu" aria-labelledby="event-dropdown-toggle">
+                                    <li class="dropdown-item" wire:click="$set('time', 'This week')">This week</li>
+                                    <li class="dropdown-item" wire:click="$set('time', 'This month')">This month</li>
+                                    <li class="dropdown-item" wire:click="$set('time', 'This year')">This year</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row text-end w-100 p-2 pb-0 d-flex justify-content-end">
-                    <button type="submit" class="btn border border-danger text-white" style="background-color: #f82249; width:fit-content; height:fit-content;" id="search-addon">
+                    <button type="submit" class="btn text-white" style="background-color: #f82249; width:fit-content; height:fit-content;" id="search-addon">
                         Apply
                     </button>
                 </div>
@@ -159,8 +178,8 @@
             @foreach ($events as $event)
 
                 <div wire:key="{{ $event->id }}" class="row schedule-item">
-                    <div class="col-md-1">
-                        <time>{{ date('m-d H:i A', strtotime($event->start_time)) }}</time>
+                    <div class="col-md-1 align-self-center">
+                        <time style="font-size: 0.9rem; font-weight: bold;">{{ date('y M d H:i A', strtotime($event->start_time)) }}</time>
                     </div>
                     <div class="col-md-2 d-flex align-items-center">
                         <div class="speaker flex-shrink-0">
