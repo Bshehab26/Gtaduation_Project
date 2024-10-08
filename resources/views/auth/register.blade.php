@@ -66,10 +66,10 @@
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                 </div>
             </div>
-            <div class="form-group mb-3">
+            {{-- <div class="form-group mb-3">
                 <label for="id_card_no">ID Card No:</label>
                 <input type="text" name="id_card_no" id="id_card_no" class="form-control" value="{{ old('id_card_no') }}">
-            </div>
+            </div> --}}
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">

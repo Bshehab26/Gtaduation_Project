@@ -25,6 +25,7 @@ Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefi
     // Users Routes
     Route::resource('/users', UserController::class);
     Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
+    Route::get('/user/orginzers', [UserController::class, 'orginzersIndex'])->name('users.orginzers');
     Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
     Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
 Route::get('/home', [HomeController::class, 'index'])

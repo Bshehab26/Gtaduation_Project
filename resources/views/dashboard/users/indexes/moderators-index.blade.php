@@ -44,9 +44,9 @@
                         <td @if(auth()->user()->id == $moderator->id) class="bg-dark text-white" @endif>{{ $moderator->email }}</td>
                         <td @if(auth()->user()->id == $moderator->id) class="bg-dark text-white" @endif>
                             <a href="{{ route('users.show', [$moderator->username]) }}" class="btn btn-sm btn-warning">Show</a>
-                            @if(auth()->user()->user_type == "moderator" && auth()->user()->id == $moderator->id)
+                            @if(auth()->user()->role == "moderator" && auth()->user()->id == $moderator->id)
                             <a href="{{ route('users.edit', auth()->user()->id) }}" class="btn btn-sm btn-primary">Edit My Data</a>
-                            @elseif(auth()->user()->user_type == "admin")
+                            @elseif(auth()->user()->role == "admin")
                             <a href="{{ route('users.edit', $moderator->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{ route('users.destroy', $moderator->id) }}" method="POST" style="display: inline-block">
                                 @csrf

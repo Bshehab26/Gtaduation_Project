@@ -18,21 +18,29 @@ class UserController extends Controller
 
     public function customersIndex()
     {
-        $customers       = User::where('user_type', 'customer')->paginate(3);
+        $customers       = User::where('role', 'customer')->paginate(3);
         $customers_count = $customers->count();
         return view('dashboard.users.indexes.customers-index', compact('customers', 'customers_count'));
     }
 
     public function moderatorsIndex()
     {
-        $moderators = User::where('user_type', 'moderator')->get();
+        $moderators = User::where('role', 'moderator')->get();
         $moderators_count = $moderators->count();
         return view('dashboard.users.indexes.moderators-index', compact('moderators', 'moderators_count'));
     }
 
+
+    public function orginzersIndex()
+    {
+        $orginzers = User::where('role', 'orginzer')->get();
+        $orginzers_count = $orginzers->count();
+        return view('dashboard.users.indexes.orginzers-index', compact('orginzers', 'orginzers_count'));
+    }
+
     public function adminsIndex()
     {
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = User::where('role', 'admin')->get();
         $admins_count = $admins->count();
         return view('dashboard.users.indexes.admins-index', compact('admins', 'admins_count'));
     }
@@ -52,15 +60,18 @@ class UserController extends Controller
     {
         $rules = [
             'username'  => 'required|unique:users',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email'     => 'required|email|unique:users',
+
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_type' => 'required',
+            'role' => 'required',
         ];
 
-        if(auth()->user()->user_type === "admin"){
-            $rules['user_type'] .= '|in:customer,moderator,admin';
-        } elseif(auth()->user()->user_type === "moderator"){
-            $rules['user_type'] .= '|in:customer';
+        if(auth()->user()->role ==="admin"){
+            $rules['role'] .= '|in:customer,orginzer,moderator,admin';
+        } elseif(auth()->user()->role ==="moderator"){
+            $rules['role'] .= '|in:customer,orginzer';
         } else{
             return abort(403);
         }
@@ -103,9 +114,9 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::findOrFail($id);
-        if(auth()->user()->id == $user->id || (auth()->user()->user_type == "admin" && $user->user_type != "admin")){
+        if(auth()->user()->id == $user->id || (auth()->user()->role== "admin" && $user->role != "admin")){
             return view('dashboard.users.edit', compact('user'));
-        } elseif(auth()->user()->user_type == "admin" && $user->user_type == "admin" && auth()->user()->id != $user->id){
+        } elseif(auth()->user()->role == "admin" && $user->role == "admin" && auth()->user()->id != $user->id){
             return redirect()->back()
             ->with('unauthorized_action', "You are unauthorized to modify/delete user(s).");
         } else{
@@ -122,19 +133,21 @@ class UserController extends Controller
 
         $rules = [
             'username'  => 'required|unique:users,username,' . $user->id,
+            'first_name' => 'required|string|max:255'       .$user->id,
+            'last_name' => 'required|string|max:255'       .$user->id,
             'email'     => 'required|email|unique:users,email,' . $user->id,
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_type' => 'required',
+            'role' => 'required',
         ];
 
-        if(auth()->user()->user_type === "admin"){
+        if(auth()->user()->role === "admin"){
             if(auth()->user()->id == $user->id){
-                $rules['user_type'] .= '|in:admin';
+                $rules['role'] .= '|in:admin';
             } else{
-                $rules['user_type'] .= '|in:customer,moderator,admin';
+                $rules['role'] .= '|in:customer,orginzer,moderator,admin';
             }
-        } elseif(auth()->user()->user_type === "moderator"){
-            $rules['user_type'] .= '|in:moderator';
+        } elseif(auth()->user()->role === "moderator"){
+            $rules['role'] .= '|in:moderator';
         } else{
             return abort(403);
         }
@@ -160,7 +173,7 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         $user = User::findOrFail($id);
-        if(auth()->user()->user_type == "admin" && $user->user_type != "admin" && auth()->user()->id != $user->id){
+        if(auth()->user()->role == "admin" && $user->role != "admin" && auth()->user()->id != $user->id){
             $user->delete();
             return redirect()->route('users.index')
             ->with('success', "User \"$user->username\" has been deleted successfully.");
