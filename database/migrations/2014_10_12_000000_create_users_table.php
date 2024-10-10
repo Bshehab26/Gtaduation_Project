@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('first_name',255);
             $table->string('last_name',255);
             $table->text('bio')->nullable();
+            $table->text('birth_date')->nullable();
             $table->string('email')->unique();
             $table->enum('role', ['customer', 'orginzer', 'moderator', 'admin'])->default('customer');
             $table->timestamp('email_verified_at')->nullable();

@@ -14,8 +14,9 @@
             </div>
         @endif
 
-        <form action="{{ route('users.store') }}" method="POST" class="border p-4 shadow-sm">
+        <form action="{{ route('register') }}" method="POST" class="border p-4 shadow-sm">
             @csrf
+            {{-- //add phone --}}
             <div class="form-group mb-3">
                 <label for="username">Username:</label>
                 <input type="text" name="username" id="username" class="form-control" required value="{{ old('username') }}">
@@ -33,6 +34,11 @@
             <div class="form-group mb-3">
                 <label for="email">Email:</label>
                 <input type="email" name="email" id="email" class="form-control" required value="{{ old('email') }}">
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
             </div>
 
             <div class="form-group mb-3">

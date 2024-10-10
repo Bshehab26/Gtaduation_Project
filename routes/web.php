@@ -23,7 +23,7 @@ Auth::routes();
 Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefix('dashboard')->group(function(){ Route::get('/', [HomeController::class, 'index'])->name('dashboard-home'); Route::resource('/categories', CategoryController::class)->except(['show']); Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show'); }); });
 
     // Users Routes
-    Route::resource('/users', UserController::class);
+    Route::resource('dashboard/users', UserController::class);
     Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
     Route::get('/user/orginzers', [UserController::class, 'orginzersIndex'])->name('users.orginzers');
     Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
@@ -39,13 +39,6 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
-
-        Route::resource('/categories', CategoryController::class)
-            ->except(['show']);
-
-        Route::get('/categories/{name}', [CategoryController::class, 'show'])
-            ->name('categories.show');
-
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 

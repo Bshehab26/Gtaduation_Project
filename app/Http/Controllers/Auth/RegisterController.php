@@ -57,7 +57,7 @@ class RegisterController extends Controller
             'username'=>['required','unique:users', 'string', 'max:255'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'bio' => ['nullable', 'text'],
+            'bio' => ['nullable',],
             'birth_date' => [ 'nullable','date', ],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'phone'=>['nullable','digits:11'],
