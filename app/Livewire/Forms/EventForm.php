@@ -3,13 +3,14 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Event;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class EventForm extends Form
 {
 
-    public ?Event $event;
+    public ?Event $event = null;
 
     // // #[Validate('bail|required|string|unique:events,name,'. $this->event->name)]
     public $name;
@@ -32,21 +33,23 @@ class EventForm extends Form
 
     public function rules()
     {
-        return [
-            'name' => 'bail|required|string|unique:events,name,'. $this->event->id,
+        $rules = [
+            'name' => 'bail|required|string|unique:events,name,',
             'description' => 'bail|string|required',
             'start_time' => 'bail|required|date|after_or_equal:tomorrow',
             'end_time' => 'bail|required|date',
         ];
+        $this->event ? $rules['name'] = $rules['name'] . $this->event->id : '';
+        return $rules;
     }
 
     public function setEvent(Event $event)
     {
         $this->event = $event;
         $this->name = $event->name;
-        $this->description = $event->description;
-        $this->start_time = $event->start_time;
-        $this->end_time = $event->end_time;
+        $this->description = str_replace('</p><p>', '<br>', $event->description);
+        $this->start_time = Carbon::createFromTimeString($event->start_time)->format('Y-m-d H:i');
+        $this->end_time = Carbon::createFromTimeString($event->end_time)->format('Y-m-d H:i');
     }
 
 }
