@@ -166,7 +166,6 @@
             </li><!-- End Messages Nav -->
 
             <li class="nav-item dropdown pe-3">
-<<<<<<< HEAD
                 {{--
             @auth
             @endauth --}}
@@ -204,7 +203,6 @@
                     <li>
                         <hr class="dropdown-divider">
                     </li>
-=======
                 @if (auth()->user())
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
@@ -240,7 +238,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
->>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
 
                     <li>
                         <a class="dropdown-item d-flex align-items-center"
@@ -263,10 +260,8 @@
                         <hr class="dropdown-divider">
                     </li>
 
-<<<<<<< HEAD
                     <li>
                         <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="bi bi-box-arrow-right"></i>
                             {{ __('Logout') }}
                         </a>
@@ -310,9 +305,7 @@
               </ul><!-- End Profile Dropdown Items -->
             @endif --}}
 =======
-                        <li>
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>
@@ -328,8 +321,6 @@
                 @endif
 >>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
             </li><!-- End Profile Nav -->
-
-        </ul>
     </nav><!-- End Icons Navigation -->
 
 </header>
