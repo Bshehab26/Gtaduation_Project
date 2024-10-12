@@ -67,7 +67,7 @@ class UserController extends Controller
             'email'     => 'required|email|unique:users',
 
             // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            // 'role' => 'required',
+            'role' => 'required',
         ];
         if (auth()->check() == false) {
             $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
