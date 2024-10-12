@@ -202,7 +202,38 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
+                        
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center"
+                            href="{{ route('users.edit', auth()->user()->id) }}">
+                            <i class="bi bi-gear"></i>
+                            <span>Account Settings</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
 
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                            <i class="bi bi-question-circle"></i>
+                            <span>Need Help?</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('logout') }}"
+                            <i class="bi bi-box-arrow-right"></i>
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
                                 href="{{ route('users.edit', auth()->user()->id) }}">
@@ -213,7 +244,6 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                                 <i class="bi bi-question-circle"></i>
@@ -226,7 +256,6 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>
@@ -241,8 +270,6 @@
                     </ul><!-- End Profile Dropdown Items -->
                 @endif
             </li><!-- End Profile Nav -->
-
-        </ul>
     </nav><!-- End Icons Navigation -->
 
 </header>
