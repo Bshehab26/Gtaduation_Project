@@ -46,7 +46,7 @@
                             <td>{{ $category->description == null ? '-' : Str::words($category->description, 2, '...') }}</td>
                         <td>
                             <a href="{{ route('categories.show', [$category->name]) }}" class="btn btn-sm btn-warning">Show</a>
-                            @if(auth()->user()->user_type == "admin")
+                            @if(auth()->user()->role == "admin")
                             <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-sm btn-primary">Edit</a>
                             <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline-block">
                                 @csrf
