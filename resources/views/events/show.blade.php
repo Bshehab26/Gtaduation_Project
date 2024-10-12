@@ -35,6 +35,9 @@
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
+                            <a href="{{ route('ticket.create', $event->id) }}">
+                                Make Tickets to this event
+                            </a>
                         @endif
                         <h2>{{ $event->name }}</h2>
                         <p>

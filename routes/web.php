@@ -3,6 +3,7 @@
 use App\Http\Controllers\dashboard\{HomeController,
     CategoryController,UserController};
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketController;
 use App\Models\Event;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,15 +21,22 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefix('dashboard')->group(function(){ Route::get('/', [HomeController::class, 'index'])->name('dashboard-home'); Route::resource('/categories', CategoryController::class)->except(['show']); Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show'); }); });
+Route::group([
+     'middleware' => ['auth', 'dashboard']
+], function(){
+    Route::prefix('dashboard')->group(function(){
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard-home');
+        Route::resource('/categories', CategoryController::class)->except(['show']);
+        Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show');
+    });
+});
 
-    // Users Routes
-    Route::resource('/users', UserController::class);
-    Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
-    Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
-    Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
-Route::get('/home', [HomeController::class, 'index'])
-    ->name('home');
+// Users Routes
+Route::resource('/users', UserController::class);
+Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
+Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
+Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::redirect('/', '/home');
 
@@ -59,6 +67,11 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
     });
 });
+
+
+// Tickets Routes
+Route::resource('/tickets', TicketController::class)->except(['create']);
+Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
 
 
 
