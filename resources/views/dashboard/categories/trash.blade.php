@@ -33,7 +33,7 @@
                     <th>Name</th>
                     <th>Description</th>
                     <th>Deleted At</th>
-                    @if (auth()->user()->user_type == "admin")
+                    @if (auth()->user()->role == "admin")
                     <th>Actions</th>
                     @endif
                 </tr>
@@ -49,7 +49,7 @@
                         {{-- limit by word --}}
                             <td>{{ $category->description == null ? '-' : Str::words($category->description, 2, '...') }}</td>
                         <td>{{ $category->deleted_at }}</td>
-                        @if (auth()->user()->user_type == "admin")
+                        @if (auth()->user()->role == "admin")
                         <td>
                             <a href="{{ route('categories.restore', $category->id) }}" class="btn btn-sm btn-success">Restore</a>
                             <form action="{{ route('categories.forceDelete', $category->id) }}" method="POST" style="display: inline-block">

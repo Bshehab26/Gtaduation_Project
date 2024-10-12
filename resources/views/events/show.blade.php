@@ -31,15 +31,21 @@
 
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
-                        @if (Auth::check() && Auth::user()->user_type == 'admin')
+                        @if (Auth::check() && Auth::user()->id == $event->organizer_id)
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
+                                Edit this event
+                            </a>
+                        @elseif (Auth::check() && Auth::user()->role == 'admin')
+                            <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
                         @endif
                         <h2>{{ $event->name }}</h2>
-                        <p>
-                            {!! $event->description !!}
-                        </p>
+                        <div style="text-indent: 1.5rem;">
+                            <p>
+                                {!! $event->description !!}
+                            </p>
+                        </div>
                     </div>
                     <div class="details row">
                         <h4 class="d-inline-block" style="width: fit-content;">Food:</h4>

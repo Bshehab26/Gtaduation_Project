@@ -58,7 +58,7 @@
                             </div>
                         </div>
                         <div class="row my-4">
-                            <h5 class="col-3">Orgnizer:</h5>
+                            <h5 class="col-3">Organizer:</h5>
                             <p class="col-9 my-auto">{{ $event->name }}</p>
                         </div>
                         <div class="row">

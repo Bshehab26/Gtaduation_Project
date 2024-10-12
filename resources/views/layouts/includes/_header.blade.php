@@ -56,7 +56,7 @@
         <!-- <h1 class="sitename">TheEvent</h1>  -->
       </a>
 
-      <nav id="navmenu" class="navmenu">
+    <nav id="navmenu" class="navmenu">
         <ul>
             <li>
                 <a href="{{ route('home') }}" class="{{ Route::is('home') ? 'active' : '' }}">Home<br></a>
@@ -96,9 +96,9 @@
             </li>
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+    </nav>
 
-      @if (Auth::check() && Auth::user()->user_type !== 'customer')
+    @if (Auth::check() && Auth::user()->role !== 'customer')
         <a class="cta-btn d-none d-sm-block" href="{{ route('events.create') }}">
             New event
         </a>

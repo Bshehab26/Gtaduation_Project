@@ -64,7 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        if(auth()->user()->user_type == "admin"){
+        if(auth()->user()->role == "admin"){
             $category = Category::findOrFail($id);
             return view('dashboard.categories.edit', compact('category'));
         }
@@ -111,7 +111,7 @@ class CategoryController extends Controller
 
         // restore (from trash.blade.php) [action]
         public function restore(string $id){
-            if(auth()->user()->user_type != "moderator"){
+            if(auth()->user()->role != "moderator"){
                 $category = Category::withTrashed()->find($id);
                 $category->restore();
                 return redirect()->back()

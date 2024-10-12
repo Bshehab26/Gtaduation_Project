@@ -51,7 +51,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
 
-        // if(Auth::user()->id == $event->orgnizer->id){
+        // if(Auth::user()->id == $event->organizer->id){
         //     abort(403);
         // };
 

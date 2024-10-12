@@ -151,9 +151,9 @@
                         Date <span style="font-style: normal; color:white;">{!! $orderQ == 'start' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
                     </h4>
                 </div>
-                <div class="col-md-2" wire:click="order('orgnizer')" style="cursor: pointer;">
+                <div class="col-md-2" wire:click="order('organizer')" style="cursor: pointer;">
                     <h4 class="text-white mb-0">
-                        Orgnizer <span style="font-style: normal; color:white;">{!! $orderQ == 'orgnizer' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
+                        Organizer <span style="font-style: normal; color:white;">{!! $orderQ == 'organizer' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
                     </h4>
                 </div>
                 <div class="col-md-4" wire:click="order('event')" style="cursor: pointer;">
