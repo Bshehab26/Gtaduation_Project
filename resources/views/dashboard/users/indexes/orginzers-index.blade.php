@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.master')
 
 @section('title')
-    All customers ({{ $customers_count }})
+    All orginzers ({{ $orginzers_count }})
 @endsection
 
-@section('page-title-1', 'customers')
+@section('page-title-1', 'orginzers')
 @section('page-title-2')
-    All customers ({{ $customers_count }})
+    All orginzers ({{ $orginzers_count }})
 @endsection
 
 @section('content')
@@ -36,20 +36,20 @@
                 </tr>
               </thead>
               <tbody>
-                @forelse ($customers as $customer)
+                @forelse ($orginzers as $orginzer)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $customer->id }}</td>
-                        <td>{{ $customer->username }}</td>
-                        <td>{{ $customer->email }}</td>
+                        <td>{{ $orginzer->id }}</td>
+                        <td>{{ $orginzer->username }}</td>
+                        <td>{{ $orginzer->email }}</td>
                         <td>
-                            <a href="{{ route('users.show', [$customer->username]) }}" class="btn btn-sm btn-warning">Show</a>
+                            <a href="{{ route('users.show', [$orginzer->username]) }}" class="btn btn-sm btn-warning">Show</a>
                             @if(auth()->user()->role == "admin")
-                            <a href="{{ route('users.edit', $customer->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('users.destroy', $customer->id) }}" method="POST" style="display: inline-block">
+                            <a href="{{ route('users.edit', $orginzer->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{ route('users.destroy', $orginzer->id) }}" method="POST" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the user ({{ $customer->username }})?');">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the user ({{ $orginzer->username }})?');">Delete</button>
                             </form>
                             @endif
                         </td>
@@ -58,7 +58,7 @@
                     <tr>
                         <td colspan="5">
                             <div class="alert alert-info text-center">
-                                No customers found.
+                                No orginzers found.
                             </div>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
             </table>
             <!-- End Table with stripped rows -->
 
-            {{ $customers->links('vendor.pagination.bootstrap-5') }}
+            {{-- {{ $orginzers->links('vendor.pagination.bootstrap-5') }} --}}
 
           </div>
         </div>

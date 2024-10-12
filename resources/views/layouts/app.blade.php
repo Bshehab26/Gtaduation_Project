@@ -52,7 +52,7 @@
 
   @include('layouts.includes._header')
 
-  <main class="main p-">
+  <main class="main">
 
     @yield('content')
 

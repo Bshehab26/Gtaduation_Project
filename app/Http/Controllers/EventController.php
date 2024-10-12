@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -49,6 +50,11 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
+
+        // if(Auth::user()->id == $event->orgnizer->id){
+        //     abort(403);
+        // };
+
         return view('events.edit', [
             'event' => $event,
         ]);

@@ -1,5 +1,5 @@
 <div class="pagetitle">
-    <h1>Dashboard</h1>
+    <h1>@yield('page-title', 'Dashboard')</h1>
     <nav>
       <ol class="breadcrumb">
     @if (Route::is('dashboard-home'))
