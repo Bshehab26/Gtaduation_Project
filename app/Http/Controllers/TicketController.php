@@ -40,10 +40,11 @@ class TicketController extends Controller
         $request->validate([
             'type'      => 'required|string|max:255',
             'price'     => 'required|numeric',
-            'quantity'  => 'nullable|numeric',
+            'quantity'  => 'required|numeric',
             'available' => 'required|numeric',
             'event_id'  => 'required|exists:events,id',
         ]);
+        // return $request;
         Ticket::create($request->all());
         return redirect()->route("tickets.index")->with("success", "The ticket created succsessfully");
     }
@@ -81,7 +82,7 @@ class TicketController extends Controller
         $request->validate([
             'type'      => 'required|string|max:255',
             'price'     => 'required|numeric',
-            'quantity'  => 'nullable|numeric',
+            'quantity'  => 'required|numeric',
             'available' => 'required|numeric',
             'event_id'  => 'required|exists:tickets,id',
         ]);

@@ -65,13 +65,15 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
 
+        // Tickets Routes
+        Route::resource('/tickets', TicketController::class)->except(['create']);
+        Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
+
+
+
+
     });
 });
-
-
-// Tickets Routes
-Route::resource('/tickets', TicketController::class)->except(['create']);
-Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
 
 
 

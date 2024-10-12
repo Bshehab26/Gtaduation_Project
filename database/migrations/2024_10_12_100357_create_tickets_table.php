@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('type');
             $table->float('price');
             $table->integer('quantity');
-            $table->integer('c');
-            $table->foreignId("event_id")->constrained()->onDelete("cascade");
+            $table->integer("available");
+            $table->foreignId('event_id')->constrained()->onDelete("cascade");
             $table->timestamps();
         });
     }
