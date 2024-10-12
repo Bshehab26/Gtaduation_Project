@@ -166,57 +166,21 @@
             </li><!-- End Messages Nav -->
 
             <li class="nav-item dropdown pe-3">
-                {{--
-            @auth
-            @endauth --}}
-                {{-- @if (auth()->user()) --}}
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span
-                        class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name ?? auth()->user()->username }}</span>
-                </a><!-- End Profile Iamge Icon -->
-
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                    <li class="dropdown-header">
-                        <h6>{{ auth()->user()->name ?? auth()->user()->username }}</h6>
-                        <div class="d-flex flex-column align-items-center">
-                            <span>{{ auth()->user()->email }}</span>
-                            <span
-                                class="@if (auth()->user()->user_type === 'admin') badge bg-primary
-                        @else badge bg-secondary @endif
-                        mt-2 w-50">
-                                {{ ucfirst(auth()->user()->user_type) }}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item d-flex align-items-center"
-                            href="{{ route('users.show', auth()->user()->username) }}">
-                            <i class="bi bi-person"></i>
-                            <span>My Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
                 @if (auth()->user())
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
+                    data-bs-toggle="dropdown">
 
-                        <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                    <img src="/assets/dashboard/img/profile-img.jpg" alt="Profile" class="rounded-circle">
 
-                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name ?? auth()->user()->username }}</span>
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->user()->name }}</span>
 
-                    </a><!-- End Profile Iamge Icon -->
+                </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6 class="mb-2">{{ auth()->user()->name ?? auth()->user()->username  }}</h6>
-                            <p class="mx-auto bg-primary rounded p-1 text-white mb-2" style="width: fit-content;">{{ auth()->user()->user_type }}</p>
+                            <h6>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h6>
+                            <p class="my-1 mb-2">{{ auth()->user()->email }}</p>
+                            <p class="mx-auto bg-primary rounded p-1 px-3 text-white mb-2" style="width: fit-content;">{{ auth()->user()->role }}</p>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -238,7 +202,7 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-
+                        
                     <li>
                         <a class="dropdown-item d-flex align-items-center"
                             href="{{ route('users.edit', auth()->user()->id) }}">
@@ -246,6 +210,7 @@
                             <span>Account Settings</span>
                         </a>
                     </li>
+                    
                     <li>
                         <hr class="dropdown-divider">
                     </li>
@@ -269,42 +234,27 @@
                             @csrf
                         </form>
                     </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ route('users.edit', auth()->user()->id) }}">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                                <i class="bi bi-question-circle"></i>
+                                <span>Need Help?</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-
-                </ul><!-- End Profile Dropdown Items -->
-                {{-- @endif --}}
-
-
-                {{-- @guest
-            @endguest --}}
-                {{-- @if (!auth()->user())
-            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                <span class="d-none d-md-block dropdown-toggle ps-2">Account</span>
-              </a><!-- End Profile Iamge Icon -->
-
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="{{ route('register') }}">
-                    <i class="bi bi-card-list"></i>
-                    <span>Register</span>
-                  </a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-
-                <li>
-                  <a class="dropdown-item d-flex align-items-center" href="{{ route('login') }}">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Login</span>
-                  </a>
-                </li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-              </ul><!-- End Profile Dropdown Items -->
-            @endif --}}
-=======
+                        <li>
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
                                         document.getElementById('logout-form').submit();">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -319,7 +269,6 @@
 
                     </ul><!-- End Profile Dropdown Items -->
                 @endif
->>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
             </li><!-- End Profile Nav -->
     </nav><!-- End Icons Navigation -->
 

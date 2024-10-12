@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\dashboard\{HomeController,
-<<<<<<< HEAD
-    CategoryController,UserController};
-=======
-    CategoryController};
-use App\Http\Controllers\EventController;
-use App\Models\Event;
+use App\Http\Controllers\dashboard\{
+    HomeController,
+    CategoryController,
+    UserController,
+};
+use App\Http\Controllers\dashboard\EventController as DashboardEventController;
+use App\Http\Controllers\{
+    EventController,
+};
 use Illuminate\Support\Facades\Auth;
->>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Event\EventCollectionIterator;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +24,15 @@ use PHPUnit\Event\EventCollectionIterator;
 */
 Auth::routes();
 
-<<<<<<< HEAD
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefix('dashboard')->group(function(){ Route::get('/', [HomeController::class, 'index'])->name('dashboard-home'); Route::resource('/categories', CategoryController::class)->except(['show']); Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show'); }); });
 
     // Users Routes
-    Route::resource('/users', UserController::class);
+    Route::resource('dashboard/users', UserController::class);
     Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
+    Route::get('/user/orginzers', [UserController::class, 'orginzersIndex'])->name('users.orginzers');
     Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
     Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
-=======
 Route::get('/home', [HomeController::class, 'index'])
     ->name('home');
 
@@ -45,13 +44,7 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
-
-        Route::resource('/categories', CategoryController::class)
-            ->except(['show']);
-
-        Route::get('/categories/{name}', [CategoryController::class, 'show'])
-            ->name('categories.show');
-
+            
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 
@@ -60,7 +53,6 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::delete('/category/forceDelete/{id}', [CategoryController::class,'forceDelete'])
             ->name('categories.forceDelete');
-
 
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
@@ -98,18 +90,57 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
 
 
+
+
+
+
+
+
 Route::controller(EventController::class)->group(function () {
 
     Route::resource('/events', EventController::class)
-        ->only(['index', 'show']);
+        ->only(['index']);
+
+    Route::group(['middleware' => 'auth'], function() {
+        Route::get('/events/create', 'create')
+            ->name('events.create');
+        Route::get('/events/{event:slug}/edit', 'edit')
+            ->name('events.edit');
+    });
 
     Route::get('/events/{event:slug}', 'show')
         ->name('events.show');
 
-        //todo add admin and orgnizer middleware
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['create', 'store']));
-
-    Route::middleware(['auth'])->group(fn() => Route::resource('/events', EventController::class)->only(['edit', 'update']));
+    Route::group(['middleware' => 'auth'], function() {
+    });
 
 });
->>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
+
+Route::name('dashboard.')
+    ->middleware(['auth', 'dashboard'])
+    ->group(function() {
+        Route::prefix('/dashboard')->group(function(){
+            Route::get('/events/trashed', [DashboardEventController::class, 'trash'])
+                ->name('events.trash');
+
+            Route::resource('/events', DashboardEventController::class)
+                ->except(['edit', 'destroy', 'show']);
+
+            Route::get('/events/{event:slug}', [DashboardEventController::class, 'show'])
+                ->name('events.show');
+
+            Route::get('/events/{event:slug}/edit', [DashboardEventController::class, 'edit'])
+                ->name('events.edit');
+
+            Route::delete('/events/{event:slug}', [DashboardEventController::class, 'destroy'])
+                ->name('events.destroy');
+
+            Route::post('/events/{id}/restore', [DashboardEventController::class, 'restore'])
+                ->name('events.restore');
+
+            Route::delete('/events/{id}/force', [DashboardEventController::class, 'forceDelete'])
+                ->name('events.forceDelete');
+
+        }
+    );
+});

@@ -23,9 +23,21 @@
   <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  @stack('links')
 
   <!-- Main CSS File -->
   <link href="/assets/css/main.css" rel="stylesheet">
+
+  <!-- jQuery CDN -->
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+
+  @stack('styles')
+
+  @stack('scripts')
 
   <!-- =======================================================
   * Template Name: TheEvent
@@ -40,7 +52,7 @@
 
   @include('layouts.includes._header')
 
-  <main class="main p-">
+  <main class="main">
 
     @yield('content')
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('subject')->nullable();
             $table->text('description');
             // $table->foreignId('orgnizer_id')->constrained('users');
             // $table->foreignId('venue_id')->constrained('venues');

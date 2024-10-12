@@ -7,7 +7,7 @@
                 <i class="fs-5 ri-home-gear-line"></i>
                 <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+          </li>
 
         {{-- Categories --}}
         <li class="nav-item">
@@ -39,6 +39,41 @@
             </ul>
         </li><!-- End Components Nav -->
 
+        <!-- EVENTS -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-calendar-event"></i><span>Events</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('dashboard.events.index') }}">
+                        <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events ({{ \App\Models\Event::count() }})</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.create') }}">
+                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.trash') }}">
+                        <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events ({{ \App\Models\Event::onlyTrashed()->count() }})</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Events Nav -->
+
         {{-- Users --}}
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
@@ -56,21 +91,29 @@
                 <li>
                     <a href="{{ route('users.customers') }}">
                         <i class="fs-5 ri-user-fill"></i><span>customers
-                            ({{ \App\Models\User::where('user_type', 'customer')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'customer')->count() }})</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ route('users.orginzers') }}">
+                        <i class="fs-5 ri-user-fill"></i><span>orginzer
+                            ({{ \App\Models\User::where('role', 'orginzer')->count() }})</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('users.moderators') }}">
                         <i class="fs-5 ri-user-star-fill"></i><span>Moderators
-                            ({{ \App\Models\User::where('user_type', 'moderator')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'moderator')->count() }})</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('users.admins') }}">
                         <i class="fs-5 ri-shield-user-fill"></i><span>Admins
-                            ({{ \App\Models\User::where('user_type', 'admin')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'admin')->count() }})</span>
                     </a>
                 </li>
 
@@ -80,7 +123,6 @@
                     </a>
                 </li>
 
-            </ul>
-        </li><!-- End Components Nav -->
+    </ul>
 
-</aside>
+  </aside>

@@ -47,7 +47,6 @@ class LoginController extends Controller
         $this->middleware('auth')->only('logout');
     }
     // public function logout()
-<<<<<<< HEAD
     // public function logout(Request $request)
     // {
     //     $username=auth()->user()->name;
@@ -63,7 +62,7 @@ class LoginController extends Controller
         } else{
             return ['username' => $request->email, 'password' => $request->password];
         }
-=======
+    }
     public function logout(Request $request)
     {
         $username = auth()->user()->name;
@@ -71,6 +70,5 @@ class LoginController extends Controller
         Auth::logout();
 
         return redirect()->route('home')->With('loggedout',"$username you have successfuly logged out.");
->>>>>>> d974c8ba2abd5d644cd80f297c7bcb7fbda1995c
     }
 }
