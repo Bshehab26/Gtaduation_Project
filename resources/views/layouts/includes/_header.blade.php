@@ -15,14 +15,14 @@
                     aria-haspopup="true"
                     aria-expanded="false" v-pre
                     >
-                        {{ Auth::user()->name }}
+                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end"
                     aria-labelledby="navbarDropdown"
                     style="background-color: #000820;">
 
-                        @if (Auth::user()->user_type === 'admin')
+                        @if (Auth::user()->role === 'admin')
                             <a class="dropdown-item text-white"
                             href="{{ route('dashboard-home') }}"
                             >
