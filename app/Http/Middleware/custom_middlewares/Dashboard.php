@@ -15,7 +15,7 @@ class Dashboard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->role != "admin"  ){
+        if (auth()->user()->role == "customer" || auth()->user()->role == "orginzer") {
 
             return abort(403);
             // to return to a website
