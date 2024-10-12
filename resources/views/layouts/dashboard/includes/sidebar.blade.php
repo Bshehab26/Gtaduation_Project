@@ -7,7 +7,7 @@
                 <i class="fs-5 ri-home-gear-line"></i>
                 <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+          </li>
 
         {{-- Categories --}}
         <li class="nav-item">
@@ -91,21 +91,29 @@
                 <li>
                     <a href="{{ route('users.customers') }}">
                         <i class="fs-5 ri-user-fill"></i><span>customers
-                            ({{ \App\Models\User::where('user_type', 'customer')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'customer')->count() }})</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ route('users.orginzers') }}">
+                        <i class="fs-5 ri-user-fill"></i><span>orginzer
+                            ({{ \App\Models\User::where('role', 'orginzer')->count() }})</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('users.moderators') }}">
                         <i class="fs-5 ri-user-star-fill"></i><span>Moderators
-                            ({{ \App\Models\User::where('user_type', 'moderator')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'moderator')->count() }})</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('users.admins') }}">
                         <i class="fs-5 ri-shield-user-fill"></i><span>Admins
-                            ({{ \App\Models\User::where('user_type', 'admin')->count() }})</span>
+                            ({{ \App\Models\User::where('role', 'admin')->count() }})</span>
                     </a>
                 </li>
 
@@ -115,7 +123,6 @@
                     </a>
                 </li>
 
-            </ul>
-        </li><!-- End Components Nav -->
+    </ul>
 
-</aside>
+  </aside>
