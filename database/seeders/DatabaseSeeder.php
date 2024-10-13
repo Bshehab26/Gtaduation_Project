@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(UserSeeder::class,);
         \App\Models\Event::factory(50)->create();
+
+        $this->call(VenueSeeder::class);
     }
 }

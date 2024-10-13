@@ -123,6 +123,35 @@
                     </a>
                 </li>
 
-    </ul>
+            </ul>
 
-  </aside>
+        </li>
+
+
+        {{-- ******************************* --}}
+
+        {{-- Venues --}}
+        
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#venues-nav" data-bs-toggle="collapse" href="#">
+                <i class="fs-5 bi bi-door-open"></i><span>venues</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="venues-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('venues.index') }}">
+                        <i class="fs-5 bx bx-list-ul"></i><span>All venues
+                            ({{ \App\Models\Venue::count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('venues.create') }}">
+                        <i class="fs-5 bx bxs-plus-circle"></i><span>Create Venue</span>
+                    </a>
+                </li>
+
+                
+            </ul>
+        </li><!-- End Components Nav -->
+</aside>

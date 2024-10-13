@@ -1,9 +1,11 @@
 <?php
 
+
 use App\Http\Controllers\dashboard\{
     HomeController,
     CategoryController,
     UserController,
+    VenueController,
 };
 use App\Http\Controllers\dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\{
@@ -45,6 +47,12 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
             
+            Route::resource('/categories', CategoryController::class)
+            ->except(['show']);
+
+        Route::get('/categories/{name}', [CategoryController::class, 'show'])
+            ->name('categories.show');
+            
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 
@@ -57,41 +65,12 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
 
+
+                ///*****************   route of venues   ************ */
+        Route::resource('/venues', VenueController::class);
+
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
