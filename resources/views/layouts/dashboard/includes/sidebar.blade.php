@@ -81,13 +81,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.events.create') }}">
-                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
+                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
+                    <a href="{{ route('dashboard.events.create') }}">
+                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
                     </a>
                 </li>
                 <li>

@@ -87,6 +87,68 @@
 
     <h5 class="card-title">Venue information:</h5>
 
+    <hr class="w-100 my-4">
+    
+    {{-- CATEGORY INFROMATION --}}
+    <div>
+        <h5 class="card-title">Category information:</h5>
+        <div class="row mb-3 w-100">
+            <div class="row my-4">
+                <h5 class="col-3">Categories:</h5>
+                <div class="col-9">
+                    @foreach ($categories as $category)
+                        <h5 style="font-weight: bold;">{{ $category->name }}</h5>
+                        <div class="d-flex" style="gap: 1rem;">
+                            @foreach ($form->subcategories as $sub)
+                                @if ($sub->category->id == $category->id)
+                                    <button wire:key='{{ $sub->id }}' wire:click='removeSub({{ $sub->id }})' type="button" class="btn btn-light border">{{ $sub->name }} <i class="bi bi-x"></i></button>
+                                @endif
+                            @endforeach
+                        </div>
+                        <hr>
+                    @endforeach
+                </div>
+            </div>
+            <div class="row my-4">
+                <h5 class="col-3">Add more categories:</h5>
+                <div class="py-2 px-4 rounded col-9">
+                    <h5
+                        id="event-dropdown-toggle"
+                        class="fs-4 dorpdown-toggle"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        style="cursor: pointer; display:inline-block; font-size:1rem;"
+                        >{{ $currentCategory->name }} <i class="bi bi-chevron-down toggle-dropdown"></i></h5>
+                    <div class="dropdown">
+                        <ul class="dropdown-menu overflow-y-scroll" style="height: 15rem;" aria-labelledby="event-dropdown-toggle">
+                            @foreach ($allCategories as $category)
+                                <li class="dropdown-item" style="cursor: pointer;" wire:key='{{ $category->id }}'>
+                                    <button
+                                        type="button"
+                                        wire:click="$set('currentCategoryId', {{ $category->id }})"
+                                        class="text-black btn">
+                                        {{ $category->name }}
+                                    </button>
+                                </li>
+                            @endforeach
+                        </ul>
+                        @foreach ($currentCategory->subcategories as $sub)
+                            @php
+                                if (in_array($sub->id, $form->subcategories)){
+                                    continue;
+                                }
+                            @endphp
+                            <div wire:key='{{ $sub->id }}'>
+                                <button wire:key='{{ $sub->id }}' wire:click='addSub({{ $sub->id }})' type="button" class="btn btn-light border">{{ $sub->name }} <i class="bi bi-plus"></i></button>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END CATEGORY INFROMATION --}}
+
     <div class="d-flex justify-content-lg-center">
         <input class="btn btn-primary" type="submit" value="Submit">
     </div>
