@@ -59,6 +59,32 @@
 
     <hr class="w-100 my-4">
 
+    {{-- ORGANIZER INFORMATION SECIOTN --}}
+    <h5 class="card-title">Organizer information:</h5>
+    <div class="row mb-3 w-100">
+        <label for="organizer-search" class="col-sm-3 col-form-label">Search for organizer:</label>
+        <div class="col-9">
+            <input wire:model.live.debounce.50ms='orgSearch' id="organizer-search" type="text" class="form-control">
+        </div>
+    </div>
+
+    <div class="row mb-3 w-100">
+        <label for="organizer" class="col-2 col-form-label">Organizer<span class="text-danger">*</span>:</label>
+    <div class="col-10">
+        <select wire:model='form.organizer_id' name="organizer" class="form-select" aria-label="multiple select example">
+            @foreach ($organizers as $organizer)
+                <option value="{{ $organizer->id }}">{{ $organizer->first_name }} {{ $organizer->last_name }}</option>
+            @endforeach
+        </select>
+        @error('form.organizerId')
+            <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
+    {{-- END ORGANIZER INFORMATION SECIOTN --}}
+
+    <hr class="w-100 my-4">
+
     <h5 class="card-title">Venue information:</h5>
 
     <div class="d-flex justify-content-lg-center">

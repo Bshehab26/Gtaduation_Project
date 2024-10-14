@@ -98,13 +98,13 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
-    @if (Auth::check() && Auth::user()->role !== 'customer')
-        <a class="cta-btn d-none d-sm-block" href="{{ route('events.create') }}">
+    @if (Auth::check() && Auth::user()->role === 'admin')
+        <a class="cta-btn d-none d-sm-block" href="{{ route('dashboard.events.create') }}">
             New event
         </a>
-    @else
-        <a class="cta-btn d-none d-sm-block" href="#buy-tickets">
-            Buy tickets
+    @elseif (Auth::check() && Auth::user()->role === 'organizer')
+        <a class="cta-btn d-none d-sm-block" href="{{ route('dashboard.events.create') }}">
+            New event
         </a>
     @endif
 

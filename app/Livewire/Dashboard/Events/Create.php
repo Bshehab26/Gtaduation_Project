@@ -4,13 +4,17 @@ namespace App\Livewire\Dashboard\Events;
 
 use App\Livewire\Forms\EventForm;
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Create extends Component
 {
 
     public EventForm $form;
+
+    public $orgSearch;
 
     public $success;
 
@@ -32,6 +36,17 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.events.create');
+
+        $orgSearch = $this->orgSearch;
+
+        return view('livewire.dashboard.events.create', [
+            'organizers' => User::where('role', 'organizer')
+                            ->when($orgSearch, function($q) use ($orgSearch) {
+                                $q->where('first_name', 'like', "%$orgSearch%")
+                                    ->orWhere('last_name', 'like', "%$orgSearch");
+                            })
+                            ->orderBy('first_name')
+                            ->get(),
+        ]);
     }
 }

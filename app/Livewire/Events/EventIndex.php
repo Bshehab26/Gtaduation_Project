@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Events;
 
+use App\Models\Category;
 use App\Models\Event;
 use Carbon\Carbon;
 use Livewire\Component;
@@ -13,9 +14,13 @@ class EventIndex extends Component
     use WithPagination;
 
     public $search;
-    // public $food;
-    // public $drink;
-    // public $venue;
+    public $category1;
+    public $category2;
+    public $category3;
+    public $category4;
+    public $category5;
+    public $category6;
+    public $filters = [];
     public $orderQ;
     public $orderBy = 'start_time';
     public $orderType = 'asc';
@@ -49,6 +54,16 @@ class EventIndex extends Component
         $this->resetPage();
     }
 
+    public function filter()
+    {
+        $this->filters[0] = $this->category1;
+        $this->filters[1] = $this->category2;
+        $this->filters[2] = $this->category3;
+        $this->filters[3] = $this->category4;
+        $this->filters[4] = $this->category5;
+        $this->filters[5] = $this->category6;
+    }
+
     public function render()
     {
 
@@ -61,6 +76,16 @@ class EventIndex extends Component
             $q->where('name', 'like', "%$search%");
             $this->resetPage();
         });
+
+        if($this->filters){
+            foreach($this->filters as $i){
+                $events->when($i, function($q) use ($i){
+                    $q->whereHas('subcategories', function ($q) use ($i) {
+                        $q->where('name', $i);
+                    });
+                });
+            };
+        }
 
         $events->when($time, function($q) use ($time){
             switch ($time) {
@@ -83,6 +108,7 @@ class EventIndex extends Component
                         // ->where('status', 'upcoming')
                         ->orderBy($this->orderBy, $this->orderType)
                         ->paginate(10),
+            'categories' => Category::with(['subcategories'])->limit(6)->get(),
         ]);
     }
 }

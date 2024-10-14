@@ -6,6 +6,7 @@ use App\Http\Controllers\dashboard\{
     UserController,
 };
 use App\Http\Controllers\dashboard\EventController as DashboardEventController;
+use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
 };
@@ -44,7 +45,7 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
-            
+
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 
@@ -140,6 +141,35 @@ Route::name('dashboard.')
 
             Route::delete('/events/{id}/force', [DashboardEventController::class, 'forceDelete'])
                 ->name('events.forceDelete');
+
+        }
+    );
+});
+
+Route::name('dashboard.')
+    ->middleware(['auth', 'dashboard'])
+    ->group(function() {
+        Route::prefix('/dashboard')->group(function(){
+            Route::get('/subcategories/trashed', [DashboardSubcategoryController::class, 'trash'])
+                ->name('subcategories.trash');
+
+            Route::resource('/subcategories', DashboardSubcategoryController::class)
+                ->except(['edit', 'destroy', 'show']);
+
+            Route::get('/subcategories/{name}', [DashboardSubcategoryController::class, 'show'])
+                ->name('subcategories.show');
+
+            Route::get('/subcategories/{name}/edit', [DashboardSubcategoryController::class, 'edit'])
+                ->name('subcategories.edit');
+
+            Route::delete('/subcategories/{name}', [DashboardSubcategoryController::class, 'destroy'])
+                ->name('subcategories.destroy');
+
+            Route::post('/subcategories/{id}/restore', [DashboardSubcategoryController::class, 'restore'])
+                ->name('subcategories.restore');
+
+            Route::delete('/subcategories/{id}/force', [DashboardSubcategoryController::class, 'forceDelete'])
+                ->name('subcategories.forceDelete');
 
         }
     );

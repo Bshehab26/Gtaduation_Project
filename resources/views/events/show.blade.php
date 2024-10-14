@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title')
     {{ $event->name }}
 @endsection
@@ -40,43 +39,30 @@
                                 Edit this event
                             </a>
                         @endif
-                        <h2>{{ $event->name }}</h2>
-                        <div style="text-indent: 1.5rem;">
+                        <h2 class="my-2">{{ $event->name }}</h2>
+                        <h6><strong>By:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+                        <div style="text-indent: 1.5rem;" class="my-2">
                             <p>
                                 {!! $event->description !!}
                             </p>
                         </div>
                     </div>
-                    <div class="details row">
-                        <h4 class="d-inline-block" style="width: fit-content;">Food:</h4>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
+                    <div class="detailes row my-4">
+                        <h2>What's this event about?</h2>
+                        <p>{{ $event->subject }}</p>
                     </div>
+                    @foreach ($categories as $category)
+                        <div class="details row">
+                            <h5 class="d-inline-block my-auto" style="width: fit-content;">{{ $category->name }}:</h5>
+                            @foreach ($event->subcategories as $sub)
+                                @if ($sub->category->id === $category->id)
+                                    <p class="d-inline bg-light p-2 mx-1 rounded text-black my-auto" style="width: fit-content;">
+                                        {{ $sub->name }}
+                                    </p>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             </div>
 

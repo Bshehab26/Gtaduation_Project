@@ -8,24 +8,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Event extends Model
+class Subcategory extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
-    public function organizer() :BelongsTo
+    public function events() :BelongsToMany
     {
-        return $this->belongsTo(User::class, 'organizer_id');
+        return $this->belongsToMany(Event::class);
     }
 
-    public function subcategories() :BelongsToMany
+    public function category() :BelongsTo
     {
-        return $this->belongsToMany(Subcategory::class);
+        return $this->belongsTo(Category::class);
     }
-
-    // public function venue() :BelongsTo
-    // {
-    //     return $this->belongsTo(Veneu::class);
-    // }
 }

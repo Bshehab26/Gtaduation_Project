@@ -61,13 +61,29 @@
                             <h5 class="col-3">Organizer:</h5>
                             <p class="col-9 my-auto">{{ $event->name }}</p>
                         </div>
-                        <div class="row">
-                            <h5 class="col-3 my-4">Venue:</h5>
+                        <div class="row my-4">
+                            <h5 class="col-3">Venue:</h5>
                             <p class="col-9 my-auto">{{ $event->name }}</p>
                         </div>
-                        <div class="row">
-                            <h5 class="col-3 my-4">Thumbnail:</h5>
+                        <div class="row my-4">
+                            <h5 class="col-3">Thumbnail:</h5>
                             <p class="col-9 my-auto">{{ $event->name }}</p>
+                        </div>
+                        <div class="row my-4">
+                            <h5 class="col-3">Categories:</h5>
+                            <div class="col-9">
+                                @foreach ($categories as $category)
+                                    <h6 style="font-weight: bold;">{{ $category->name }}</h6>
+                                    <div class="d-flex" style="gap: 1rem;">
+                                        @foreach ($category->subcategories as $sub)
+                                            @if ($sub->category->id == $category->id)
+                                                <p>{{ $sub->name }}</p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    <hr>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
 

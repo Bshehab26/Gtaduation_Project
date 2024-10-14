@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,11 @@ class EventController extends Controller
     {
         return view('events.show', [
             'event' => $event,
+            'categories' => Category::whereHas('subcategories', function ($q) use ($event) {
+                $q->whereHas('events', function ($q) use ($event) {
+                    $q->where('events.id', $event->id);
+                });
+            })->get(),
         ]);
     }
 

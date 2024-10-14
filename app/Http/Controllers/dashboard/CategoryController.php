@@ -41,23 +41,11 @@ class CategoryController extends Controller
         ->with('success', "The category \"" . $request['name'] . "\" has been created successfully.");
     }
 
-    /**
-     * Display the specified resource.
-     */
-
-    // Method (1): by id as a required parameter (Also we can get the other columns as a required or optional parameter(s))
-        // public function show($id)
-        // {
-        //     $category = Category::findOrFail($id);
-        //     return view('dashboard.categories.show', compact('category'));
-        // }
-
-    // Method (2): by the name only
-        public function show($name)
-        {
-            $category = Category::where('name', $name)->firstOrFail();
-            return view('dashboard.categories.show', compact('category'));
-        }
+    public function show($name)
+    {
+        $category = Category::with('subcategories')->where('name', $name)->firstOrFail();
+        return view('dashboard.categories.show', compact('category'));
+    }
 
     /**
      * Show the form for editing the specified resource.

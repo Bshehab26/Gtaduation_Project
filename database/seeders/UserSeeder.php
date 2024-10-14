@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
             // "password"=> bcrypt("123456789")//to bcrypt the Hash
         ]);
 
-        User::create([
+        $user2 = User::create([
             "username"   => "admin",
             "first_name" => "This",
             "last_name"  => "admin",
