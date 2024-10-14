@@ -21,7 +21,8 @@
             <th>price</th>
             <th>quantity</th>
             <th>available</th>
-            <th>Event</th>
+            <th>Event Name</th>
+            <th>Event ID</th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
                 <td>{{ $ticket->price}}</td>
                 <td>{{ $ticket->quantity}}</td>
                 <td>{{ $ticket->available}}</td>
+                <td>{{ $ticket->event->name}}</td>
                 <td>{{ $ticket->event->id}}</td>
             </tr>
         </tbody>

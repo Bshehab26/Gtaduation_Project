@@ -76,6 +76,7 @@
 
         {{-- Users --}}
         <li class="nav-item">
+
             <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                 <i class="fs-5 bx bxs-user-account"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -122,7 +123,24 @@
                         <i class="fs-5 ri-user-add-fill"></i><span>Create User</span>
                     </a>
                 </li>
+            </ul>
+        </li>
 
-    </ul>
+            {{-- Users --}}
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tickets-nav" data-bs-toggle="collapse" href="#">
+                <i class="fs-5 bx bxs-user-account"></i><span>Tickets</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tickets-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('tickets.index') }}">
+                        <i class="fs-5 ri-file-user-line"></i></i><span>All Tickets
+                            ({{ \App\Models\Ticket::count() }})</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li>
 
   </aside>

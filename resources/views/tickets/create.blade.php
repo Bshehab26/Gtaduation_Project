@@ -2,11 +2,13 @@
 @inject('ticket', '\App\Models\Ticket')
 
 @section('title')
-    Create Tickets
+    Create Tickets for {{$event->name}}
 @endsection
 
 @section('page-title-1', 'Tickets')
-@section('page-title-2', 'Create Ticket')
+@section('page-title-2')
+    Create Tickets for {{$event->name}}
+@endsection
 
 @section('content')
 <section class="section">

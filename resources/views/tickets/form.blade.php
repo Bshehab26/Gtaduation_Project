@@ -26,6 +26,6 @@
 <div class="row mb-3">
     {{-- <label for="event_id" class="col-sm-2 col-form-label">Event ID</label> --}}
     <div class="col-sm-10">
-        <input type="hidden" id="event_id" name="event_id" class="form-control" value="{{$id}}">
+        <input type="hidden" id="event_id" name="event_id" class="form-control" value="{{$event->id}}">
     </div>
 </div>

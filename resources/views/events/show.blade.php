@@ -31,12 +31,12 @@
 
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
-                        @if (Auth::check() && Auth::user()->user_type == 'admin')
+                        @if (Auth::check() && Auth::user()->role == 'admin')
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
-                            <a href="{{ route('ticket.create', $event->id) }}">
-                                Make Tickets to this event
+                            <a href="{{ route('ticket-status.index', $event->id) }}">
+                                Status of Tickets to this event
                             </a>
                         @endif
                         <h2>{{ $event->name }}</h2>

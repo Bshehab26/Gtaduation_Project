@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{Ticket, Event, User};
+use App\Models\{Ticket, User, Event};
 
 
 class TicketController extends Controller
@@ -14,11 +14,21 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::get();
-        $user = User::get();
-        $event = Event::with("tickets")->get();
-        if (auth()->user()->user_type == "admin" || auth()->user()->user_type == "moderator") {
+        // $user = User::get();
+        $tickets = Ticket::with("event")->get();
+        if (auth()->user()->role == "admin" || auth()->user()->role == "moderator") {
             return view("tickets.index", compact("tickets"));
+        }else {
+            return abort(403);
+        }
+    }
+    public function TicketStatus(string $event_id)
+    {
+        // $user = User::get();
+        $event = Event::where("id", $event_id)->with("tickets")->first();
+        // $tickets = Ticket::where("id", $event_id)->with("event")->get();
+        if (auth()->user()->role == "admin" || auth()->user()->role == "moderator") {
+            return view("tickets.statusIndex", compact("event"));
         }else {
             return abort(403);
         }
@@ -27,9 +37,10 @@ class TicketController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function createTicket(string $id)
+    public function createTicket(string $event_id)
     {
-        return view("tickets.create", compact("id"));
+        $event = Event::where("id", $event_id)->with("tickets")->first();
+        return view("tickets.create", compact("event"));
     }
 
     /**
@@ -46,7 +57,7 @@ class TicketController extends Controller
         ]);
         // return $request;
         Ticket::create($request->all());
-        return redirect()->route("tickets.index")->with("success", "The ticket created succsessfully");
+        return redirect()->route("ticket-status.index", $request->event_id)->with("success", "The ticket created succsessfully");
     }
 
     /**
@@ -63,10 +74,10 @@ class TicketController extends Controller
      */
     public function edit(string $id)
     {
-        $ticket = Ticket::findOrFail($id);
-        if (auth()->user()->user_type == "admin") {
-            $ticket = Ticket::findOrFail($id);
-            return view("tickets.edit", compact("ticket", "id"));
+        if (auth()->user()->role == "admin") {
+            $ticket = Ticket::where("id", $id)->with("event")->first();
+            $event = $ticket->event;
+            return view("tickets.edit", compact("ticket", "event"));
         }else{
             return redirect()->route("tickets.index")->with("unsuccess", "You can't edit ticket for another user");
             // return abort(403);
@@ -84,11 +95,13 @@ class TicketController extends Controller
             'price'     => 'required|numeric',
             'quantity'  => 'required|numeric',
             'available' => 'required|numeric',
-            'event_id'  => 'required|exists:tickets,id',
+            'event_id'  => 'required|exists:tickets,event_id',
         ]);
         $ticket = Ticket::findOrFail($id);
         $ticket->update($request->all());
-        return redirect()->back()->with("success", "The ticket updated succsessfully");
+        // return redirect()->back()->with("success", "The ticket updated succsessfully");
+        return redirect()->route("ticket-status.index", $request->event_id)->with("success", "The ticket updated succsessfully");
+
     }
 
     /**
@@ -97,11 +110,11 @@ class TicketController extends Controller
     public function destroy(string $id)
     {
         $ticket = Ticket::findOrFail($id);
-        if (auth()->user()->user_type == "admin") {
+        if (auth()->user()->role == "admin") {
         $ticket->delete();
-        return redirect()->route("tickets.index")->with("success", "Ticket deleted successfully");
+        return redirect()->back()->with("success", "Ticket deleted successfully");
         }else{
-            return redirect()->route("tickets.index")->with("unsuccess", "You can't delete ticket for another user");
+            return redirect()->back()->with("unsuccess", "You can't delete ticket for another user");
             // return abort(403);
         }
     }

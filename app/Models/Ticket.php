@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Ticket extends Model
 {
     use HasFactory;
-    protected $fillable = ['type', 'price', 'quantity', 'available', 'event_id'];
-    // protected $guarded = [];
+    // protected $fillable = ['type', 'price', 'quantity', 'available', 'event_id'];
+    protected $guarded = [];
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);

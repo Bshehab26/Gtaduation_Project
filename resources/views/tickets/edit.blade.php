@@ -1,12 +1,13 @@
 @extends('layouts.dashboard.master')
 @section('title')
-    Edit Ticket ({{ $ticket->name }})
+    Edit Ticket ({{ $ticket->type }} of {{$ticket->event->name}})
 @endsection
 
-@section('page-title-1', 'Tickets')
-
-@section('page-title-2')
+@section('page-title-1')
     Edit Ticket
+@endsection
+@section('page-title-2')
+    Edit Ticket ({{ $ticket->type }} of {{$ticket->event->name}})
 @endsection
 
 @section('content')
@@ -40,7 +41,7 @@
                             @include('tickets.form')
                             <div class="d-flex justify-content-lg-end">
                                 <input class="btn btn-sm btn-success" type="submit" value="Update">
-                                <a href="{{ route('tickets.index') }}" class="btn btn-sm btn-warning">All tickets</a>
+                                {{-- <a href="{{ route('tickets.index') }}" class="btn btn-sm btn-warning">All tickets</a> --}}
                             </div>
                         </form><!-- End General Form Elements -->
 

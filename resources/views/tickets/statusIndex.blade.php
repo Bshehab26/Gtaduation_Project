@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.master')
 
 @section('title')
-    All Tickets ({{ $tickets->count() }})
+    All Tickets To {{$event->name}} ({{ $event->tickets->count() }})
 @endsection
 
 @section('page-title-1', 'Tickets')
 @section('page-title-2')
-    All Tickets ({{ $tickets->count() }})
+    All Tickets To {{$event->name}} ({{ $event->tickets->count() }})
 @endsection
 @section('content')
 <section class="section">
@@ -25,6 +25,7 @@
                 </div>
             @endif
             <a href="{{ route('events.index') }}" class="btn btnbtn-sm btn-warning">All Events</a>
+            <a href="{{ route('ticket.create', $event->id) }}" class="btn btnbtn-sm btn-warning">Make Tickets to this event</a>
             <table class="table datatable">
               <thead>
                 <tr>
@@ -40,7 +41,7 @@
                 </tr>
               </thead>
               <tbody>
-                @forelse ($tickets as $ticket)
+                @forelse ($event->tickets as $ticket)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $ticket->id }}</td>
@@ -57,7 +58,7 @@
                                 <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the ticket ({{ $ticket->name }})?');">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the ticket ({{ $ticket->type }})?');">Delete</button>
                                 </form>
                             @endif
                         </td>
