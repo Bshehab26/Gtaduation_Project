@@ -9,6 +9,8 @@ use App\Http\Controllers\dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
+    TicketController,
+
 };
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,15 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefix('dashboard')->group(function(){ Route::get('/', [HomeController::class, 'index'])->name('dashboard-home'); Route::resource('/categories', CategoryController::class)->except(['show']); Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show'); }); });
+Route::group([
+     'middleware' => ['auth', 'dashboard']
+], function(){
+    Route::prefix('dashboard')->group(function(){
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard-home');
+        Route::resource('/categories', CategoryController::class)->except(['show']);
+        Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show');
+    });
+});
 
     // Users Routes
     Route::resource('dashboard/users', UserController::class);
@@ -57,6 +67,14 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
+
+        // Tickets Routes
+        Route::resource('/tickets', TicketController::class)->except(['create']);
+        Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
+        Route::get('/ticket/status/{id}', [TicketController::class, 'TicketStatus'])->name('ticket-status.index');
+
+
+
 
     });
 });

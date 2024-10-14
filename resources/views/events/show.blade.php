@@ -34,9 +34,15 @@
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
+                            <a href="{{ route('ticket-status.index', $event->id) }}">
+                                Status of Tickets to this event
+                            </a>
                         @elseif (Auth::check() && Auth::user()->role == 'admin')
                             <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
+                            </a>
+                            <a href="{{ route('ticket-status.index', $event->id) }}">
+                                Status of Tickets to this event
                             </a>
                         @endif
                         <h2 class="my-2">{{ $event->name }}</h2>

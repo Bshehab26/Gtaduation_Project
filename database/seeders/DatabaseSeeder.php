@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
         $this->call(UserSeeder::class);
         // \App\Models\Category::factory(50)->hasSubcategory(3)->create();
         \App\Models\Event::factory(20)->hasSubcategories(4)->create();
+        // \App\Models\Ticket::factory(10)->create();
     }
 }
