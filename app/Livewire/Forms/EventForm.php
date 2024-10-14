@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Event;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -29,15 +30,21 @@ class EventForm extends Form
 
     public $slug;
 
+    public $organizer_id;
+
     public $status = 'upcoming';
+
+    public $subcategories = [];
 
     public function rules()
     {
+        Auth::user()->role == 'organizer' ? $this->organizer_id = Auth::user()->id : '';
         $rules = [
             'name' => 'bail|required|string|unique:events,name,',
             'description' => 'bail|string|required',
             'start_time' => 'bail|required|date|after_or_equal:tomorrow',
-            'end_time' => 'bail|required|date',
+            'end_time' => 'bail|required|date|after_or_equal:tomorrow',
+            // 'organizer_id' => 'bail|required|int'
         ];
         $this->event ? $rules['name'] = $rules['name'] . $this->event->id : '';
         return $rules;
@@ -50,6 +57,8 @@ class EventForm extends Form
         $this->description = str_replace('</p><p>', '<br>', $event->description);
         $this->start_time = Carbon::createFromTimeString($event->start_time)->format('Y-m-d H:i');
         $this->end_time = Carbon::createFromTimeString($event->end_time)->format('Y-m-d H:i');
+        $this->organizer_id = $event->organizer->id;
+        $this->subcategories = $event->subcategories;
     }
 
 }

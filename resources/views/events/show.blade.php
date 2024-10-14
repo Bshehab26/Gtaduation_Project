@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title')
     {{ $event->name }}
 @endsection
@@ -31,49 +30,45 @@
 
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
-                        @if (Auth::check() && Auth::user()->role == 'admin')
+                        @if (Auth::check() && Auth::user()->id == $event->organizer_id)
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
                             <a href="{{ route('ticket-status.index', $event->id) }}">
                                 Status of Tickets to this event
                             </a>
+                        @elseif (Auth::check() && Auth::user()->role == 'admin')
+                            <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
+                                Edit this event
+                            </a>
+                            <a href="{{ route('ticket-status.index', $event->id) }}">
+                                Status of Tickets to this event
+                            </a>
                         @endif
-                        <h2>{{ $event->name }}</h2>
-                        <p>
-                            {!! $event->description !!}
-                        </p>
+                        <h2 class="my-2">{{ $event->name }}</h2>
+                        <h6><strong>By:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+                        <div style="text-indent: 1.5rem;" class="my-2">
+                            <p>
+                                {!! $event->description !!}
+                            </p>
+                        </div>
                     </div>
-                    <div class="details row">
-                        <h4 class="d-inline-block" style="width: fit-content;">Food:</h4>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
-                        <p class="d-inline bg-light p-2 mx-1 rounded text-black" style="width: fit-content;">
-                            sea food
-                        </p>
+                    <div class="detailes row my-1">
+                        <h3>What's this event about?</h3>
+                        <p>{{ $event->subject }}</p>
                     </div>
+                    @foreach ($categories as $category)
+                        <div class="details row">
+                            <h5 class="d-inline-block my-auto" style="width: fit-content;">{{ $category->name }}:</h5>
+                            @foreach ($event->subcategories as $sub)
+                                @if ($sub->category->id === $category->id)
+                                    <p class="d-inline bg-light p-2 mx-1 rounded text-black my-auto" style="width: fit-content;">
+                                        {{ $sub->name }}
+                                    </p>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endforeach
                 </div>
             </div>
 

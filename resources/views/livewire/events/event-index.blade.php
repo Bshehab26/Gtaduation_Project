@@ -46,67 +46,43 @@
 
     </form>
 
-    <div class="d-flex flex-column flex-lg-row mx-auto my-2 mb-4 p-3" style="gap: 2rem;">
+    <div class="d-flex flex-column flex-lg-row mx-auto my-2 mb-4" style="gap: 2rem;">
 
         <button class="btn fs-5 px-3 mx-lg-0 text-white" style="width:fit-content; height:fit-content; background-color: #f82249;" id="filters-trigger">
             Filters
         </button>
 
-        <form wire:submit='$refresh' class="form input-group rounded w-100 bg-light border rounded p-3" style="display: none;" id="filters-form">
+        <form wire:submit='filter' class="form input-group rounded w-100 bg-light border rounded" style="display: none;" id="filters-form">
             <div class="container w-100">
                 <div class="row">
-                    <div class="col-lg-3 p-1">
-                        <h3>Food:</h3>
-                        <div class="px-3">
-                            <div class="my-3">
-                                <input type="radio" name="" id="">
-                                <label for="">Hello</label>
-                            </div>
-                            <div class="my-3">
-                                <input type="radio" name="" id="">
-                                <label for="">Hello</label>
-                            </div>
-                            <div class="my-3">
-                                <input type="radio" name="" id="">
-                                <label for="">Hello</label>
-                            </div>
-                            <div class="my-3">
-                                <input type="radio" name="" id="">
-                                <label for="">Hello</label>
-                            </div>
+                    <div class="col-9 container">
+                        <div class="row">
+                            @php
+                                $i = 0;
+                            @endphp
+                            @foreach ($categories as $category)
+                                @php
+                                    $i ++;
+                                @endphp
+                                <div class="col-3 p-3 rounded" wire:key='{{ $category->id }}'>
+                                    <h4>{{ $category->name }}:</h4>
+                                    <div class="px-3">
+                                        <div class="my-3">
+                                            <input wire:model='category{{ $i }}' type="radio" name="{{ $category->name }}" id="none{{ $category->id }}" value="">
+                                            <label for="none{{ $category->id }}">All</label>
+                                        </div>
+                                        @foreach ($category->subcategories as $sub)
+                                            <div class="my-3" wire:key='{{ $sub->id }}'>
+                                                <input wire:model='category{{ $i }}' type="radio" name="{{ $category->name }}" id="{{ $sub->name }}" value="{{ $sub->name }}">
+                                                <label for="{{ $sub->name }}">{{ $sub->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                    <div class="col-lg-3 border-right">
-                        <h3>Food:</h3>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 border-right">
-                        <h3>Food:</h3>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                        <div class="my-2">
-                            <input type="radio" name="" id="">
-                            <label for="">Hello</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 border-right">
+                    <div class="col-3 p-3">
                         <div>
                             <h6 style="font-weight: bold; display: inline-block;">Time:</h6>
                             <h6
@@ -126,7 +102,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row text-end w-100 p-2 pb-0 d-flex justify-content-end">
+                <div class="row text-end w-100 p-3 d-flex justify-content-end">
                     <button type="submit" class="btn text-white" style="background-color: #f82249; width:fit-content; height:fit-content;" id="search-addon">
                         Apply
                     </button>
@@ -151,9 +127,9 @@
                         Date <span style="font-style: normal; color:white;">{!! $orderQ == 'start' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
                     </h4>
                 </div>
-                <div class="col-md-2" wire:click="order('orgnizer')" style="cursor: pointer;">
+                <div class="col-md-2" wire:click="order('organizer')" style="cursor: pointer;">
                     <h4 class="text-white mb-0">
-                        Orgnizer <span style="font-style: normal; color:white;">{!! $orderQ == 'orgnizer' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
+                        Organizer <span style="font-style: normal; color:white;">{!! $orderQ == 'organizer' ? $orderType == 'desc' ? '&#11205;' : '&#11206;' : '' !!}</span>
                     </h4>
                 </div>
                 <div class="col-md-4" wire:click="order('event')" style="cursor: pointer;">
@@ -196,10 +172,10 @@
                         </p>
                     </div>
                     <div class="col-md-2 align-self-center">
-                        <h6>hgjuikgjhgj</h6>
+                        <h6>{{ Str::words($event->subject, 3, '...') }}</h6>
                     </div>
                     <div class="col-md-2 align-self-center">
-                        <h6>jhgjkhgjkhk</h6>
+                        <h6>{{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
                     </div>
                     <div class="col-md-1 align-self-center">
                         <a href="{{ route('events.show', $event->slug) }}" class="my-auto">
