@@ -53,8 +53,8 @@
                             </p>
                         </div>
                     </div>
-                    <div class="detailes row my-4">
-                        <h2>What's this event about?</h2>
+                    <div class="detailes row my-1">
+                        <h3>What's this event about?</h3>
                         <p>{{ $event->subject }}</p>
                     </div>
                     @foreach ($categories as $category)
