@@ -6,6 +6,7 @@ use App\Livewire\Forms\EventForm;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Subcategory;
+use App\Models\Venue;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -15,6 +16,8 @@ class EventEdit extends Component
     public EventForm $form;
 
     public $success;
+
+    public $venueSearch;
 
     public $currentCategoryId;
 
@@ -58,6 +61,7 @@ class EventEdit extends Component
     public function render()
     {
 
+        $venueSearch = $this->venueSearch;
         $subcategories = $this->subcategoriesIds;
 
         return view('livewire.events.event-edit', [
@@ -71,6 +75,9 @@ class EventEdit extends Component
                                     ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
                                     ->orderBy('name')
                                     ->firstOrFail(),
+            'venues'          => Venue::when($venueSearch, function($q) use ($venueSearch) {
+                                        $q->where('name', 'like', "%$venueSearch%");
+                                    })->orderBy('name')->get(),
         ]);
     }
 }

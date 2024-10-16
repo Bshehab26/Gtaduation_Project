@@ -30,6 +30,15 @@
         </div>
     </div>
     <div class="row mb-3">
+        <label for="subject" class="col-sm-2 col-form-label">Subject<span class="text-danger">*</span>:</label>
+        <div class="col-sm-10">
+            <input wire:model='form.subject' type="text" id="subject" name="subject" class="form-control">
+            @error('form.subject')
+                <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
+    <div class="row mb-3">
         <label for="description" class="col-sm-2 col-form-label">Description<span class="text-danger">*</span>:</label>
         <div class="col-sm-10">
             <textarea wire:model='form.description' class="form-control" id="description" style="height: 100px"></textarea>
@@ -85,7 +94,28 @@
 
     <hr class="w-100 my-4">
 
-    <h5 class="card-title">Venue information:</h5>
+    <div>
+        <h5 class="card-title">Venue information:</h5>
+        <div class="row mb-3 w-100">
+            <label for="venue-search" class="col-sm-3 col-form-label">Search for venue:</label>
+            <div class="col-9">
+                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3 w-100">
+            <label for="venue" class="col-2 col-form-label">Venue<span class="text-danger">*</span>:</label>
+            <div class="col-10">
+                <select wire:model='form.venue_id' name="venue" class="form-select" aria-label="multiple select example">
+                    @foreach ($venues as $venue)
+                        <option value="{{ $venue->id }}">{{ $venue->name }}</option>
+                    @endforeach
+                </select>
+                @error('form.veneu_id')
+                    <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
+    </div>
 
     <hr class="w-100 my-4">
 

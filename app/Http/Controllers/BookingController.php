@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Livewire\Attributes\Validate;
+use PhpParser\Node\Expr\Cast\String_;
 
 class BookingController extends Controller
 {
@@ -28,14 +29,18 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Ticket $ticket)
+    public function store(Request $request)
     {
+        $ticket = Ticket::with(['event'])->findOrFail($request['ticket']);
         $attributes = $request->validate([
             'quantity' => 'bail|required|between:1,' . $ticket->available,
         ]);
         $attributes['total_price'] = $request['quantity'] * $ticket->price;
         $attributes['attendee_id'] = auth()->user()->id;
         $attributes['event_id'] = $ticket->event->id;
+        $attributes['ticket_id'] = $ticket->id;
+
+        $ticket->update(['available' => $ticket->available - $request['quantity']]);
 
         Booking::create($attributes);
         return redirect()->back()->with('success', "You've booked successfully for this event, enjoy!");

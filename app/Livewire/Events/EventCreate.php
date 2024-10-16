@@ -6,6 +6,7 @@ use App\Livewire\Forms\EventForm;
 use App\Models\Category;
 use App\Models\Event;
 use App\Models\Subcategory;
+use App\Models\Venue;
 use Livewire\Component;
 
 class EventCreate extends Component
@@ -16,6 +17,8 @@ class EventCreate extends Component
     private $success;
 
     public $currentCategoryId;
+
+    public $venueSearch;
 
     public $subcategoriesIds = [];
 
@@ -48,6 +51,7 @@ class EventCreate extends Component
     {
 
         $subcategories = $this->subcategoriesIds;
+        $venueSearch = $this->venueSearch;
 
         return view('livewire.events.event-create', [
             'categories'      => Category::whereHas('subcategories', function($q) use ($subcategories) {
@@ -58,6 +62,9 @@ class EventCreate extends Component
                                     ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
                                     ->orderBy('name')
                                     ->firstOrFail(),
+            'venues'          => Venue::when($venueSearch, function($q) use ($venueSearch) {
+                                        $q->where('name', 'like', "%$venueSearch%");
+                                    })->orderBy('name')->get(),
         ]);
     }
 }

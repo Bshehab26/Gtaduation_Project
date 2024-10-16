@@ -36,10 +36,10 @@
             <p class="text-danger" style="font-size: 1rem;">*{{ $message }}</p>
         @enderror
     </div>
-    {{-- <div class="form-group">
+    <div class="form-group">
         <label class="d-block" for="event-subject">Event Subject:</label>
         <input
-            wire:model='subject'
+            wire:model='form.subject'
             id="event-subject"
             class="form-control"
             type="text"
@@ -48,7 +48,7 @@
         @error('form.subject')
             <p class="text-danger" style="font-size: 1rem;">*{{ $message }}</p>
         @enderror
-    </div> --}}
+    </div>
     <div class="form-group">
         <label class="d-block" for="event-description">Event description<span class="text-danger">*</span>:</label>
         <textarea
@@ -96,6 +96,25 @@
 
     <div class="container section-title py-0">
         <h2>Venue information<br></h2>
+        <div class="row mb-3 w-100">
+            <label for="venue-search" class="col-sm-3 col-form-label">Search for venue:</label>
+            <div class="col-9">
+                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control">
+            </div>
+        </div>
+        <div class="row mb-3 w-100">
+            <label for="venue" class="col-2 col-form-label">Venue<span class="text-danger">*</span>:</label>
+            <div class="col-10">
+                <select wire:model='form.venue_id' name="venue" class="form-select" aria-label="multiple select example">
+                    @foreach ($venues as $venue)
+                        <option value="{{ $venue->id }}">{{ $venue->name }}</option>
+                    @endforeach
+                </select>
+                @error('form.veneu_id')
+                    <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
+                @enderror
+            </div>
+        </div>
     </div>
 
     <hr class="w-100 my-4" style="background-color: #0e1b4d;">

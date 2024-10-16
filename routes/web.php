@@ -44,15 +44,17 @@ Route::group([
 });
 
     // Users Routes
-    Route::resource('dashboard/users', UserController::class);
-    Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
-    Route::get('/user/orginzers', [UserController::class, 'orginzersIndex'])->name('users.orginzers');
-    Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
-    Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
+Route::resource('dashboard/users', UserController::class);
+Route::get('/user/customers', [UserController::class, 'customersIndex'])->name('users.customers');
+Route::get('/user/orginzers', [UserController::class, 'orginzersIndex'])->name('users.orginzers');
+Route::get('/user/moderators', [UserController::class, 'moderatorsIndex'])->name('users.moderators');
+Route::get('/user/admins', [UserController::class, 'adminsIndex'])->name('users.admins');
+
+Route::redirect('/', '/home');
+
 Route::get('/home', [HomeController::class, 'index'])
     ->name('home');
 
-Route::redirect('/', '/home');
 
 Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
@@ -97,8 +99,8 @@ Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->middlew
 // Route::get('/venues', [VenueController::class, 'index'])->name('venues-user.index');
 
 Route::resource('/venues-user', VenueController::class);
-Route::resource('/venues', DashboardVenueController::class);
 
+Route::resource('/venues', DashboardVenueController::class)->middleware(['auth', 'dashboard']);
 
 Route::resource('/bookings', BookingController::class, ['middleware' => 'auth']);
 
