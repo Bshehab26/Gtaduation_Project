@@ -38,7 +38,7 @@ class EventFactory extends Factory
             'subject' => fake()->sentence(4),
             'description' => implode('</p><p>', fake()->paragraphs(2)),
             'organizer_id' => User::factory()->create(['role' => 'organizer']),
-            // $table->foreignId('venue_id')->constrained('venues');
+            'venue_id' => fake()->numberBetween(1, 10),
             'start_time' => $start,
             'end_time' => $end,
             'status' => $status,
