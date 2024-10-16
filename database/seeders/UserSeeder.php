@@ -31,7 +31,15 @@ class UserSeeder extends Seeder
             "email"      => "admin@gmail.com",
             "role"       => "admin",
             "password"   => Hash::make("123456789"),
-            // "password"=> bcrypt("123456789")//to bcrypt the Hash
+        ]);
+
+        $user3 = User::create([
+            "username"   => "organizer",
+            "first_name" => "This",
+            "last_name"  => "organizer",
+            "email"      => "organizer@gmail.com",
+            "role"       => "organizer",
+            "password"   => Hash::make("123456789"),
         ]);
     }
 }
