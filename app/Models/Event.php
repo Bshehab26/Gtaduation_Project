@@ -27,15 +27,12 @@ class Event extends Model
 
     public function tickets() :HasMany
     {
-        return $this->hasMany(Ticket::class);
+        return $this->hasMany(Ticket::class)->orderBy('price');
     }
 
-    // public function venue() :BelongsTo
-    // {
-    //     return $this->belongsTo(Veneu::class);
-    // }
-
-    public function tickets(){
-        return $this->hasMany(Ticket::class);
+    public function venue() :BelongsTo
+    {
+        return $this->belongsTo(Venue::class);
     }
+
 }

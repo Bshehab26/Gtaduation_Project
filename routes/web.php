@@ -11,6 +11,7 @@ use App\Http\Controllers\dashboard\{
 };
 
 use App\Http\Controllers\{
+    BookingController,
     EventController,
     TicketController,
     VenueController,
@@ -96,6 +97,8 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 Route::resource('/venues-user', VenueController::class);
 Route::resource('/venues', DashboardVenueController::class);
 
+
+Route::resource('/bookings', BookingController::class, ['middleware' => 'auth']);
 
 
 
