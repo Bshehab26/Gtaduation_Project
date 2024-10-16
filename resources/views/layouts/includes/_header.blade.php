@@ -103,7 +103,7 @@
             New event
         </a>
     @elseif (Auth::check() && Auth::user()->role === 'organizer')
-        <a class="cta-btn d-none d-sm-block" href="{{ route('dashboard.events.create') }}">
+        <a class="cta-btn d-none d-sm-block" href="{{ route('events.create') }}">
             New event
         </a>
     @endif

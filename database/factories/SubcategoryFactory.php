@@ -18,7 +18,7 @@ class SubcategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'category_id' => Category::factory()->create(),
+            // 'category_id' => Category::factory()->create(),
             'name' => fake()->unique()->word(),
             'description' => fake()->paragraph(),
         ];

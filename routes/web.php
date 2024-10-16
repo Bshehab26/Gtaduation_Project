@@ -6,15 +6,16 @@ use App\Http\Controllers\dashboard\{
     CategoryController,
     UserController,
     VenueController as DashboardVenueController,
+    EventController as DashboardEventController,
+    SubcategoryController as DashboardSubcategoryController,
 };
 
-use App\Http\Controllers\dashboard\EventController as DashboardEventController;
-use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
     TicketController,
     VenueController,
 };
+use App\Models\Venue;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -90,10 +91,10 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         });
 });
 
+// Route::get('/venues', [VenueController::class, 'index'])->name('venues-user.index');
 
-
-
-
+Route::resource('/venues-user', VenueController::class);
+Route::resource('/venues', DashboardVenueController::class);
 
 
 
@@ -131,21 +132,22 @@ Route::controller(EventController::class)->group(function () {
     Route::resource('/events', EventController::class)
         ->only(['index']);
 
-    Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'auth', 'dashboard', 'organizer'], function() {
+
         Route::get('/events/create', 'create')
             ->name('events.create');
+
         Route::get('/events/{event:slug}/edit', 'edit')
             ->name('events.edit');
+
     });
 
     Route::get('/events/{event:slug}', 'show')
         ->name('events.show');
 
-    Route::group(['middleware' => 'auth'], function() {
-    });
-
 });
 
+//dashboard for EVENTS
 Route::name('dashboard.')
     ->middleware(['auth', 'dashboard'])
     ->group(function() {
@@ -175,6 +177,7 @@ Route::name('dashboard.')
     );
 });
 
+// dashboard for SUBCATEGORIES
 Route::name('dashboard.')
     ->middleware(['auth', 'dashboard'])
     ->group(function() {

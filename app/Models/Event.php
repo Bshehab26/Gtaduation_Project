@@ -25,6 +25,11 @@ class Event extends Model
         return $this->belongsToMany(Subcategory::class);
     }
 
+    public function tickets() :HasMany
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
     // public function venue() :BelongsTo
     // {
     //     return $this->belongsTo(Veneu::class);

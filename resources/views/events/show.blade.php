@@ -31,8 +31,11 @@
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
                         @if (Auth::check() && Auth::user()->id == $event->organizer_id)
-                            <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
+                            <a href="{{ route('events.edit', ['event' => $event->slug]) }}" class="my-1">
                                 Edit this event
+                            </a>
+                            <a href="{{ route('ticket-status.index', $event->id) }}" class="my-1">
+                                Status of Tickets to this event
                             </a>
                         @elseif (Auth::check() && Auth::user()->role == 'admin')
                             <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
@@ -46,19 +49,25 @@
                             </a>
                         @endif
 
+                        <h2 class="my-2">
+                            <span class="{{ $event->status }} text-white px-2 py-1 fs-6 rounded lh-base">{{ $event->status }}</span> - {{ $event->name }}
+                        </h2>
 
-                        <h2 class="my-2">{{ $event->name }}</h2>
                         <h6><strong>By:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+
                         <div style="text-indent: 1.5rem;" class="my-2">
                             <p>
                                 {!! $event->description !!}
                             </p>
                         </div>
+
                     </div>
-                    <div class="detailes row my-1">
-                        <h3>What's this event about?</h3>
-                        <p>{{ $event->subject }}</p>
-                    </div>
+                    @if ($event->subject)
+                        <div class="detailes row my-1">
+                            <h3>What's this event about?</h3>
+                            <p>{{ $event->subject }}</p>
+                        </div>
+                    @endif
                     @foreach ($categories as $category)
                         <div class="details row">
                             <h5 class="d-inline-block my-auto" style="width: fit-content;">{{ $category->name }}:</h5>
@@ -129,3 +138,23 @@
     </section>
     <!-- /Events Section -->
 @endsection
+@push('styles')
+    <style>
+        .upcoming {
+            background-color: green;
+            color: white;
+        }
+        .canceled {
+            background-color: red;
+            color: white
+        }
+        .ended {
+            background-color: white;
+            color: black;
+        }
+        .ongoing {
+            background-color: yellow;
+            color: black;
+        }
+    </style>
+@endpush
