@@ -68,7 +68,7 @@
                 <a href="{{ route('events.index') }}" class="{{ Route::is('events.*') ? 'active' : '' }}">Events</a>
             </li>
             <li>
-                <a href="#venue">Venue</a>
+                <a href="{{ route('venues-user.index') }}">Venue</a>
             </li>
             <li>
                 <a href="#gallery">Gallery</a>

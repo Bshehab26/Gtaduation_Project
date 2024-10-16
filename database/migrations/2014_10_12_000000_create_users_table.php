@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('bio')->nullable();
             $table->text('birth_date')->nullable();
             $table->string('email')->unique();
-            $table->enum('role', ['customer', 'organizer', 'moderator', 'admin'])->default('customer');
+            $table->enum('role', ['customer', 'orgnizer', 'moderator', 'admin'])->default('customer');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone')->nullable()->unique();
             $table->string('password');
