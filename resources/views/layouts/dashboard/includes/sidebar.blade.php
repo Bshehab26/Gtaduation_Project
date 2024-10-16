@@ -164,10 +164,12 @@
             <ul id="tickets-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    <a href="{{ route('tickets.index') }}">
-                        <i class="fs-5 ri-file-user-line"></i></i><span>All Tickets
-                            ({{ \App\Models\Ticket::count() }})</span>
-                    </a>
+                    @if (auth()->user()->role == "admin" || auth()->user()->role == "moderator")
+                        <a href="{{ route('tickets.index') }}">
+                            <i class="fs-5 ri-file-user-line"></i></i><span>All Tickets
+                                ({{ \App\Models\Ticket::count() }})</span>
+                        </a>
+                    @endif
                 </li>
 
             </ul>
