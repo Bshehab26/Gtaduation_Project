@@ -5,7 +5,7 @@
     Create Venue
 @endsection
 
-@section('page-title-1')   
+@section('page-title-1')
 
 <a href="{{ route('venues.index') }}">Venues</a>
 @endsection
@@ -38,10 +38,10 @@
             @endif
 
             <!-- General Form Elements -->
-            <form action="{{ route('venues.store') }}" method="POST">
+            <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @include('dashboard.venues.form')
-                
+
                 <div class="d-flex justify-content-lg-center">
                     <input class="btn btn-success" type="submit" value="Add">
                 </div>

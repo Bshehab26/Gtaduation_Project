@@ -6,6 +6,13 @@
 </div>
 
 <div class="row mb-3">
+<label for="venue_img" class="col-sm-2 col-form-label"> Venue Image</label>
+<div class="col-sm-10">
+    <input type="file" id="venue_img" name="venue_img" class="form-control" value="{{ old('venue_img', $venue->venue_img) }}">
+</div>
+</div>
+
+<div class="row mb-3">
     <label for="phone" class="col-sm-2 col-form-label">Phone</label>
     <div class="col-sm-10">
         <input type="text" id="phone" name="phone" class="form-control" value="{{ old('phone', $venue->phone) }}">

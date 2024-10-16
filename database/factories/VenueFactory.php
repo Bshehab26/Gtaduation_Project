@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use Faker\Generator as Faker;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Venue>
  */
@@ -18,7 +18,8 @@ class VenueFactory extends Factory
     {
         return [
            'name'=> fake()->words(3, true),
-           'phone'=> fake()->unique()->phoneNumber(),
+            'venue_image' => $this->faker->imageUrl(150, 100, 'venue', true),  // Fake image URL
+            'phone'=> fake()->unique()->phoneNumber(),
            'city'=> fake()->city(),
            'address'=> fake()->address(),
            'capacity'=> fake()->randomNumber(),

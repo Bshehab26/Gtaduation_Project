@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Event::factory(50)->create();
 
         $this->call(VenueSeeder::class);
+
+       
     }
 }

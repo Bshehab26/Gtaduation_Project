@@ -3,7 +3,7 @@
     Edit Venue ({{ $venue->name }})
 @endsection
 
-@section('page-title-1')   
+@section('page-title-1')
 
 <a href="{{ route('venues.index') }}">Venues</a>
 @endsection
@@ -37,7 +37,7 @@
                             </div>
                         @endif
                         <!-- General Form Elements -->
-                        <form action="{{ route('venues.update', $venue->id) }}" method="POST">
+                        <form action="{{ route('venues.update', $venue->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             @include('dashboard.venues.form')

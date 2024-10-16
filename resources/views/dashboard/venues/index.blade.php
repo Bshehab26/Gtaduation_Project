@@ -4,13 +4,13 @@
     All Venues ({{ $venues->count() }})
 @endsection
 
-@section('page-title-1')   
+@section('page-title-1')
 
 <a href="{{ route('venues.index') }}">Venues</a>
 @endsection
 
 @section('page-title-2')
-<a href="{{ route('venues.index') }}">All venues ({{ $venues->count() }})</a> 
+<a href="{{ route('venues.index') }}">All venues ({{ $venues->count() }})</a>
 @endsection
 
 @section('content')
@@ -36,6 +36,7 @@
                     <th>#</th>
                     <th>ID</th>
                     <th>Name</th>
+                    <th>Venue image</th>
                     <th>phone</th>
                     <th>City</th>
                     <th>Address</th>
@@ -49,6 +50,12 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $venue->id  }}</td>
                         <td>{{ $venue->name }}</td>
+                        <td>
+
+                            <img src="{{ asset('storage/' . $venue->venue_image) }}" width="100px" height="80px" alt="Venue Image">
+
+                        </td>
+
                         <td>{{ $venue->phone }}</td>
                         <td>{{ $venue->city }}</td>
                         <td>{{ $venue->address }}</td>
@@ -56,7 +63,7 @@
                         <td>
                             <a href="{{ route('venues.show', [$venue->id]) }}" class="btn btn-sm btn-warning">Show</a>
 
-                            @if(auth()->user()->user_type == "admin")
+                            @if(auth()->user()->role == "admin")
 
                                <a href="{{ route('venues.edit', $venue->id) }}" class="btn btn-sm btn-primary">Edit</a>
 

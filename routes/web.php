@@ -5,11 +5,13 @@ use App\Http\Controllers\dashboard\{
     HomeController,
     CategoryController,
     UserController,
-    VenueController,
+    VenueController as DashboardVenueController,
 };
+
 use App\Http\Controllers\dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\{
     EventController,
+    VenueController,
 };
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -46,13 +48,13 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
 
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
-            
+
             Route::resource('/categories', CategoryController::class)
             ->except(['show']);
 
         Route::get('/categories/{name}', [CategoryController::class, 'show'])
             ->name('categories.show');
-            
+
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 
@@ -66,11 +68,15 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
             ->name('categories.destroyAll');
 
 
-                ///*****************   route of venues   ************ */
-        Route::resource('/venues', VenueController::class);
-
+                ///*****************   route of  dashboard venues   ************ */
+        Route::resource('/venues', DashboardVenueController::class);
+      
     });
 });
+
+  ///*****************   route of view venues   ************ */
+
+Route::resource('/venues-user', VenueController::class);
 
 
 
