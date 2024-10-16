@@ -52,7 +52,7 @@
                         <td>{{ $ticket->event->name}}</td>
                         <td>
                             <a href="{{ route('tickets.show', [$ticket->id]) }}" class="btn btn-sm btn-warning">Show</a>
-                            @if(auth()->user()->role == "admin")
+                            @if(auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->id ==  $ticket->event->organizer->id))
                                 <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline-block">
                                     @csrf

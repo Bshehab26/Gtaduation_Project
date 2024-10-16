@@ -34,17 +34,19 @@
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
-                            <a href="{{ route('ticket-status.index', $event->id) }}">
-                                Status of Tickets to this event
-                            </a>
                         @elseif (Auth::check() && Auth::user()->role == 'admin')
                             <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
+                        @endif
+
+                        @if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'moderator' || (Auth::user()->role == 'organizer' && auth()->user()->id == $event->organizer->id)))
                             <a href="{{ route('ticket-status.index', $event->id) }}">
                                 Status of Tickets to this event
                             </a>
                         @endif
+
+
                         <h2 class="my-2">{{ $event->name }}</h2>
                         <h6><strong>By:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
                         <div style="text-indent: 1.5rem;" class="my-2">
@@ -77,69 +79,47 @@
 
                 <!-- Section Title -->
                 <div class="container section-title" data-aos="fade-up">
-                    <h2>Book a seat now!</h2>
+                    <h2>Book a ticket now!</h2>
                 </div><!-- End Section Title -->
 
                 <div class="container">
 
-                    <div class="row gy-4 pricing-item" data-aos="fade-up" data-aos-delay="100">
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h3>Standard Access</h3>
+                    @if ($successMsg = Session::get('success'))
+                        <div class="alert alert-success text-center">
+                            {{ $successMsg }}
                         </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h4><sup>$</sup>150<span> / month</span></h4>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-                        </div>
-                    </div><!-- End Pricing Item -->
+                    @endif
 
-                    <div class="row gy-4 pricing-item featured mt-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h3>Premium Access<br></h3>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h4><sup>$</sup>250<span> / month</span></h4>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <strong>Nec feugiat nisl pretium</strong></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-                        </div>
-                    </div><!-- End Pricing Item -->
+                    @forelse ($event->tickets as $ticket)
 
-                    <div class="row gy-4 pricing-item mt-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h3>Pro Access<br></h3>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <h4><sup>$</sup>350<span> / month</span></h4>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <ul>
-                            <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
-                            <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                            <div class="text-center"><a href="#" class="buy-btn">Buy Now</a></div>
-                        </div>
-                    </div><!-- End Pricing Item -->
+                        <div class="row gy-4 pricing-item featured mt-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                <h3>{{ $ticket->type }}<br></h3>
+                            </div>
+                            <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                <h4><sup>$</sup>{{$ticket->price}}<span></span></h4>
+                            </div>
+                            <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-check"></i> <span>Avaliable tickets <h2 id="avaliable-tickets">{{ $ticket->available }}</h2></span>
+                            </div>
+                            @if ($ticket->available > 0)
+                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                    <div class="text-center"><a href="{{route("decrease-no-ticket", $ticket->id)}}" class="buy-btn" >Buy Now</a></div>
+                                </div>
+                            @endif
+                        </div><!-- End Pricing Item -->
 
+                    @empty
+                        <tr>
+                            <td colspan="9">
+                                <div class="alert alert-info text-center">
+                                    No Tickets found.
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
                 </div>
+
 
             </section>
             <!-- /Buy Tickets Section -->

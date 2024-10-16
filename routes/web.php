@@ -77,25 +77,51 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::delete('/categories/delete', [CategoryController::class,'destroyAll'])
             ->name('categories.destroyAll');
 
-
-                ///*****************   route of  dashboard venues   ************ */
-        Route::resource('/venues', DashboardVenueController::class);
-      
-
         // Tickets Routes
         Route::resource('/tickets', TicketController::class)->except(['create']);
         Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
-        Route::get('/ticket/status/{id}', [TicketController::class, 'TicketStatus'])->name('ticket-status.index');
-
-
-
-
-    });
+        Route::post("/tickets", [TicketController::class, 'store'])->name("tickets.store");
+        Route::get("/tickets/{id}", [TicketController::class, 'show'])->name("tickets.show");
+        Route::get("/tickets/{id}/edit", [TicketController::class, 'edit'])->name("tickets.edit");
+        Route::put("/tickets/{id}", [TicketController::class, 'update'])->name("tickets.update");
+        Route::delete("/tickets/{id}", [TicketController::class, 'destroy'])->name("tickets.destroy");
+        Route::get('/ticket/status/{id}', [TicketController::class, 'ticketStatus'])->name('ticket-status.index');
+        Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->name('decrease-no-ticket');
+        });
 });
 
-  ///*****************   route of view venues   ************ */
 
-Route::resource('/venues-user', VenueController::class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
