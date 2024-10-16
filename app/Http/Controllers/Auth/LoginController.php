@@ -64,6 +64,7 @@ class LoginController extends Controller
         }
     }
     public function logout(Request $request)
+  
     {
         $username = auth()->user()->name;
 
@@ -72,3 +73,4 @@ class LoginController extends Controller
         return redirect()->route('home')->With('loggedout',"$username you have successfuly logged out.");
     }
 }
+
