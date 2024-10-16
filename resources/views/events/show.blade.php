@@ -108,17 +108,19 @@
                                 </div>
                                 <div class="col-lg-3 d-flex align-items-center justify-content-center">
                                     <div>
-                                        <span class="text-center">Avaliable tickets <h3 id="avaliable-tickets">{{ $ticket->available }}</h3></span>
+                                        <span class="text-center">Avaliable tickets <h3>{{ $ticket->available }}</h3></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                    <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-                                        <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
-                                        <button href="#" class="buy-btn">Buy Now</button>
-                                    </form>
-                                </div>
+                                @if ($ticket->available > 0)
+                                    <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                        <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="ticket" value="{{ $ticket->id }}">
+                                            <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
+                                            <button href="#" class="buy-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div><!-- End Pricing Item -->
 
                         @empty

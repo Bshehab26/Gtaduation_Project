@@ -40,7 +40,7 @@ class BookingController extends Controller
         $attributes['event_id'] = $ticket->event->id;
         $attributes['ticket_id'] = $ticket->id;
 
-        $ticket->update(['available' => $ticket->available - 1]);
+        $ticket->update(['available' => $ticket->available - $request['quantity']]);
 
         Booking::create($attributes);
         return redirect()->back()->with('success', "You've booked successfully for this event, enjoy!");
