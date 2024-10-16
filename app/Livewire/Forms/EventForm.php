@@ -28,11 +28,15 @@ class EventForm extends Form
     // #[Validate('bail|required|date')]
     public $end_time;
 
+    public $subject;
+
     public $slug;
 
     public $organizer_id;
 
     public $status = 'upcoming';
+
+    public $venue_id;
 
     public $subcategories = [];
 
@@ -43,6 +47,7 @@ class EventForm extends Form
             'description' => 'bail|string|required',
             'start_time' => 'bail|required|date|after_or_equal:tomorrow',
             'end_time' => 'bail|required|date|after_or_equal:tomorrow',
+            'subject' => 'bail|string',
             // 'organizer_id' => 'bail|required|int'
         ];
 
@@ -63,6 +68,8 @@ class EventForm extends Form
         $this->end_time = Carbon::createFromTimeString($event->end_time)->format('Y-m-d H:i');
         $this->organizer_id = $event->organizer->id;
         $this->subcategories = $event->subcategories;
+        $this->subject = $event->subject;
+        $this->venue_id = $event->venue_id;
     }
 
 }

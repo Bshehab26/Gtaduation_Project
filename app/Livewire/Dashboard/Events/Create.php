@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Subcategory;
 use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -17,6 +18,8 @@ class Create extends Component
     public EventForm $form;
 
     public $orgSearch;
+
+    public $venueSearch;
 
     public $success;
 
@@ -56,6 +59,7 @@ class Create extends Component
     {
 
         $orgSearch = $this->orgSearch;
+        $venueSearch = $this->venueSearch;
 
         $subcategories = $this->subcategoriesIds;
 
@@ -75,6 +79,9 @@ class Create extends Component
                                     ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
                                     ->orderBy('name')
                                     ->firstOrFail(),
+            'venues'          => Venue::when($venueSearch, function($q) use ($venueSearch){
+                                        $q->where('name', 'like', "%$venueSearch%");
+                                    })->orderBy('name', 'asc')->get(),
         ]);
     }
 }

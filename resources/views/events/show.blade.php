@@ -22,6 +22,11 @@
     <section id="events" class="events section">
 
         <div class="container" data-aos="fade-up" data-aos-delay="100">
+            @if ($successMsg = Session::get('success'))
+                <div class="alert alert-success text-center">
+                    {{ $successMsg }}
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-md-6">
@@ -34,17 +39,11 @@
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}" class="my-1">
                                 Edit this event
                             </a>
-                            <a href="{{ route('ticket-status.index', $event->id) }}" class="my-1">
-                                Status of Tickets to this event
-                            </a>
                         @elseif (Auth::check() && Auth::user()->role == 'admin')
                             <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
-                        @endif
-
-                        @if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role == 'moderator' || (Auth::user()->role == 'organizer' && auth()->user()->id == $event->organizer->id)))
-                            <a href="{{ route('ticket-status.index', $event->id) }}">
+                            <a href="{{ route('ticket-status.index', $event->id) }}" class="my-1">
                                 Status of Tickets to this event
                             </a>
                         @endif
@@ -68,6 +67,10 @@
                             <p>{{ $event->subject }}</p>
                         </div>
                     @endif
+                    <div class="detailes row my-1">
+                        <h3>Where?</h3>
+                        <p><strong>{{ $event->venue->name }}</strong>, {{ $event->venue->address }}</p>
+                    </div>
                     @foreach ($categories as $category)
                         <div class="details row">
                             <h5 class="d-inline-block my-auto" style="width: fit-content;">{{ $category->name }}:</h5>
@@ -94,11 +97,6 @@
                 <div class="container">
 
                     @if ($event->status == 'upcoming')
-                        @if ($successMsg = Session::get('success'))
-                            <div class="alert alert-success text-center">
-                                {{ $successMsg }}
-                            </div>
-                        @endif
 
                         @forelse ($event->tickets as $ticket)
                             <div class="row gy-4 pricing-item {{ $loop->iteration % 2 === 0 ? 'featured' : '' }} {{ $loop->iteration > 1 ? 'mt-4' : '' }} " data-aos="fade-up" data-aos-delay="100">
@@ -116,28 +114,12 @@
                                 <div class="col-lg-3 d-flex align-items-center justify-content-center">
                                     <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
                                         @csrf
+                                        <input type="hidden" name="ticket" value="{{ $ticket->id }}">
                                         <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
                                         <button href="#" class="buy-btn">Buy Now</button>
                                     </form>
                                 </div>
                             </div><!-- End Pricing Item -->
-
-                            {{-- <div class="row gy-4 pricing-item featured mt-4" data-aos="fade-up" data-aos-delay="200">
-                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                    <h3>{{ $ticket->type }}<br></h3>
-                                </div>
-                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                    <h4><sup>$</sup>{{$ticket->price}}<span></span></h4>
-                                </div>
-                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                    <i class="bi bi-check"></i> <span>Avaliable tickets <h2 id="avaliable-tickets">{{ $ticket->available }}</h2></span>
-                                </div>
-                                @if ($ticket->available > 0)
-                                    <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                        <div class="text-center"><a href="{{route("decrease-no-ticket", $ticket->id)}}" class="buy-btn" >Buy Now</a></div>
-                                    </div>
-                                @endif
-                            </div><!-- End Pricing Item --> --}}
 
                         @empty
                             <tr>

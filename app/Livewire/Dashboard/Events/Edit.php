@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Subcategory;
 use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -20,6 +21,8 @@ class Edit extends Component
     public $currentCategoryId;
 
     public $orgSearch;
+
+    public $venueSearch;
 
     public $subcategoriesIds;
 
@@ -61,6 +64,7 @@ class Edit extends Component
     public function render()
     {
 
+        $venueSearch = $this->venueSearch;
         $orgSearch = $this->orgSearch;
         $subcategories = $this->subcategoriesIds;
 
@@ -84,6 +88,9 @@ class Edit extends Component
                                     ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
                                     ->orderBy('name')
                                     ->firstOrFail(),
+            'venues'             => Venue::when($venueSearch, function($q) use ($venueSearch){
+                                        $q->where('name', 'like', "%$venueSearch%");
+                                    })->orderBy('name', 'asc')->get(),
         ]);
     }
 }

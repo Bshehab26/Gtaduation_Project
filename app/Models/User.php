@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Event::class, 'organizer_id');
     }
+
+    public function bookings() :HasMany
+    {
+        return $this->hasMany(Booking::class, 'attendee_id');
+    }
 }
