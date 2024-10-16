@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('subject')->nullable();
             $table->text('description');
-            // $table->foreignId('orgnizer_id')->constrained('users');
+            $table->foreignId('organizer_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             // $table->foreignId('venue_id')->constrained('venues');
             $table->dateTime('start_time');
             $table->dateTime('end_time');

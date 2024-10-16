@@ -9,8 +9,10 @@ use App\Http\Controllers\dashboard\{
 };
 
 use App\Http\Controllers\dashboard\EventController as DashboardEventController;
+use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
+    TicketController,
     VenueController,
 };
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +31,15 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::group([ 'middleware' => ['auth', 'dashboard'] ], function(){ Route::prefix('dashboard')->group(function(){ Route::get('/', [HomeController::class, 'index'])->name('dashboard-home'); Route::resource('/categories', CategoryController::class)->except(['show']); Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show'); }); });
+Route::group([
+     'middleware' => ['auth', 'dashboard']
+], function(){
+    Route::prefix('dashboard')->group(function(){
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard-home');
+        Route::resource('/categories', CategoryController::class)->except(['show']);
+        Route::get('/categories/{name}', [CategoryController::class, 'show'])->name('categories.show');
+    });
+});
 
     // Users Routes
     Route::resource('dashboard/users', UserController::class);
@@ -71,6 +81,15 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
                 ///*****************   route of  dashboard venues   ************ */
         Route::resource('/venues', DashboardVenueController::class);
       
+
+        // Tickets Routes
+        Route::resource('/tickets', TicketController::class)->except(['create']);
+        Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
+        Route::get('/ticket/status/{id}', [TicketController::class, 'TicketStatus'])->name('ticket-status.index');
+
+
+
+
     });
 });
 
@@ -125,6 +144,35 @@ Route::name('dashboard.')
 
             Route::delete('/events/{id}/force', [DashboardEventController::class, 'forceDelete'])
                 ->name('events.forceDelete');
+
+        }
+    );
+});
+
+Route::name('dashboard.')
+    ->middleware(['auth', 'dashboard'])
+    ->group(function() {
+        Route::prefix('/dashboard')->group(function(){
+            Route::get('/subcategories/trashed', [DashboardSubcategoryController::class, 'trash'])
+                ->name('subcategories.trash');
+
+            Route::resource('/subcategories', DashboardSubcategoryController::class)
+                ->except(['edit', 'destroy', 'show']);
+
+            Route::get('/subcategories/{name}', [DashboardSubcategoryController::class, 'show'])
+                ->name('subcategories.show');
+
+            Route::get('/subcategories/{name}/edit', [DashboardSubcategoryController::class, 'edit'])
+                ->name('subcategories.edit');
+
+            Route::delete('/subcategories/{name}', [DashboardSubcategoryController::class, 'destroy'])
+                ->name('subcategories.destroy');
+
+            Route::post('/subcategories/{id}/restore', [DashboardSubcategoryController::class, 'restore'])
+                ->name('subcategories.restore');
+
+            Route::delete('/subcategories/{id}/force', [DashboardSubcategoryController::class, 'forceDelete'])
+                ->name('subcategories.forceDelete');
 
         }
     );

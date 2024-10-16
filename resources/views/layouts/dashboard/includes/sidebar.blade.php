@@ -39,6 +39,36 @@
             </ul>
         </li><!-- End Components Nav -->
 
+        {{-- Subcategories --}}
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#subcategories-nav" data-bs-toggle="collapse" href="#">
+                <i class="fs-5 bx bx-category"></i><span>Subcategories</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="subcategories-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('dashboard.subcategories.index') }}">
+                        <i class="fs-5 bx bx-list-ul"></i><span>All Subcategories
+                            ({{ \App\Models\Subcategory::count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('dashboard.subcategories.create') }}">
+                        <i class="fs-5 bx bxs-plus-circle"></i><span>Create Subcategory</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('dashboard.subcategories.trash') }}">
+                        <i class="fs-5 bx bxs-trash"></i><span>Trashed Subcategories
+                            ({{ \App\Models\Subcategory::onlyTrashed()->count() }})</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Components Nav -->
+
         <!-- EVENTS -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -51,13 +81,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.events.create') }}">
-                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
+                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
+                    <a href="{{ route('dashboard.events.create') }}">
+                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
                     </a>
                 </li>
                 <li>
@@ -76,6 +106,7 @@
 
         {{-- Users --}}
         <li class="nav-item">
+
             <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
                 <i class="fs-5 bx bxs-user-account"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
@@ -122,10 +153,26 @@
                         <i class="fs-5 ri-user-add-fill"></i><span>Create User</span>
                     </a>
                 </li>
+            </ul>
+        </li>
+
+            {{-- Tickets --}}
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#tickets-nav" data-bs-toggle="collapse" href="#">
+                <i class="fs-5 bx bxs-user-account"></i><span>Tickets</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="tickets-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('tickets.index') }}">
+                        <i class="fs-5 ri-file-user-line"></i></i><span>All Tickets
+                            ({{ \App\Models\Ticket::count() }})</span>
+                    </a>
+                </li>
 
             </ul>
-
         </li>
+            
 
 
         {{-- ******************************* --}}

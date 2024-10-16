@@ -25,7 +25,7 @@
     <!-- Schdule -->
     <div role="tabpanel" class="col-lg-9 tab-pane fade show active">
 
-        @foreach ($events as $event)
+        @forelse ($events as $event)
 
             <div wire:key="{{ $event->id }}" class="row schedule-item">
                 <div class="col-md-2">
@@ -39,7 +39,7 @@
                         {{ Str::words($event->name, 5) }} <span>Brenden Legros</span>
                     </h4>
                     <p>
-                        {{ Str::words($event->description, 15, '...') }}
+                        {!! Str::words($event->description, 15, '...') !!}
                     </p>
                 </div>
                 <div class="col-md-1 align-self-center">
@@ -48,8 +48,12 @@
                     </a>
                 </div>
             </div>
+        @empty
+            <div>
+                <h2>There's No events for this day</h2>
+            </div>
 
-        @endforeach
+        @endforelse
 
     </div>
     <!-- End Schdule -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class EventController extends Controller
     public function index()
     {
         return view('dashboard.events.index', [
-            'events' => Event::get()
+            'events' => Event::with(['organizer', 'subcategories'])->get(),
         ]);
     }
 
@@ -41,7 +42,12 @@ class EventController extends Controller
     {
         return view('dashboard.events.show', [
             'event' => $event,
-            'events' => Event::orderBy('name', 'asc')->get(),
+            'events' => Event::with(['organizer', 'subcategories'])->orderBy('name', 'asc')->get(),
+            'categories' => Category::whereHas('subcategories', function($q) use ($event) {
+                $q->whereHas('events', function($q) use ($event){
+                    $q->where('events.id', $event->id);
+                });
+            })->get(),
         ]);
     }
 
@@ -51,7 +57,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         return view('dashboard.events.edit', [
-            'event' => $event,
+            'event' => Event::with('subcategories')->findOrFail($event->id),
         ]);
     }
 

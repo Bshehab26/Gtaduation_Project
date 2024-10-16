@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -36,7 +37,8 @@ class EventFactory extends Factory
             'slug' => str_replace(' ', '-', $name),
             'subject' => fake()->sentence(4),
             'description' => implode('</p><p>', fake()->paragraphs(2)),
-            // $table->foreignId('orgnizer_id')->constrained('users');
+            'organizer_id' => User::factory()->create(['role' => 'organizer']),
+            // $table->foreignId('organizer_id')->constrained('users');
             // $table->foreignId('venue_id')->constrained('venues');
             'start_time' => $start,
             'end_time' => $end,
