@@ -39,6 +39,12 @@
 
   @stack('scripts')
 
+ 
+ 
+  @yield('add_css')
+   @yield('style-card')
+ @yield('venue_home_css')
+
   <!-- =======================================================
   * Template Name: TheEvent
   * Template URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
