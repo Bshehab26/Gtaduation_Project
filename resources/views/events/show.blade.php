@@ -110,13 +110,15 @@
                                         <span class="text-center">Avaliable tickets <h3>{{ $ticket->available }}</h3></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                                    <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
-                                        @csrf
-                                        <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
-                                        <button href="#" class="buy-btn">Buy Now</button>
-                                    </form>
-                                </div>
+                                @if ($ticket->available > 0)
+                                    <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                                        <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
+                                            @csrf
+                                            <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
+                                            <button href="#" class="buy-btn">Buy Now</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div><!-- End Pricing Item -->
 
                             {{-- <div class="row gy-4 pricing-item featured mt-4" data-aos="fade-up" data-aos-delay="200">
