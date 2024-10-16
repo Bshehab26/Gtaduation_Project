@@ -1,16 +1,19 @@
 <?php
 
+
 use App\Http\Controllers\dashboard\{
     HomeController,
     CategoryController,
     UserController,
+    VenueController as DashboardVenueController,
 };
+
 use App\Http\Controllers\dashboard\EventController as DashboardEventController;
 use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
     TicketController,
-
+    VenueController,
 };
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +59,12 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::get('/', [HomeController::class, 'dashboard'])
             ->name('dashboard-home');
 
+            Route::resource('/categories', CategoryController::class)
+            ->except(['show']);
+
+        Route::get('/categories/{name}', [CategoryController::class, 'show'])
+            ->name('categories.show');
+
         Route::get('/category/trash', [CategoryController::class,'trash'])
             ->name('categories.trash');
 
@@ -71,12 +80,14 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         // Tickets Routes
         Route::resource('/tickets', TicketController::class)->except(['create']);
         Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
-        Route::get('/ticket/status/{id}', [TicketController::class, 'TicketStatus'])->name('ticket-status.index');
-
-
-
-
-    });
+        Route::post("/tickets", [TicketController::class, 'store'])->name("tickets.store");
+        Route::get("/tickets/{id}", [TicketController::class, 'show'])->name("tickets.show");
+        Route::get("/tickets/{id}/edit", [TicketController::class, 'edit'])->name("tickets.edit");
+        Route::put("/tickets/{id}", [TicketController::class, 'update'])->name("tickets.update");
+        Route::delete("/tickets/{id}", [TicketController::class, 'destroy'])->name("tickets.destroy");
+        Route::get('/ticket/status/{id}', [TicketController::class, 'ticketStatus'])->name('ticket-status.index');
+        Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->name('decrease-no-ticket');
+        });
 });
 
 

@@ -23,5 +23,9 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Category::factory(50)->hasSubcategory(3)->create();
         \App\Models\Event::factory(20)->hasSubcategories(4)->create();
         // \App\Models\Ticket::factory(10)->create();
+
+        $this->call(VenueSeeder::class);
+
+       
     }
 }

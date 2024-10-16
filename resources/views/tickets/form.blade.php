@@ -17,12 +17,12 @@
         <input type="text" id="quantity" name="quantity" class="form-control" value="{{ old('quantity', $ticket->quantity) }}">
     </div>
 </div>
-<div class="row mb-3">
+{{-- <div class="row mb-3">
     <label for="available" class="col-sm-2 col-form-label">Available</label>
     <div class="col-sm-10">
         <input type="text" id="available" name="available" class="form-control" value="{{ old('available', $ticket->available) }}">
     </div>
-</div>
+</div> --}}
 <div class="row mb-3">
     {{-- <label for="event_id" class="col-sm-2 col-form-label">Event ID</label> --}}
     <div class="col-sm-10">

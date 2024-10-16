@@ -24,6 +24,7 @@
                     {{ $unauthorizedEdit }}
                 </div>
             @endif
+
             <a href="{{ route('events.index') }}" class="btn btnbtn-sm btn-warning">All Events</a>
             <a href="{{ route('ticket.create', $event->id) }}" class="btn btnbtn-sm btn-warning">Make Tickets to this event</a>
             <table class="table datatable">
@@ -53,7 +54,7 @@
                         <td>{{ $ticket->event->name}}</td>
                         <td>
                             <a href="{{ route('tickets.show', [$ticket->id]) }}" class="btn btn-sm btn-warning">Show</a>
-                            @if(auth()->user()->role == "admin")
+                            @if(auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->id ==  $ticket->event->organizer->id) || (auth()->user()->role == "organizer" && auth()->user()->id ==  $ticket->event->organizer->id))
                                 <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline-block">
                                     @csrf
