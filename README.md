@@ -22,16 +22,19 @@ To set up **The Event** on your local machine, follow these steps:
    ```
    composer install
    npm install
+   ```
 
 3. Create a .env file based on the .env.example file provided in the repository.
  
 5. Generate the application key:
    ```
    php artisan key:generate
+   ```
 
 6. Install livewire:
    ```
    composer require livewire/livewire
+   ```
 
 7.Run the migrations to set up the database:
    ```
