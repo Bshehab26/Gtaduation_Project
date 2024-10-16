@@ -38,7 +38,6 @@ class EventForm extends Form
 
     public function rules()
     {
-        Auth::user()->role == 'organizer' ? $this->organizer_id = Auth::user()->id : '';
         $rules = [
             'name' => 'bail|required|string|unique:events,name,',
             'description' => 'bail|string|required',
@@ -46,8 +45,13 @@ class EventForm extends Form
             'end_time' => 'bail|required|date|after_or_equal:tomorrow',
             // 'organizer_id' => 'bail|required|int'
         ];
+
         $this->event ? $rules['name'] = $rules['name'] . $this->event->id : '';
+
+        Auth::user()->role == 'organizer' ? $this->organizer_id = Auth::user()->id : null;
+
         return $rules;
+
     }
 
     public function setEvent(Event $event)

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Dashboard
+class OrganizerCheck
 {
     /**
      * Handle an incoming request.
@@ -15,13 +15,9 @@ class Dashboard
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role == "customer" || auth()->user()->role == "organizer") {
-
-            return abort(403);
-            // to return to a website
-            //  return redirect()->route('/you are-customer');
+        if(auth()->user()->role !== 'organizer'){
+            abort(403);
         }
-
         return $next($request);
     }
 }

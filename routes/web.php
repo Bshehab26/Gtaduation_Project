@@ -120,21 +120,22 @@ Route::controller(EventController::class)->group(function () {
     Route::resource('/events', EventController::class)
         ->only(['index']);
 
-    Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'auth', 'dashboard', 'organizer'], function() {
+
         Route::get('/events/create', 'create')
             ->name('events.create');
+
         Route::get('/events/{event:slug}/edit', 'edit')
             ->name('events.edit');
+
     });
 
     Route::get('/events/{event:slug}', 'show')
         ->name('events.show');
 
-    Route::group(['middleware' => 'auth'], function() {
-    });
-
 });
 
+//dashboard for EVENTS
 Route::name('dashboard.')
     ->middleware(['auth', 'dashboard'])
     ->group(function() {
@@ -164,6 +165,7 @@ Route::name('dashboard.')
     );
 });
 
+// dashboard for SUBCATEGORIES
 Route::name('dashboard.')
     ->middleware(['auth', 'dashboard'])
     ->group(function() {
