@@ -6,15 +6,16 @@ use App\Http\Controllers\dashboard\{
     CategoryController,
     UserController,
     VenueController as DashboardVenueController,
+    EventController as DashboardEventController,
+    SubcategoryController as DashboardSubcategoryController,
 };
 
-use App\Http\Controllers\dashboard\EventController as DashboardEventController;
-use App\Http\Controllers\dashboard\SubcategoryController as DashboardSubcategoryController;
 use App\Http\Controllers\{
     EventController,
     TicketController,
     VenueController,
 };
+use App\Models\Venue;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -90,10 +91,10 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         });
 });
 
+// Route::get('/venues', [VenueController::class, 'index'])->name('venues-user.index');
 
-
-
-
+Route::resource('/venues-user', VenueController::class);
+Route::resource('/venues', DashboardVenueController::class);
 
 
 
