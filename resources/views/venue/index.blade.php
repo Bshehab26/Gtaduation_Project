@@ -75,8 +75,7 @@
             height: 400px;
             object-fit: cover;
         }
-
-        /* تعديل عرض البطاقة */
+        
         .card {
 
             width: 100%;
