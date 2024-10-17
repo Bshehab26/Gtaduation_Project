@@ -14,24 +14,27 @@
 @endsection
 
 @section('content')
-<nav>
+<nav style="color: #0e1b4d;>
     <a href="{{route('venues.index')}}">All venues</a>
 </nav>
 <br>
 
-<span>  Name: </span>  {{$venue->name}} 
-<br>
-<br>
-<span>  Phone:  </span>  {{$venue->phone }}
-<br>
-<br>
-<span>  City: </span>   {{$venue->city}}
-<br>
-<br>
-<span>  Address:</span>   {{$venue->address }}
-<br>
-<br>
-<span>  Capacity:</span>  {{$venue->capacity}}
-<br>
-<br>
+<div class="d-flex align-items-start" style="gap: 20px;">
+    
+    <img src="{{ asset('storage/' . $venue->venue_image) }}" 
+         width="400px" height="300px" 
+         alt="Venue Image" style="object-fit: cover; border-radius: 10px;">
+    <br>
+
+    <div style="margin-top: 50px; color: #0e1b4d;">
+        <p><strong>Name:</strong> {{$venue->name}}</p>
+        <p><strong>Phone:</strong> {{$venue->phone}}</p>
+        <p><strong>City:</strong> {{$venue->city}}</p>
+        <p><strong>Address:</strong> {{$venue->address}}</p>
+        <p><strong>Capacity:</strong> {{$venue->capacity}}</p>
+    </div>
+</div>
+
+
+
 @endsection

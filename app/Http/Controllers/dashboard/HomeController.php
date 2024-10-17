@@ -21,6 +21,7 @@ class HomeController extends Controller
         $featuredEvent = Event::with('venue')->whereHas('tickets', function($q) use ($featuredTicket){
                                 $q->where('id', $featuredTicket->id);
                             })->firstOrFail();
+                            
         $venues = Venue::all();
         return view('home', compact('venues', 'featuredEvent'));
 
