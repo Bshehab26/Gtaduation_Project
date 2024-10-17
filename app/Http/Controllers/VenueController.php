@@ -16,26 +16,9 @@ class VenueController extends Controller
         return view('venue.index' ,compact('venues'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-       
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+       public function show(string $id)
     {
         
            $venue=Venue::findOrFail($id);
@@ -43,27 +26,22 @@ class VenueController extends Controller
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    
+    public function search_venues(Request $request)
     {
-        //
+        $search = $request->input('search');
+    
+        $venues = Venue::where('name', 'LIKE', '%' . $search . '%')
+            ->orWhere('city', 'LIKE', '%' . $search . '%');
+    
+        if (is_numeric($search)) {
+            $venues = $venues->orWhere('capacity', '>=', $search);
+        }
+    
+        $venues = $venues->get();
+    
+        return view('venue.index', compact('venues'));
     }
+    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }

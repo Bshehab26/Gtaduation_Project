@@ -96,8 +96,9 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
   ///*****************   route of view venues   ************ */
 
 Route::resource('/venues-user', VenueController::class);
+Route::get('/venues/search', [VenueController::class,'search_venues'])->name('venues.search');
 
-
+//************************************************* */
 
 
 Route::controller(EventController::class)->group(function () {

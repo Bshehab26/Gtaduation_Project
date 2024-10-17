@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Venues {{ $venue->name }}
+    Venue {{ $venue->name }}
 @endsection
 
 @section('add_css')
@@ -22,144 +22,39 @@
     <!-- End Page Title -->
     <section id="schedule" class="schedule section">
 
-        {{-- <div class="item-details-page">
-            <div class="container">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="section-heading">
-                    <div class="line-dec"></div>
-                    <h2>View Details of <em>{{ $venue->name }}</em>  venue Here.</h2>
-                  </div>
-                </div>
-
-                <div class="col-lg-7">
-                  <div class="left-image">
-                    <img src=""{{ asset('storage/' . $venue->venue_image) }}" alt="" style="border-radius: 20px;">
-                  </div>
-                </div>
-
-                <div class="col-lg-5 align-self-center">
-                  <span class="bid">
-                    Name venue
-                    <br>
-                  <h4>{{ $venue->name }}</h4>
-                </span>
-                  
-                  <span class="phone">
-                   
-                    <h6> {{ $venue->phone }} </h6>
-                  </span>
-
-                  <div class="col-5">
-                    <span class="ends">
-                        Capacity<br><strong>{{ $venue->capacity }}</strong><br>
-                    </span>
-                  </div>
-                  
-                  <span class="bid">
-                    City 
-                     <br>
-                  <p> {{ $venue->city }}</p>
-                  <div class="row">
-        
-                  </span>
-                  
-                    <div class="col-5">
-                      <span class="bid">
-                        Address <br><strong>{{ $venue->address }}</strong><br>
-                      </span>
-                    </div>
-                    
-                    
-                  </div>
-                  
-                </div>
-
-            </div>
-        </div>
-          </div>
-
-    </section> --}}
-
-
         <div class="item-details-page">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="section-heading">
-                            <div class="line-dec"></div>
+                            <div class="line-dec">
                             <h2 style="margin-left: 160px">View Details of <em>{{ $venue->name }}</em> venue Here.</h2>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        {{-- <section> --}}
-
-
-        <!-- Grid for left image and right content with margin -->
-        <div class="row" style="align-items: center; gap: 30px;">
-            <!-- Left Image -->
-            <div class="col-lg-5">
-                <div class="left-image" style="margin: 20px 0px 20px 100px;">
-                    <img src="{{ asset('storage/' . $venue->venue_image) }}" alt=""
-                        style="border-radius: 20px; width: 100%;">
-                </div>
+    <br>
+        
+        <div class="d-flex align-items-start" style="gap: 20px; margin-left: 170px">
+    
+            <img src="{{ asset('storage/' . $venue->venue_image) }}" 
+                 width="400px" height="300px" 
+                 alt="Venue Image" style="object-fit: cover; border-radius: 10px;">
+            <br>
+        
+            <div style="margin: 50px 0px 0px 50px; color: #0e1b4d;">
+                <p><strong>Name:</strong> {{$venue->name}}</p>
+                <p><strong>Phone:</strong> {{$venue->phone}}</p>
+                <p><strong>City:</strong> {{$venue->city}}</p>
+                <p><strong>Address:</strong> {{$venue->address}}</p>
+                <p><strong>Capacity:</strong> {{$venue->capacity}}</p>
             </div>
-
-            <!-- Right Content -->
-            <div class="col-lg-5 align-self-center" style="margin-left: 130px">
-
-                <span class="bid">
-
-                    <h4>Name venue</h4>
-                    <h5 style="margin-left:20px ">{{ $venue->name }}</h5>
-
-                </span>
-
-                <span class="bid">
-
-                    <h4>Phone</h4>
-                    <h5 style="margin-left:20px ">{{ $venue->phone }}</h5>
-
-                </span>
-
-
-                <span class="bid">
-
-                    <h4>Capacity</h4>
-                    <h5 style="margin-left:20px ">{{ $venue->capacity }}</h5>
-
-                </span>
-
-
-                <span class="bid">
-
-                    <h4>City</h4>
-                    <h5 style="margin-left:20px ">{{ $venue->city }}</h5>
-
-                </span>
-
-
-                <span class="bid">
-
-                    <h4>Address</h4>
-                    <h5 style="margin-left:20px ">{{ $venue->address }}</h5>
-
-                </span>
-
-
-
-            </div>
-
         </div>
 
-        </div>
-        </div>
-        </div>
+        
     </section>
 @endsection
 
