@@ -10,10 +10,16 @@
     <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
 
     <div class="container d-flex flex-column align-items-center text-center mt-auto">
-        <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span>MARKETING</span> CONFERENCE</h2>
-        <p data-aos="fade-up" data-aos-delay="200">10-12 December, Downtown Conference Center, New York</p>
+        <h2 data-aos="fade-up" data-aos-delay="100" class="">{{ $featuredEvent->name }}</h2>
+        <p data-aos="fade-up" data-aos-delay="200">
+        @php
+            $startTime = \Carbon\Carbon::parse($featuredEvent->start_time);
+            $endTime = \Carbon\Carbon::parse($featuredEvent->end_time);
+        @endphp
+        {{ $startTime->format('m') == $endTime->format('m') ? $startTime->format('d') . $endTime->format('-d F') : $startTime->format('d m') . $endTime->format('to d m') }}
+        , {{ $featuredEvent->venue->name . ', ' . $featuredEvent->venue->city }}</p>
         <div data-aos="fade-up" data-aos-delay="300" class="">
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
+            <a href="{{ route('events.show', ['event' => $featuredEvent->slug]) }}" class="glightbox pulsating-play-btn mt-3"></a>
         </div>
     </div>
 
@@ -22,17 +28,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h2>About The Event</h2>
-                    <p>Sed nam ut dolor qui repellendus iusto odit. Possimus inventore eveniet accusamus error amet eius aut
-                    accusantium et. Non odit consequatur repudiandae sequi ea odio molestiae. Enim possimus sunt inventore in
-                    est ut optio sequi unde.</p>
+                    <p>{!! Str::words($featuredEvent->description, 50, '...') !!}</p>
                 </div>
                 <div class="col-lg-3">
                     <h3>Where</h3>
-                    <p>Downtown Conference Center, New York</p>
+                    <p>{{ $featuredEvent->venue->name }}, {{ $featuredEvent->venue->city }}</p>
                 </div>
                 <div class="col-lg-3">
                     <h3>When</h3>
-                    <p>Monday to Wednesday<br>10-12 December</p>
+                    <p>
+                        {{ $startTime->format('m') == $endTime->format('m') ? $startTime->format('l') . $endTime->format('to l F') : $startTime->format('d m') . $endTime->format('to d m') }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -40,98 +46,6 @@
 
 </section>
 <!-- /Hero Section -->
-
-<!-- Speakers Section -->
-<section id="speakers" class="speakers section">
-
-<!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Event Speakers<br></h2>
-
-    </div><!-- End Section Title -->
-
-    <div class="container">
-
-        <div class="row gy-4">
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-1.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Walter White</a></h4>
-                <span>Quas alias incidunt</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-2.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Hubert Hirthe</a></h4>
-                <span>Consequuntur odio aut</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-3.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Amanda Jepson</a></h4>
-                <span>Fugiat laborum et</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-4.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">William Anderson</a></h4>
-                <span>Debitis iure vero</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        </div>
-
-    </div>
-
-</section>
-<!-- /Speakers Section -->
 
 <!-- Schedule Section -->
 <section id="schedule" class="schedule section">
@@ -157,10 +71,10 @@
 
    <a href="{{ route('venues-user.index') }}" >
 
-      <h2>Event Venue<br></h2> 
+      <h2>Event Venue<br></h2>
 
     </a>
-   
+
 </div><!-- End Section Title -->
 
 <div class="container-fluid" data-aos="fade-up">
@@ -173,7 +87,7 @@
       </div>
   </div>
 </div>
- 
+
 
 
 </section>

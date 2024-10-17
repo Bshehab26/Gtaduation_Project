@@ -32,7 +32,7 @@ class LoginController extends Controller
 
     //redirectTo dashboard
     // protected $redirectTo = '/';
-    protected $redirectTo = '/dashboard';
+    // protected $redirectTo = '/dashboard';
 
 
 
@@ -46,14 +46,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->middleware('auth')->only('logout');
     }
-    // public function logout()
-    // public function logout(Request $request)
-    // {
-    //     $username=auth()->user()->name;
-    //     Auth::logout();
-    //     // return redirect()->route('dashboard-home');
-    //     return redirect()->route('dashboard-home')->With('loggedout',"$username you have successfuly logged out.");
-    // }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->role == 'admin' ) {// do your magic here
+            return redirect()->route('dashboard-home');
+        }
+
+        return redirect('/home');
+    }
+
     public function credentials(Request $request){
         if(is_numeric($request->email)){
             return ['phone' => $request->email, 'password' => $request->password];

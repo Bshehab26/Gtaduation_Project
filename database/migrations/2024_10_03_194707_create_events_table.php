@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('subject')->nullable();
             $table->text('description');
             $table->foreignId('organizer_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
-            // $table->foreignId('venue_id')->constrained('venues');
+            $table->foreignId('venue_id')->constrained('venues');
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->enum('status',['upcoming', 'ongoing', 'ended', 'canceled']);
+            $table->boolean('featured')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

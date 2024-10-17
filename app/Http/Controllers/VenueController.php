@@ -13,17 +13,17 @@ class VenueController extends Controller
     public function index()
     {
         $venues = Venue::get();
-        return view('venue.index' ,compact('venues'));
+        return view('venue.index', compact('venues'));
     }
 
 
 
        public function show(string $id)
     {
-        
+
            $venue=Venue::findOrFail($id);
            return view("venue.show",compact("venue"));
-        
+
     }
 
     

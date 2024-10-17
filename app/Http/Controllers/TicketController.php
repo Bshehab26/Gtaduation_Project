@@ -22,16 +22,17 @@ class TicketController extends Controller
             return abort(403);
         }
     }
-    public function TicketStatus(string $event_id)
+    public function ticketStatus(string $event_id)
     {
-        // $user = User::get();
         $event = Event::where("id", $event_id)->with("tickets")->first();
-        // $tickets = Ticket::where("id", $event_id)->with("event")->get();
-        if (auth()->user()->role == "admin" || auth()->user()->role == "moderator") {
-            return view("tickets.statusIndex", compact("event"));
-        }else {
-            return abort(403);
-        }
+            $organizer = Event::findOrFail($event_id)->organizer;
+            if (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id) {
+                return view("tickets.statusIndex", compact("event"));
+            }elseif(auth()->user()->role == "admin" || auth()->user()->role == "moderator"){
+                return view("tickets.statusIndex", compact("event"));
+            }else {
+                return abort(403);
+            }
     }
 
     /**
@@ -52,8 +53,11 @@ class TicketController extends Controller
             'type'      => 'required|string|max:255',
             'price'     => 'required|numeric',
             'quantity'  => 'required|numeric',
-            'available' => 'required|numeric',
+            // 'available' => 'required|numeric',
             'event_id'  => 'required|exists:events,id',
+        ]);
+        $request->merge([
+            "available" => $request->quantity,
         ]);
         // return $request;
         Ticket::create($request->all());
@@ -66,7 +70,12 @@ class TicketController extends Controller
     public function show(string $id)
     {
         $ticket = Ticket::findOrFail($id);
-        return view("tickets.show", compact("ticket"));
+        $organizer = Ticket::findOrFail($id)->event->organizer;
+        if (auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->role != "admin") || (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id)) {
+            return view("tickets.show", compact("ticket"));
+        }else{
+            return abort(403);
+        }
     }
 
     /**
@@ -74,7 +83,8 @@ class TicketController extends Controller
      */
     public function edit(string $id)
     {
-        if (auth()->user()->role == "admin") {
+        $organizer = Ticket::findOrFail($id)->event->organizer;
+        if (auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->id == $organizer->id) || (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id)) {
             $ticket = Ticket::where("id", $id)->with("event")->first();
             $event = $ticket->event;
             return view("tickets.edit", compact("ticket", "event"));
@@ -94,12 +104,18 @@ class TicketController extends Controller
             'type'      => 'required|string|max:255',
             'price'     => 'required|numeric',
             'quantity'  => 'required|numeric',
-            'available' => 'required|numeric',
+            // 'available' => 'required|numeric',
             'event_id'  => 'required|exists:tickets,event_id',
         ]);
         $ticket = Ticket::findOrFail($id);
+        $new_available = $ticket->available + $request->quantity - $ticket->quantity;
+        if ($new_available < 0 ) {
+            return redirect()->back()->with("success", "You can't remove tickets already reserved");
+        }
+        $request->merge([
+            "available" => $new_available,
+        ]);
         $ticket->update($request->all());
-        // return redirect()->back()->with("success", "The ticket updated succsessfully");
         return redirect()->route("ticket-status.index", $request->event_id)->with("success", "The ticket updated succsessfully");
 
     }
@@ -109,13 +125,24 @@ class TicketController extends Controller
      */
     public function destroy(string $id)
     {
+        $organizer = Ticket::findOrFail($id)->event->organizer;
         $ticket = Ticket::findOrFail($id);
-        if (auth()->user()->role == "admin") {
+        if (auth()->user()->role == "admin" || (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id) || (auth()->user()->role == "moderator" && auth()->user()->id == $organizer->id)) {
         $ticket->delete();
         return redirect()->back()->with("success", "Ticket deleted successfully");
         }else{
             return redirect()->back()->with("unsuccess", "You can't delete ticket for another user");
             // return abort(403);
         }
+    }
+    public function ticketDecrease(string $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        if ($ticket->available <= 0) {
+            return redirect()->back()->with("success", "Sorry All Tickets are already reserved ");
+        }
+        $ticket->available -= 1;
+        $ticket->update($ticket->only(["available"]));
+        return redirect()->back()->with("success", "Ticket reserved successfully");
     }
 }

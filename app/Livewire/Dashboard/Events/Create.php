@@ -5,7 +5,9 @@ namespace App\Livewire\Dashboard\Events;
 use App\Livewire\Forms\EventForm;
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Subcategory;
 use App\Models\User;
+use App\Models\Venue;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -17,13 +19,18 @@ class Create extends Component
 
     public $orgSearch;
 
+    public $venueSearch;
+
     public $success;
 
-    public $currentCategoryId = 1;
+    public $currentCategoryId;
+
+    public $subcategoriesIds = [];
 
     public function addSub($id)
     {
-        $this->form->subcategories[] = $id;
+        $this->subcategoriesIds[] = $id;
+        $this->form->subcategories[] = Subcategory::with('category')->findOrFail($id);
     }
 
     public function removeSub($id)
@@ -39,7 +46,8 @@ class Create extends Component
 
         $this->form->slug = str_replace(' ', '-', $this->form->name);
 
-        $this->success = Event::create($this->form->except('event'));
+        $this->success = Event::create($this->form->except(['event', 'subcategories']));
+        $this->success->subcategories()->syncWithoutDetaching($this->subcategoriesIds);
 
         if($this->success){
             Session::flash('success', 'Event created successfully.');
@@ -51,8 +59,9 @@ class Create extends Component
     {
 
         $orgSearch = $this->orgSearch;
+        $venueSearch = $this->venueSearch;
 
-        $subcategories = $this->form->subcategories;
+        $subcategories = $this->subcategoriesIds;
 
         return view('livewire.dashboard.events.create', [
             'organizers'      => User::where('role', 'organizer')
@@ -66,7 +75,13 @@ class Create extends Component
                                         $q->whereIn('id', $subcategories);
                                     })->get(),
             'allCategories'   => Category::orderby('name', 'asc')->get(),
-            'currentCategory' => Category::with(['subcategories'])->findOrFail($this->currentCategoryId),
+            'currentCategory' => $this->currentCategoryId ? Category::with(['subcategories'])
+                                    ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
+                                    ->orderBy('name')
+                                    ->firstOrFail(),
+            'venues'          => Venue::when($venueSearch, function($q) use ($venueSearch){
+                                        $q->where('name', 'like', "%$venueSearch%");
+                                    })->orderBy('name', 'asc')->get(),
         ]);
     }
 }

@@ -7,7 +7,94 @@
                 <i class="fs-5 ri-home-gear-line"></i>
                 <span>Dashboard</span>
             </a>
-          </li>
+        </li>
+
+        {{-- Users --}}
+        <li class="nav-item">
+
+            <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
+                <i class="fs-5 bx bxs-user-account"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('users.index') }}">
+                        <i class="fs-5 ri-file-user-line"></i></i><span>All Users
+                            ({{ \App\Models\User::count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('users.customers') }}">
+                        <i class="fs-5 ri-user-fill"></i><span>customers
+                            ({{ \App\Models\User::where('role', 'customer')->count() }})</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ route('users.orginzers') }}">
+                        <i class="fs-5 ri-user-fill"></i><span>organizer
+                            ({{ \App\Models\User::where('role', 'organizer')->count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('users.moderators') }}">
+                        <i class="fs-5 ri-user-star-fill"></i><span>Moderators
+                            ({{ \App\Models\User::where('role', 'moderator')->count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('users.admins') }}">
+                        <i class="fs-5 ri-shield-user-fill"></i><span>Admins
+                            ({{ \App\Models\User::where('role', 'admin')->count() }})</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('users.create') }}">
+                        <i class="fs-5 ri-user-add-fill"></i><span>Create User</span>
+                    </a>
+                </li>
+            </ul>
+        </li> <!-- End of User component -->
+
+        <!-- EVENTS -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-calendar-event"></i><span>Events</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('dashboard.events.index') }}">
+                        <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events ({{ \App\Models\Event::count() }})</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.create') }}">
+                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('dashboard.events.trash') }}">
+                        <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events ({{ \App\Models\Event::onlyTrashed()->count() }})</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End Events Nav -->
 
         {{-- Categories --}}
         <li class="nav-item">
@@ -69,116 +156,31 @@
             </ul>
         </li><!-- End Components Nav -->
 
-        <!-- EVENTS -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-calendar-event"></i><span>Events</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('dashboard.events.index') }}">
-                        <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events ({{ \App\Models\Event::count() }})</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.events.create') }}">
-                        <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('dashboard.events.trash') }}">
-                        <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events ({{ \App\Models\Event::onlyTrashed()->count() }})</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <!-- End Events Nav -->
-
-        {{-- Users --}}
-        <li class="nav-item">
-
-            <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse" href="#">
-                <i class="fs-5 bx bxs-user-account"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-                <li>
-                    <a href="{{ route('users.index') }}">
-                        <i class="fs-5 ri-file-user-line"></i></i><span>All Users
-                            ({{ \App\Models\User::count() }})</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.customers') }}">
-                        <i class="fs-5 ri-user-fill"></i><span>customers
-                            ({{ \App\Models\User::where('role', 'customer')->count() }})</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="{{ route('users.orginzers') }}">
-                        <i class="fs-5 ri-user-fill"></i><span>orginzer
-                            ({{ \App\Models\User::where('role', 'orginzer')->count() }})</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.moderators') }}">
-                        <i class="fs-5 ri-user-star-fill"></i><span>Moderators
-                            ({{ \App\Models\User::where('role', 'moderator')->count() }})</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.admins') }}">
-                        <i class="fs-5 ri-shield-user-fill"></i><span>Admins
-                            ({{ \App\Models\User::where('role', 'admin')->count() }})</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('users.create') }}">
-                        <i class="fs-5 ri-user-add-fill"></i><span>Create User</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
             {{-- Tickets --}}
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tickets-nav" data-bs-toggle="collapse" href="#">
-                <i class="fs-5 bx bxs-user-account"></i><span>Tickets</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="fs-6 bi bi-collection"></i><span>Tickets</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tickets-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    <a href="{{ route('tickets.index') }}">
-                        <i class="fs-5 ri-file-user-line"></i></i><span>All Tickets
-                            ({{ \App\Models\Ticket::count() }})</span>
-                    </a>
+                    @if (auth()->user()->role == "admin" || auth()->user()->role == "moderator")
+                        <a href="{{ route('tickets.index') }}">
+                            <i class="fs-6 bi bi-collection"></i></i><span>All Tickets
+                                ({{ \App\Models\Ticket::count() }})</span>
+                        </a>
+                    @endif
                 </li>
 
             </ul>
         </li>
-            
+
 
 
         {{-- ******************************* --}}
 
         {{-- Venues --}}
-        
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#venues-nav" data-bs-toggle="collapse" href="#">
                 <i class="fs-5 bi bi-door-open"></i><span>venues</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -198,7 +200,8 @@
                     </a>
                 </li>
 
-                
+
             </ul>
-        </li><!-- End Components Nav -->
+        </li><!-- End Venues Nav -->
+
 </aside>
