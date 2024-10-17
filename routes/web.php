@@ -101,10 +101,9 @@ Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->middlew
 
 
 Route::resource('/venues', DashboardVenueController::class)->middleware(['auth', 'dashboard']);
-Route::resource('/venues-user', VenueController::class);
-Route::get('/venues/search', [VenueController::class,'search_venues'])->name('venues.search');
+Route::resource('/venues-user', VenueController::class);//->except(['store','edit','update','destory','create']);
 
-
+Route::get('/search/venue',[VenueController::class,'searchVenues'])->name('search.venue');
 
 Route::resource('/bookings', BookingController::class, ['middleware' => 'auth']);
 
@@ -191,3 +190,7 @@ Route::name('dashboard.')
         }
     );
 });
+
+
+
+

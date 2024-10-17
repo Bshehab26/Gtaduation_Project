@@ -17,7 +17,9 @@ class VenueController extends Controller
     }
 
 
+    // public function crea(string $id){
 
+    // }
        public function show(string $id)
     {
 
@@ -27,9 +29,9 @@ class VenueController extends Controller
     }
 
     
-    public function search_venues(Request $request)
+    public function searchVenues(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->search;
     
         $venues = Venue::where('name', 'LIKE', '%' . $search . '%')
             ->orWhere('city', 'LIKE', '%' . $search . '%');

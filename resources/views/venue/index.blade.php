@@ -9,7 +9,9 @@
     <!-- Page Title -->
     <div class="page-title" data-aos="fade" style="background-image: url({{ asset('assets/img/hotels-2.jpg') }}); ">
         <div class="container position-relative">
-            <h1>Venues</h1>
+            <a href="{{ route('venues-user.index') }}" >
+                  <h1>Venues</h1>
+            </a>
         </div>
     </div>
 
@@ -20,7 +22,7 @@
     <br>
     <br>
     
-    <form action="{{ route('venues.search') }}" method="GET" class="d-flex justify-content-center mt-3">
+    <form action="{{ route('search.venue') }}" method="GET" class="d-flex justify-content-center mt-3">
         <div class="input-group w-50">
             <input type="text" name="search" class="form-control fs-5" 
                    placeholder="Search For Venue Name or Book City or Capacity" 
@@ -75,7 +77,7 @@
             height: 400px;
             object-fit: cover;
         }
-        
+
         .card {
 
             width: 100%;
