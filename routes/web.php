@@ -96,42 +96,19 @@ Route::group(['middleware' => ['auth', 'noCustomer']], function(){
     });
 });
 Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->middleware("auth")->name('decrease-no-ticket');
-// Route::get('/venues', [VenueController::class, 'index'])->name('venues-user.index');
 
-Route::resource('/venues-user', VenueController::class);
+
+
 
 Route::resource('/venues', DashboardVenueController::class)->middleware(['auth', 'dashboard']);
+Route::resource('/venues-user', VenueController::class);//->except(['store','edit','update','destory','create']);
+
+Route::get('/search/venue',[VenueController::class,'searchVenues'])->name('search.venue');
 
 Route::resource('/bookings', BookingController::class, ['middleware' => 'auth']);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//************************************************* */
 
 
 Route::controller(EventController::class)->group(function () {
@@ -213,3 +190,7 @@ Route::name('dashboard.')
         }
     );
 });
+
+
+
+

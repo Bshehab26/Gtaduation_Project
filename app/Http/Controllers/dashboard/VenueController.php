@@ -129,7 +129,7 @@ class VenueController extends Controller
         $venue->update($request->except('venue_img')); // Exclude 'venue_img' as it’s not a database column
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'The venue "' . $venue->name . '" has been updated successfully.');
+        return redirect()->route('venues.index')->with('success', 'The venue "' . $venue->name . '" has been updated successfully.');
     }
 
 
