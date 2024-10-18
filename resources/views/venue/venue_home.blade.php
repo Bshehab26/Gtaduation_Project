@@ -16,8 +16,8 @@
              $count++;
          @endphp
      @else
-     @break
 
+     @break
 
  @endif
 @endforeach
