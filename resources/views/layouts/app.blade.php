@@ -34,10 +34,19 @@
   src="https://code.jquery.com/jquery-3.7.1.min.js"
   integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
   crossorigin="anonymous"></script>
+  <style>
+      header .dropdown-item:hover {
+          color: rgb(0, 8, 32) !important;
+      }
+  </style>
 
   @stack('styles')
-
   @stack('scripts')
+
+
+  @yield('add_css')
+  @yield('style-card')
+  @yield('venue_home_css')
 
   <!-- =======================================================
   * Template Name: TheEvent

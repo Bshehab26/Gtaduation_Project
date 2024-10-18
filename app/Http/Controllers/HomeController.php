@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $featuredTicket = Ticket::select(DB::raw('`id`, MAX(`quantity` - `available`) as max'))
+                            ->whereHas('event', function($q) {
+                                $q->where('status', 'upcoming');
+                            })
+                            ->orderBy('max', 'asc')
+                            ->groupBy('id')
+                            ->firstOrFail();
+        $featuredEvent = Event::with('venue')->whereHas('tickets', function($q) use ($featuredTicket){
+                                $q->where('id', $featuredTicket);
+                            })->firstOrFail();
+        return view('home', [
+            'featuredEvent' => $featuredEvent,
+        ]);
     }
 }

@@ -55,7 +55,7 @@
         <form wire:submit='filter' class="form input-group rounded w-100 bg-light border rounded" style="display: none;" id="filters-form">
             <div class="container w-100">
                 <div class="row">
-                    <div class="col-9 container">
+                    <div class="col-8 container">
                         <div class="row">
                             @php
                                 $i = 0;
@@ -64,7 +64,7 @@
                                 @php
                                     $i ++;
                                 @endphp
-                                <div class="col-3 p-3 rounded" wire:key='{{ $category->id }}'>
+                                <div class="col-4 p-3 rounded" wire:key='{{ $category->id }}'>
                                     <h4>{{ $category->name }}:</h4>
                                     <div class="px-3">
                                         <div class="my-3">
@@ -82,16 +82,16 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="col-3 p-3">
+                    <div class="col-4 p-3">
                         <div>
-                            <h6 style="font-weight: bold; display: inline-block;">Time:</h6>
-                            <h6
+                            <h5 style="font-weight: bold; display: inline-block;">Time:</h5>
+                            <h5
                                 id="event-dropdown-toggle"
                                 class="w-75 dorpdown-toggle px-2"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                                 style="cursor: pointer; display:inline-block;"
-                                >{{ $time }} <i class="bi bi-chevron-down toggle-dropdown"></i></h6>
+                                >{{ $time }} <i class="bi bi-chevron-down toggle-dropdown"></i></h5>
                             <div class="dropdown">
                                 <ul class="dropdown-menu" aria-labelledby="event-dropdown-toggle">
                                     <li class="dropdown-item" wire:click="$set('time', 'This week')">This week</li>
@@ -162,7 +162,7 @@
                             <img class="ratio ratio-1x1 object-fit-cover" src="/assets/img/speakers/speaker-1-2.jpg" alt="Brenden Legros" style="image">
                         </div>
                         <h6>
-                            Brenden Legros
+                            {{ $event->organizer->fullName() }}
                         </h6>
                     </div>
                     <div class="col-md-4">
@@ -172,10 +172,10 @@
                         </p>
                     </div>
                     <div class="col-md-2 align-self-center">
-                        <h6>{{ Str::words($event->subject, 3, '...') }}</h6>
+                        <h6>{{ Str::words($event->subject, 3, '...') ?? 'N/A' }}</h6>
                     </div>
                     <div class="col-md-2 align-self-center">
-                        <h6>{{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+                        <h6>{{ $event->venue->name }}</h6>
                     </div>
                     <div class="col-md-1 align-self-center">
                         <a href="{{ route('events.show', $event->slug) }}" class="my-auto">

@@ -42,7 +42,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         return view('events.show', [
-            'event' => $event,
+            'event' => Event::with(['tickets', 'subcategories', 'organizer'])->findOrFail($event->id),
             'categories' => Category::whereHas('subcategories', function ($q) use ($event) {
                 $q->whereHas('events', function ($q) use ($event) {
                     $q->where('events.id', $event->id);

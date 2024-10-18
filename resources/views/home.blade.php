@@ -10,10 +10,25 @@
     <img src="assets/img/hero-bg.jpg" alt="" data-aos="fade-in" class="">
 
     <div class="container d-flex flex-column align-items-center text-center mt-auto">
-        <h2 data-aos="fade-up" data-aos-delay="100" class="">THE ANNUAL<br><span>MARKETING</span> CONFERENCE</h2>
-        <p data-aos="fade-up" data-aos-delay="200">10-12 December, Downtown Conference Center, New York</p>
+        <h2 data-aos="fade-up" data-aos-delay="100" class="">{{ $featuredEvent->name }}</h2>
+        <p data-aos="fade-up" data-aos-delay="200">
+        @php
+            $startTime = \Carbon\Carbon::parse($featuredEvent->start_time);
+            $endTime = \Carbon\Carbon::parse($featuredEvent->end_time);
+            if ($startTime->format('Y-m-d') == $endTime->format('Y-m-d')) {
+                $date = $startTime->format('d F');
+                $whenDate = $startTime->format('l d F');
+            } elseif ($startTime->format('Y-m') == $endTime->format('Y-m')) {
+                $date = $startTime->format('d') . $endTime->format(' - d F');
+                $whenDate = $startTime->format('l d') . $endTime->format(' - l d F');
+            } else {
+                $date = $startTime->format('d m') . $endTime->format('to d m');
+                $whenDate = $startTime->format('l d m') . $endTime->format(' - l d m');
+            };
+        @endphp
+        {{ $date }}, {{ $featuredEvent->venue->name . ', ' . $featuredEvent->venue->city }}</p>
         <div data-aos="fade-up" data-aos-delay="300" class="">
-            <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox pulsating-play-btn mt-3"></a>
+            <a href="{{ route('events.show', ['event' => $featuredEvent->slug]) }}" class="glightbox pulsating-play-btn mt-3"></a>
         </div>
     </div>
 
@@ -22,17 +37,17 @@
             <div class="row">
                 <div class="col-lg-6">
                     <h2>About The Event</h2>
-                    <p>Sed nam ut dolor qui repellendus iusto odit. Possimus inventore eveniet accusamus error amet eius aut
-                    accusantium et. Non odit consequatur repudiandae sequi ea odio molestiae. Enim possimus sunt inventore in
-                    est ut optio sequi unde.</p>
+                    <p>{!! Str::words($featuredEvent->description, 50, '...') !!}</p>
                 </div>
                 <div class="col-lg-3">
                     <h3>Where</h3>
-                    <p>Downtown Conference Center, New York</p>
+                    <p>{{ $featuredEvent->venue->name }}, {{ $featuredEvent->venue->city }}</p>
                 </div>
                 <div class="col-lg-3">
                     <h3>When</h3>
-                    <p>Monday to Wednesday<br>10-12 December</p>
+                    <p>
+                        {{ $whenDate }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -40,98 +55,6 @@
 
 </section>
 <!-- /Hero Section -->
-
-<!-- Speakers Section -->
-<section id="speakers" class="speakers section">
-
-<!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Event Speakers<br></h2>
-
-    </div><!-- End Section Title -->
-
-    <div class="container">
-
-        <div class="row gy-4">
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-1.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Walter White</a></h4>
-                <span>Quas alias incidunt</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-2.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Hubert Hirthe</a></h4>
-                <span>Consequuntur odio aut</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-3.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">Amanda Jepson</a></h4>
-                <span>Fugiat laborum et</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-            <img src="assets/img/speakers/speaker-4.jpg" class="img-fluid" alt="">
-            <div class="member-info">
-                <div class="member-info-content">
-                <h4><a href="speaker-details.html">William Anderson</a></h4>
-                <span>Debitis iure vero</span>
-                </div>
-                <div class="social">
-                <a href=""><i class="bi bi-twitter-x"></i></a>
-                <a href=""><i class="bi bi-facebook"></i></a>
-                <a href=""><i class="bi bi-instagram"></i></a>
-                <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-            </div>
-            </div>
-        </div><!-- End Team Member -->
-
-        </div>
-
-    </div>
-
-</section>
-<!-- /Speakers Section -->
 
 <!-- Schedule Section -->
 <section id="schedule" class="schedule section">
@@ -154,98 +77,27 @@
 
 <!-- Section Title -->
 <div class="container section-title" data-aos="fade-up">
-    <h2>Event Venue<br></h2>
-    <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+
+   <a href="{{ route('venues-user.index') }}" >
+
+      <h2>Event Venue<br></h2>
+
+    </a>
+
 </div><!-- End Section Title -->
 
 <div class="container-fluid" data-aos="fade-up">
 
-    <div class="row g-0">
-    <div class="col-lg-6 venue-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0" allowfullscreen=""></iframe>
-    </div>
+  <div class="container-fluid venue-gallery-container" data-aos="fade-up" data-aos-delay="100">
+      <div class="row g-0">
 
-    <div class="col-lg-6 venue-info">
-        <div class="row justify-content-center">
-        <div class="col-11 col-lg-8 position-relative">
-            <h3>Downtown Conference Center, New York</h3>
-            <p>Iste nobis eum sapiente sunt enim dolores labore accusantium autem. Cumque beatae ipsam. Est quae sit qui voluptatem corporis velit. Qui maxime accusamus possimus. Consequatur sequi et ea suscipit enim nesciunt quia velit.</p>
-        </div>
-        </div>
-    </div>
-    </div>
+        @include('venue.venue_home', ['venues' => $venues])
 
+      </div>
+  </div>
 </div>
 
-<div class="container-fluid venue-gallery-container" data-aos="fade-up" data-aos-delay="100">
-    <div class="row g-0">
 
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-1.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-1.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-2.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-2.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-3.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-3.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-4.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-4.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-5.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-5.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-6.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-6.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-7.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-7.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-4">
-        <div class="venue-gallery">
-        <a href="assets/img/venue-gallery/venue-gallery-8.jpg" class="glightbox" data-gall="venue-gallery">
-            <img src="assets/img/venue-gallery/venue-gallery-8.jpg" alt="" class="img-fluid">
-        </a>
-        </div>
-    </div>
-
-    </div>
-</div>
 
 </section>
 <!-- /Venue Section -->

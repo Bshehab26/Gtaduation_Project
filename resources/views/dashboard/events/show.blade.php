@@ -23,10 +23,10 @@
 
                     {{-- EVENTS DROPDOWN --}}
                     <div class="bg-light py-2 px-4 rounded d-flex">
-                        <h6 style="font-weight: bold; display: inline-block;" style="width: 15%;">Event:</h6>
+                        <h6 class="my-auto" style="font-weight: bold; display: inline-block;">Event:</h6>
                         <h6
                             id="event-dropdown-toggle"
-                            class="w-75 dorpdown-toggle px-2"
+                            class="w-75 dorpdown-toggle px-2 my-auto"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             style="cursor: pointer; display:inline-block; font-size:1rem;"
