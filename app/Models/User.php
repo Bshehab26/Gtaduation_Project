@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Booking::class, 'attendee_id');
     }
+
+    public function fullName()
+    {
+        return ucwords($this->first_name . ' ' . $this->last_name);
+    }
 }

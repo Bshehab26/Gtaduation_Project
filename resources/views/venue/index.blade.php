@@ -21,26 +21,26 @@
 
     <br>
     <br>
-    
+
     <form action="{{ route('search.venue') }}" method="GET" class="d-flex justify-content-center mt-3">
         <div class="input-group w-50">
-            <input type="text" name="search" class="form-control fs-5" 
-                   placeholder="Search For Venue Name or Book City or Capacity" 
+            <input type="text" name="search" class="form-control fs-5"
+                   placeholder="Search For Venue Name or Book City or Capacity"
                    aria-label="Search"  aria-describedby="search-addon">
-    
-            <button id="search-addon" type="submit"   class="btn btn-primary" 
+
+            <button id="search-addon" type="submit"   class="btn btn-primary"
                     style="background-color: #0e1b4d; border-radius: 0 5px 5px 0;">
                 <i class="fa fa-search fs-5 text-white"></i>
             </button>
         </div>
     </form>
-    
+
     {{--  End Search bar      --}}
 
     <section id="schedule" class="schedule section">
 
         <div class="container mt-4">
-        
+
             @if ($venues->isNotEmpty())
                 <div class="row">
                     @foreach ($venues as $venue)

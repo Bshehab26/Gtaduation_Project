@@ -82,7 +82,7 @@
     <div class="col-10">
         <select wire:model='form.organizer_id' name="organizer" class="form-select" aria-label="multiple select example">
             @foreach ($organizers as $organizer)
-                <option value="{{ $organizer->id }}">{{ $organizer->first_name }} {{ $organizer->last_name }}</option>
+                <option value="{{ $organizer->id }}">{{ $organizer->fullName() }}</option>
             @endforeach
         </select>
         @error('form.organizerId')
@@ -129,7 +129,7 @@
                     @forelse ($categories as $category)
                         <h5 style="font-weight: bold;">{{ $category->name }}</h5>
                         <div class="d-flex flex-wrap" style="gap: 1rem;">
-                            @foreach ($form->subcategories as $sub)
+                            @foreach ($eventSubcategories as $sub)
                                 @if ($sub->category->id == $category->id)
                                     <button wire:key='{{ $sub->id }}' wire:click='removeSub({{ $sub->id }})' type="button" class="btn btn-light border">{{ $sub->name }} <i class="bi bi-x"></i></button>
                                 @endif

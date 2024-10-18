@@ -162,7 +162,7 @@
                             <img class="ratio ratio-1x1 object-fit-cover" src="/assets/img/speakers/speaker-1-2.jpg" alt="Brenden Legros" style="image">
                         </div>
                         <h6>
-                            Brenden Legros
+                            {{ $event->organizer->fullName() }}
                         </h6>
                     </div>
                     <div class="col-md-4">
@@ -175,7 +175,7 @@
                         <h6>{{ Str::words($event->subject, 3, '...') ?? 'N/A' }}</h6>
                     </div>
                     <div class="col-md-2 align-self-center">
-                        <h6>{{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+                        <h6>{{ $event->venue->name }}</h6>
                     </div>
                     <div class="col-md-1 align-self-center">
                         <a href="{{ route('events.show', $event->slug) }}" class="my-auto">

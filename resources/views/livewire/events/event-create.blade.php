@@ -128,7 +128,7 @@
                     @forelse ($categories as $category)
                         <h5 style="font-weight: bold;">{{ $category->name }}</h5>
                         <div class="d-flex flex-wrap" style="gap: 1rem;">
-                            @foreach ($form->subcategories as $sub)
+                            @foreach ($eventSubcategories as $sub)
                                 @if ($sub->category->id == $category->id)
                                     <button wire:key='{{ $sub->id }}' wire:click='removeSub({{ $sub->id }})' type="button" class="btn btn-light border">{{ $sub->name }} <i class="bi bi-x"></i></button>
                                 @endif
@@ -140,6 +140,9 @@
                     @endforelse
                 </div>
             </div>
+            @foreach ($subcategoriesIds as $id)
+                {{ $id }}
+            @endforeach
             <div class="row my-4 mx-auto">
                 <div class="p-2 rounded col-12">
                     <h5

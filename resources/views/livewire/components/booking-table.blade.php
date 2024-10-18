@@ -31,7 +31,7 @@
                 @forelse ($bookings as $booking)
                     <tr>
                         <th scope="row"><a href="#">{{ $loop->iteration }}</a></th>
-                        <td>{{ $booking->attendee->first_name }} {{ $booking->attendee->last_name }}</td>
+                        <td>{{ $booking->attendee->fullName() }}</td>
                         <td><a href="{{ route('events.show', ['event' => $booking->event->slug]) }}">{{ $booking->event->name }}</a></td>
                         <td>{{ $booking->ticket->type }}</td>
                         <td>{{ $booking->quantity }}</td>

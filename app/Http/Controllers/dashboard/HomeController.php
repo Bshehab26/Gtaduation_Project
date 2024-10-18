@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function index(){
-        $featuredTicket = Ticket::select(DB::raw('`id`, MAX(`quantity` - `available`)'))
+        $featuredTicket = Ticket::select(DB::raw('`id`, MAX(`quantity` - `available`) as max'))
                             ->whereHas('event', function($q) {
-                                $q->where('status', 'upcoming')->orderBy('start_time');
+                                $q->where('status', 'upcoming');
                             })
+                            ->orderBy('max', 'asc')
                             ->groupBy('id')
                             ->firstOrFail();
-                            // dd($featuredTicket);
         $featuredEvent = Event::with('venue')->whereHas('tickets', function($q) use ($featuredTicket){
                                 $q->where('id', $featuredTicket->id);
                             })->firstOrFail();
-                            
+
         $venues = Venue::all();
         return view('home', compact('venues', 'featuredEvent'));
 

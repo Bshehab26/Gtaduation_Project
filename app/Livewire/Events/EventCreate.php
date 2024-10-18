@@ -30,7 +30,10 @@ class EventCreate extends Component
 
     public function removeSub($id)
     {
-        $this->form->subcategories[] = $id;
+        $index = array_search($id, $this->subcategoriesIds);
+        if( $index >= 0){
+            unset($this->subcategoriesIds[$index]);
+        };
     }
 
     public function store()
@@ -62,7 +65,9 @@ class EventCreate extends Component
                                     ->findOrFail($this->currentCategoryId) : Category::with(['subcategories'])
                                     ->orderBy('name')
                                     ->firstOrFail(),
-            'venues'          => Venue::when($venueSearch, function($q) use ($venueSearch) {
+            'eventSubcategories' => Subcategory::whereIn('id', $subcategories)
+                                    ->get(),
+            'venues'             => Venue::when($venueSearch, function($q) use ($venueSearch) {
                                         $q->where('name', 'like', "%$venueSearch%");
                                     })->orderBy('name')->get(),
         ]);

@@ -82,7 +82,7 @@
         <div class="col-10">
             <select wire:model='form.organizer_id' name="organizer" class="form-select" aria-label="multiple select example">
                 @foreach ($organizers as $organizer)
-                    <option value="{{ $organizer->id }}">{{ $organizer->first_name }} {{ $organizer->last_name }}</option>
+                    <option value="{{ $organizer->id }}">{{ $organizer->fullName() }}</option>
                 @endforeach
             </select>
             @error('form.organizer_id')
@@ -183,3 +183,10 @@
         <input class="btn btn-primary" type="submit" value="Submit">
     </div>
 </form>
+@push('styles')
+    <style>
+        textarea {
+            white-space: pre-wrap;
+        }
+    </style>
+@endpush

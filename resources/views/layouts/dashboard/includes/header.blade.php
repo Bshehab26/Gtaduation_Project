@@ -36,7 +36,7 @@
 
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
-                        <h6>{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</h6>
+                        <h6>{{ auth()->user()->fullName() }}</h6>
                         <p class="my-1 mb-2">{{ auth()->user()->email }}</p>
                         <p class="mx-auto bg-primary rounded p-1 px-3 text-white mb-2" style="width: fit-content;">
                             {{ auth()->user()->role }}</p>

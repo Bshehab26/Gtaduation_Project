@@ -33,7 +33,7 @@
 
 
                 <li>
-                    <a href="{{ route('users.orginzers') }}">
+                    <a href="{{ route('users.organizers') }}">
                         <i class="fs-5 ri-user-fill"></i><span>organizer
                             ({{ \App\Models\User::where('role', 'organizer')->count() }})</span>
                     </a>
@@ -72,21 +72,25 @@
                         <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events ({{ \App\Models\Event::count() }})</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
-                    </a>
-                </li>
+                @if (\App\Models\Event::latest()->first())
+                    <li>
+                        <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                            <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('dashboard.events.create') }}">
                         <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
-                        <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
-                    </a>
-                </li>
+                @if (\App\Models\Event::latest()->first())
+                    <li>
+                        <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                            <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
+                        </a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('dashboard.events.trash') }}">
                         <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events ({{ \App\Models\Event::onlyTrashed()->count() }})</span>

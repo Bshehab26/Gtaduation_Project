@@ -37,7 +37,7 @@
             <option selected>---------- Please select a user type ----------</option>
             @if (auth()->user()->role === 'moderator' && Route::is('users.create'))
                 <option value="customer" {{ $user->role === 'customer' ? 'selected' : '' }}>customer</option>
-                <option value="customer" {{ $user->role === 'orginzer' ? 'selected' : '' }}>orginzer</option>
+                <option value="customer" {{ $user->role === 'organizer' ? 'selected' : '' }}>organizer</option>
             @endif
             @if (auth()->user()->role === 'moderator' && Route::is('users.edit', auth()->user()->id))
                 <option value="moderator" {{ $user->role === 'moderator' ? 'selected' : '' }}>Moderator</option>
@@ -45,7 +45,7 @@
 
             @if (auth()->user()->role === 'admin' && auth()->user()->id != $user->id)
                 <option value="customer" {{ $user->role === 'customer' ? 'selected' : '' }}>customer</option>
-                <option value="orginzer" {{ $user->role === 'orginzer' ? 'selected' : '' }}>orginzer</option>
+                <option value="organizer" {{ $user->role === 'organizer' ? 'selected' : '' }}>organizer</option>
                 <option value="moderator" {{ $user->role === 'moderator' ? 'selected' : '' }}>Moderator</option>
                 <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
             @elseif(auth()->user()->role === 'admin' && auth()->user()->id == $user->id)
