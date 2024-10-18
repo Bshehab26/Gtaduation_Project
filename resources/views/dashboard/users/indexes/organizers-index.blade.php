@@ -1,12 +1,12 @@
 @extends('layouts.dashboard.master')
 
 @section('title')
-    All orginzers ({{ $orginzers_count }})
+    All organizers ({{ $organizers_count }})
 @endsection
 
-@section('page-title-1', 'orginzers')
+@section('page-title-1', 'organizers')
 @section('page-title-2')
-    All orginzers ({{ $orginzers_count }})
+    All organizers ({{ $organizers_count }})
 @endsection
 
 @section('content')
@@ -36,20 +36,20 @@
                 </tr>
               </thead>
               <tbody>
-                @forelse ($orginzers as $orginzer)
+                @forelse ($organizers as $organizer)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $orginzer->id }}</td>
-                        <td>{{ $orginzer->username }}</td>
-                        <td>{{ $orginzer->email }}</td>
+                        <td>{{ $organizer->id }}</td>
+                        <td>{{ $organizer->username }}</td>
+                        <td>{{ $organizer->email }}</td>
                         <td>
-                            <a href="{{ route('users.show', [$orginzer->username]) }}" class="btn btn-sm btn-warning">Show</a>
+                            <a href="{{ route('users.show', [$organizer->username]) }}" class="btn btn-sm btn-warning">Show</a>
                             @if(auth()->user()->role == "admin")
-                            <a href="{{ route('users.edit', $orginzer->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('users.destroy', $orginzer->id) }}" method="POST" style="display: inline-block">
+                            <a href="{{ route('users.edit', $organizer->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                            <form action="{{ route('users.destroy', $organizer->id) }}" method="POST" style="display: inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the user ({{ $orginzer->username }})?');">Delete</button>
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the user ({{ $organizer->username }})?');">Delete</button>
                             </form>
                             @endif
                         </td>
@@ -58,7 +58,7 @@
                     <tr>
                         <td colspan="5">
                             <div class="alert alert-info text-center">
-                                No orginzers found.
+                                No organizers found.
                             </div>
                         </td>
                     </tr>
@@ -67,7 +67,7 @@
             </table>
             <!-- End Table with stripped rows -->
 
-            {{-- {{ $orginzers->links('vendor.pagination.bootstrap-5') }} --}}
+            {{-- {{ $organizers->links('vendor.pagination.bootstrap-5') }} --}}
 
           </div>
         </div>
