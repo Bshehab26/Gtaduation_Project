@@ -22,7 +22,7 @@
                     <div class="col-md-3 mb-4">
                         <div class="card h-100 d-flex flex-column">
 
-                                <img src="{{ $venue->venue_image }}" class="card-img-top" alt="{{ $venue->name }}">
+                                <img src="{{ asset('storage/' . $venue->venue_image) }}" class="card-img-top" alt="{{ $venue->name }}">
 
                             <div class="card-body d-flex flex-column flex-grow-1 justify-content-between">
                                 <p class="card-text text-center" style="font-size: 1.2rem; margin-bottom: 0;">{{ $venue->name }}</p>

@@ -24,7 +24,7 @@ class Edit extends Component
 
     public $venueSearch;
 
-    public $subcategoriesIds;
+    public $subcategoriesIds = [];
 
     public function mount(Event $event)
     {
@@ -76,11 +76,9 @@ class Edit extends Component
                                     })
                                     ->orderBy('first_name')
                                     ->get(),
-            'categories'         => Category::whereHas('subcategories', function($q) use ($subcategories) {
+            'categories'         => Category::whereHas('subcategories', function($q) use    ($subcategories) {
                                         $q->whereIn('id', $subcategories);
                                     })->get(),
-            'eventSubcategories' => Subcategory::whereIn('id', $subcategories)
-                                    ->get(),
             'eventSubcategories' => Subcategory::whereIn('id', $subcategories)
                                     ->get(),
             'allCategories'      => Category::orderby('name', 'asc')->get(),

@@ -57,6 +57,7 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         return view('dashboard.events.edit', [
+            'events' => Event::orderBy('name', 'asc')->get(),
             'event' => Event::with('subcategories')->findOrFail($event->id),
         ]);
     }

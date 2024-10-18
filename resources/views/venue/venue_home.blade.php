@@ -7,7 +7,7 @@
 
          <div class="col-lg-3 col-md-4 mb-4 d-flex align-items-stretch">
              <div class="venue-gallery">
-                 <img src="{{ $venue->venue_image }}" class="fixed-size-img card-img-top"
+                 <img src="{{ asset('storage/' . $venue->venue_image) }}" class="fixed-size-img card-img-top"
                      alt="{{ $venue->name }}">
              </div>
          </div>

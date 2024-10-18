@@ -41,6 +41,7 @@
     <div class="row mb-3">
         <label for="description" class="col-sm-2 col-form-label">Description<span class="text-danger">*</span>:</label>
         <div class="col-sm-10">
+            {{ dd($form->description) }}
             <textarea wire:model='form.description' class="form-control" id="description" style="height: 100px"></textarea>
             @error('form.description')
                 <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
@@ -183,3 +184,10 @@
         <input class="btn btn-primary" type="submit" value="Submit">
     </div>
 </form>
+@push('styles')
+    <style>
+        textarea {
+            white-space: pre-wrap;
+        }
+    </style>
+@endpush

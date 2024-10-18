@@ -63,7 +63,7 @@ class EventForm extends Form
     {
         $this->event = $event;
         $this->name = $event->name;
-        $this->description = str_replace('</p><p>', '<br>', $event->description);
+        $this->description = str_replace('</p><p>', '\n', $event->description);
         $this->start_time = Carbon::createFromTimeString($event->start_time)->format('Y-m-d H:i');
         $this->end_time = Carbon::createFromTimeString($event->end_time)->format('Y-m-d H:i');
         $this->organizer_id = $event->organizer->id;
