@@ -41,7 +41,8 @@ class Edit extends Component
 
     public function removeSub($id)
     {
-        if($index = array_search($id, $this->subcategoriesIds)){
+        $index = array_search($id, $this->subcategoriesIds);
+        if( $index >= 0){
             unset($this->subcategoriesIds[$index]);
         };
     }

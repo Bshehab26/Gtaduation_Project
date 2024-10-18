@@ -33,11 +33,11 @@ class UserController extends Controller
     }
 
 
-    public function orginzersIndex()
+    public function organizersIndex()
     {
-        $orginzers = User::where('role', 'orginzer')->get();
-        $orginzers_count = $orginzers->count();
-        return view('dashboard.users.indexes.orginzers-index', compact('orginzers', 'orginzers_count'));
+        $organizers = User::where('role', 'organizer')->get();
+        $organizers_count = $organizers->count();
+        return view('dashboard.users.indexes.organizers-index', compact('organizers', 'organizers_count'));
     }
 
     public function adminsIndex()
@@ -73,10 +73,10 @@ class UserController extends Controller
             $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
             }
         elseif (auth()->user()->role === "admin") {
-            $rules['role'] .= '|in:customer,orginzer,moderator,admin';
+            $rules['role'] .= '|in:customer,organizer,moderator,admin';
 
         } elseif (auth()->user()->role === "moderator") {
-            $rules['role'] .= '|in:customer,orginzer';
+            $rules['role'] .= '|in:customer,organizer';
         } else {
             return abort(403);
         }
@@ -147,7 +147,7 @@ class UserController extends Controller
             if (auth()->user()->id == $user->id) {
                 $rules['role'] .= '|in:admin';
             } else {
-                $rules['role'] .= '|in:customer,orginzer,moderator,admin';
+                $rules['role'] .= '|in:customer,organizer,moderator,admin';
             }
         } elseif (auth()->user()->role === "moderator") {
             $rules['role'] .= '|in:moderator';

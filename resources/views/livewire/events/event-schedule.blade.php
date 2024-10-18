@@ -26,7 +26,6 @@
     <div role="tabpanel" class="col-lg-9 tab-pane fade show active">
 
         @forelse ($events as $event)
-
             <div wire:key="{{ $event->id }}" class="row schedule-item">
                 <div class="col-md-2">
                     <time>{{ date('H:i A', strtotime($event->start_time)) }}</time>
@@ -52,9 +51,10 @@
             <div>
                 <h2>There's No events for this day</h2>
             </div>
-
         @endforelse
-
+            <div class="text-center fs-4 row schedule item mt-3">
+                <a href="{{ route('events.index') }}">All events</a>
+            </div>
     </div>
     <!-- End Schdule -->
 

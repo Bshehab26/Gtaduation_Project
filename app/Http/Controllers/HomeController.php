@@ -26,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $featuredTicket = Ticket::select(DB::raw('`id`, MAX(`quantity` - `available`)'))
+        $featuredTicket = Ticket::select(DB::raw('`id`, MAX(`quantity` - `available`) as max'))
                             ->whereHas('event', function($q) {
-                                $q->where('status', 'upcoming')->orderBy('start_time');
+                                $q->where('status', 'upcoming');
                             })
+                            ->orderBy('max', 'asc')
                             ->groupBy('id')
                             ->firstOrFail();
         $featuredEvent = Event::with('venue')->whereHas('tickets', function($q) use ($featuredTicket){

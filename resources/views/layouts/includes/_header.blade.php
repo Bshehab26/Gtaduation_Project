@@ -15,7 +15,7 @@
                     aria-haspopup="true"
                     aria-expanded="false" v-pre
                     >
-                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
+                        {{ Auth::user()->fullName() }}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end"

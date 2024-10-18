@@ -35,7 +35,7 @@
 
                 <div class="col-md-6 d-flex flex-column gap-2">
                     <div class="details row">
-                        @if (Auth::check() && Auth::user()->id == $event->organizer_id)
+                        @if (Auth::check() && Auth::user()->id == $event->organizer_id && Auth::user()->role == 'organizer')
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}" class="my-1">
                                 Edit this event
                             </a>
@@ -52,7 +52,7 @@
                             <span class="{{ $event->status }} text-white px-2 py-1 fs-6 rounded lh-base">{{ $event->status }}</span> - {{ $event->name }}
                         </h2>
 
-                        <h6><strong>By:</strong> {{ $event->organizer->first_name }} {{ $event->organizer->last_name }}</h6>
+                        <h6><strong>By:</strong> {{ $event->organizer->fullName() }}</h6>
 
                         <div style="text-indent: 1.5rem;" class="my-2">
                             <p>

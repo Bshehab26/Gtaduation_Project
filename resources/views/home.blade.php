@@ -15,9 +15,18 @@
         @php
             $startTime = \Carbon\Carbon::parse($featuredEvent->start_time);
             $endTime = \Carbon\Carbon::parse($featuredEvent->end_time);
+            if ($startTime->format('Y-m-d') == $endTime->format('Y-m-d')) {
+                $date = $startTime->format('d F');
+                $whenDate = $startTime->format('l d F');
+            } elseif ($startTime->format('Y-m') == $endTime->format('Y-m')) {
+                $date = $startTime->format('d') . $endTime->format(' - d F');
+                $whenDate = $startTime->format('l d') . $endTime->format(' - l d F');
+            } else {
+                $date = $startTime->format('d m') . $endTime->format('to d m');
+                $whenDate = $startTime->format('l d m') . $endTime->format(' - l d m');
+            };
         @endphp
-        {{ $startTime->format('m') == $endTime->format('m') ? $startTime->format('d') . $endTime->format('-d F') : $startTime->format('d m') . $endTime->format('to d m') }}
-        , {{ $featuredEvent->venue->name . ', ' . $featuredEvent->venue->city }}</p>
+        {{ $date }}, {{ $featuredEvent->venue->name . ', ' . $featuredEvent->venue->city }}</p>
         <div data-aos="fade-up" data-aos-delay="300" class="">
             <a href="{{ route('events.show', ['event' => $featuredEvent->slug]) }}" class="glightbox pulsating-play-btn mt-3"></a>
         </div>
@@ -37,7 +46,7 @@
                 <div class="col-lg-3">
                     <h3>When</h3>
                     <p>
-                        {{ $startTime->format('m') == $endTime->format('m') ? $startTime->format('l') . $endTime->format('to l F') : $startTime->format('d m') . $endTime->format('to d m') }}
+                        {{ $whenDate }}
                     </p>
                 </div>
             </div>

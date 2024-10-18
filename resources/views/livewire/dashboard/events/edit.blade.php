@@ -41,7 +41,6 @@
     <div class="row mb-3">
         <label for="description" class="col-sm-2 col-form-label">Description<span class="text-danger">*</span>:</label>
         <div class="col-sm-10">
-            {{ dd($form->description) }}
             <textarea wire:model='form.description' class="form-control" id="description" style="height: 100px"></textarea>
             @error('form.description')
                 <p class="text-danger" style="font-size:1rem;">*{{ $message }}</p>
@@ -83,7 +82,7 @@
         <div class="col-10">
             <select wire:model='form.organizer_id' name="organizer" class="form-select" aria-label="multiple select example">
                 @foreach ($organizers as $organizer)
-                    <option value="{{ $organizer->id }}">{{ $organizer->first_name }} {{ $organizer->last_name }}</option>
+                    <option value="{{ $organizer->id }}">{{ $organizer->fullName() }}</option>
                 @endforeach
             </select>
             @error('form.organizer_id')

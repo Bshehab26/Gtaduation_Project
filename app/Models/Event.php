@@ -40,4 +40,22 @@ class Event extends Model
         return $this->hasMany(Booking::class);
     }
 
+    public function totalTickets()
+    {
+        $total = 0;
+        foreach($this->tickets() as $ticket){
+            $total += $ticket->quantity;
+        }
+        return $total;
+    }
+
+    public function totalTicketsAvailable()
+    {
+        $total = 0;
+        foreach($this->tickets() as $ticket){
+            $total += $ticket->available;
+        }
+        return $total;
+    }
+
 }
