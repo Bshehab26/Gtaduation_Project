@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard.master')
 @section('title')
     you show ({{$ticket->type}})
 @endsection
@@ -9,23 +9,9 @@
 @endsection
 
 @section('content')
-
-       <!-- Page Title -->
-       <div class="page-title" data-aos="fade" style="background-image: url({{ asset('assets/img/hotels-2.jpg') }}); ">
-        <div class="container position-relative">
-            {{-- <a href="{{ route('venues-user.index') }}" > --}}
-                  <h1> Show Ticket</h1>
-            {{-- </a> --}}
-        </div>
-    </div>
-
-    <!-- End Page Title -->
-
-    {{--              Search    Bar --}}
-
-    <br>
-    <br>
-
+    <nav>
+        <a href="{{route('tickets.index')}}">All tickets</a>
+    </nav><br>
 
     <table class="table datatable">
         <thead>
@@ -51,27 +37,4 @@
             </tr>
         </tbody>
     </table>
-    <br>
-    <br>    <br>
-    <br>
 @endsection
-
-
-@section('style-card')
-    <style>
-        .card {
-            height: 500px;
-        }
-
-        .card img {
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .card {
-
-            width: 100%;
-        }
-    </style>
-@endsection
-

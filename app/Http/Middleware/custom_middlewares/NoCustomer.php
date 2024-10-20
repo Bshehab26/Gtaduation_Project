@@ -15,10 +15,9 @@ class NoCustomer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->role == "customer") {
-            return abort(403);
+        if(auth()->user()->role == 'customer'){
+            abort(403);
         }
-
         return $next($request);
     }
 }

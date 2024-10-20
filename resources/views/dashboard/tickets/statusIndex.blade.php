@@ -1,28 +1,15 @@
-@extends('layouts.app')
-
+@extends('layouts.dashboard.master')
 
 @section('title')
     All Tickets To {{$event->name}} ({{ $event->tickets->count() }})
 @endsection
+
+@section('page-title-1', 'Tickets')
+@section('page-title-2')
+    All Tickets To {{$event->name}} ({{ $event->tickets->count() }})
+@endsection
 @section('content')
-
-       <!-- Page Title -->
-       <div class="page-title" data-aos="fade" style="background-image: url({{ asset('assets/img/hotels-2.jpg') }}); ">
-        <div class="container position-relative">
-            {{-- <a href="{{ route('venues-user.index') }}" > --}}
-                  <h1>Tickets</h1>
-            {{-- </a> --}}
-        </div>
-    </div>
-
-    <!-- End Page Title -->
-
-    {{--              Search    Bar --}}
-
-    <br>
-    <br>
-
-    <section class="section">
+<section class="section">
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
@@ -39,7 +26,7 @@
             @endif
 
             <a href="{{ route('events.index') }}" class="btn btnbtn-sm btn-warning">All Events</a>
-            <a href="{{ route('ticket-organizer.create', $event->id) }}" class="btn btnbtn-sm btn-warning">Make Tickets to this event</a>
+            <a href="{{ route('ticket.create', $event->id) }}" class="btn btnbtn-sm btn-warning">Make Tickets to this event</a>
             <table class="table datatable">
               <thead>
                 <tr>
@@ -66,10 +53,10 @@
                         <td>{{ $ticket->event->id}}</td>
                         <td>{{ $ticket->event->name}}</td>
                         <td>
-                            <a href="{{ route('ticketss.show', [$ticket->id]) }}" class="btn btn-sm btn-warning">Show</a>
+                            <a href="{{ route('tickets.show', [$ticket->id]) }}" class="btn btn-sm btn-warning">Show</a>
                             @if(auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->id ==  $ticket->event->organizer->id) || (auth()->user()->role == "organizer" && auth()->user()->id ==  $ticket->event->organizer->id))
-                                <a href="{{ route('ticketss.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                <form action="{{ route('ticketss.destroy', $ticket->id) }}" method="POST" style="display: inline-block">
+                                <a href="{{ route('tickets.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the ticket ({{ $ticket->type }})?');">Delete</button>
@@ -97,24 +84,3 @@
         </div>
     </section>
 @endsection
-
-@section('style-card')
-    <style>
-        .card {
-            height: 500px;
-        }
-
-        .card img {
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .card {
-
-            width: 100%;
-        }
-    </style>
-@endsection
-
-
-

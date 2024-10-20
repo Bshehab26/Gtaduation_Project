@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard.master')
 @inject('ticket', '\App\Models\Ticket')
 
 @section('title')
@@ -11,23 +11,7 @@
 @endsection
 
 @section('content')
-       <!-- Page Title -->
-       <div class="page-title" data-aos="fade" style="background-image: url({{ asset('assets/img/hotels-2.jpg') }}); ">
-        <div class="container position-relative">
-            {{-- <a href="{{ route('venues-user.index') }}" > --}}
-                  <h1> Create Ticket</h1>
-            {{-- </a> --}}
-        </div>
-    </div>
-
-    <!-- End Page Title -->
-
-    {{--              Search    Bar --}}
-
-    <br>
-    <br>
-
-    <section class="section">
+<section class="section">
     <div class="row">
       <div class="col-lg-12">
 
@@ -52,9 +36,9 @@
             @endif
 
             <!-- General Form Elements -->
-            <form action="{{ route('ticketss.store') }}" method="POST">
+            <form action="{{ route('tickets.store') }}" method="POST">
                 @csrf
-                @include('tickets.form')
+                @include('dashboard.tickets.form')
                 <div class="d-flex justify-content-lg-center">
                     <input class="btn btn-success" type="submit" value="Add">
                 </div>
@@ -66,22 +50,4 @@
       </div>
     </div>
   </section>
-@endsection
-
-@section('style-card')
-    <style>
-        .card {
-            height: 500px;
-        }
-
-        .card img {
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .card {
-
-            width: 100%;
-        }
-    </style>
 @endsection
