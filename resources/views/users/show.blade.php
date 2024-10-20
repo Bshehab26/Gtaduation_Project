@@ -40,7 +40,7 @@
                     <div class="row mt-3">
                         <div class="col-12">
                             <h4>Description:</h4>
-                            <p>{{ $user->description ?? 'No description available.' }}</p>
+                            <p>{{ $user->bio ?? 'No description available.' }}</p>
                         </div>
                     </div>
                 </div>
