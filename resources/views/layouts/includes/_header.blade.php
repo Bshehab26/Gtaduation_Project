@@ -1,5 +1,7 @@
 @php
-    $isUserOwner=DB::table('users')->where('id',Auth::user()->id)->exists();
+$isUserOwner=false;
+if(Auth::check()){
+    $isUserOwner=DB::table('users')->where('id',Auth::user()->id)->exists();}
 @endphp
 
 <header id="header" class="header d-flex align-items-center fixed-top p-0 flex-column" >

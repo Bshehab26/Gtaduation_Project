@@ -15,7 +15,11 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        if(auth()->user()->id== $user->id){
         return view('users.show', compact('user'));
+    }
+        else
+        return redirect()->back();
     }
 
     public function edit(string $id)
