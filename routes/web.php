@@ -8,6 +8,7 @@ use App\Http\Controllers\dashboard\{
     VenueController as DashboardVenueController,
     EventController as DashboardEventController,
     SubcategoryController as DashboardSubcategoryController,
+    TicketController as DashboardTicketController,
 };
 
 use App\Http\Controllers\{
@@ -91,24 +92,25 @@ Route::group(['middleware' => ['auth', 'dashboard']], function () {
             ->name('categories.destroyAll');
     });
 });
-// Tickets Routes
-Route::group(['middleware' => ['auth', 'noCustomer']], function () {
-    Route::prefix('dashboard')->group(function () {
-        Route::get("/tickets", [TicketController::class, 'index'])->middleware(['auth', 'dashboard'])->name("tickets.index");
-        Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket.create');
-        Route::post("/tickets", [TicketController::class, 'store'])->name("tickets.store");
-        Route::get("/tickets/{id}", [TicketController::class, 'show'])->name("tickets.show");
-        Route::get("/tickets/{id}/edit", [TicketController::class, 'edit'])->name("tickets.edit");
-        Route::put("/tickets/{id}", [TicketController::class, 'update'])->name("tickets.update");
-        Route::delete("/tickets/{id}", [TicketController::class, 'destroy'])->name("tickets.destroy");
-        Route::get('/ticket/status/{id}', [TicketController::class, 'ticketStatus'])->name('ticket-status.index');
+
+// Tickets Routes Dashboard
+Route::group(['middleware' => ['auth', 'dashboard']], function(){
+    Route::prefix('dashboard')->group(function() {
+        Route::resource("/tickets", DashboardTicketController::class)->except("create");
+        Route::get('/ticket/create/{id}', [DashboardTicketController::class, 'createTicket'])->name('ticket.create');
+        Route::get('/ticket/status/{id}', [DashboardTicketController::class, 'ticketStatus'])->name('ticket-status.index');
     });
 });
-Route::get('/ticket/{id}', [TicketController::class, 'ticketDecrease'])->middleware("auth")->name('decrease-no-ticket');
+// Tickets Routes Website
+Route::group(['middleware' => ['auth', 'NoCustomer']], function(){
+        Route::resource("/ticketss", TicketController::class)->except("create", "index");
+        Route::get('/ticket/create/{id}', [TicketController::class, 'createTicket'])->name('ticket-organizer.create');
+        Route::get('/ticket/status/{id}', [TicketController::class, 'ticketStatus'])->name('ticket-status-organizer.index');
+});
 
 
 
-
+// Venues Routes
 Route::resource('/venues', DashboardVenueController::class)->middleware(['auth', 'dashboard']);
 Route::resource('/venues-user', VenueController::class); //->except(['store','edit','update','destory','create']);
 
