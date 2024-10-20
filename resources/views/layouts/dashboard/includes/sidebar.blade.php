@@ -164,7 +164,7 @@
             </ul>
         </li><!-- End Components Nav -->
 
-        {{-- Tickets --}}
+            {{-- Tickets --}}
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tickets-nav" data-bs-toggle="collapse" href="#">
                 <i class="fs-6 bi bi-collection"></i><span>Tickets</span><i class="bi bi-chevron-down ms-auto"></i>

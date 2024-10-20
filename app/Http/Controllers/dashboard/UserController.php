@@ -5,7 +5,10 @@ namespace App\Http\Controllers\dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{
+    Hash,
+    Auth,
+};
 
 class UserController extends Controller
 {
@@ -71,10 +74,8 @@ class UserController extends Controller
         ];
         if (auth()->check() == false) {
             $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
-            }
-        elseif (auth()->user()->role === "admin") {
+        } elseif (auth()->user()->role === "admin") {
             $rules['role'] .= '|in:customer,organizer,moderator,admin';
-
         } elseif (auth()->user()->role === "moderator") {
             $rules['role'] .= '|in:customer,organizer';
         } else {
@@ -83,9 +84,10 @@ class UserController extends Controller
 
         $request->validate($rules);
 
-         if(auth()->check()==true && (auth()->user()->role === "admin"||auth()->user()->role === "moderator"))
-         $request->merge([
-            'password' => Hash::make($request->username . '_123456789'),]);
+        if (auth()->check() == true && (auth()->user()->role === "admin" || auth()->user()->role === "moderator"))
+            $request->merge([
+                'password' => Hash::make($request->username . '_123456789'),
+            ]);
 
         User::create($request->all());
 

@@ -1,0 +1,39 @@
+2024-10-18 21:16:51,927 - Student Yacoub Qamaruddin Dibaza (ID: 101) added.
+2024-10-18 21:16:51,932 - Student Khalid Kashmiri (ID: 102) added.
+2024-10-18 21:16:51,937 - Student Kheder Karawita (ID: 103) added.
+2024-10-18 21:16:51,941 - Student Ismail Ahmed Kenbawi (ID: 104) added.
+2024-10-18 21:16:51,945 - Student Osman Abdul-Jalil Shisha (ID: 105) added.
+2024-10-18 21:16:51,949 - Student Mohamed Sunbul (ID: 106) added.
+2024-10-18 21:16:51,952 - Student Isaac Akram Bema (ID: 107) added.
+2024-10-18 21:16:51,955 - Student Yahya Aref (ID: 108) added.
+2024-10-18 21:16:51,958 - Student Ismail Bardisi (ID: 109) added.
+2024-10-18 21:16:51,967 - Course Intro to CS (Code: CSE101) added.
+2024-10-18 21:16:51,971 - Course Calculus I (Code: MATH201) added.
+2024-10-18 21:16:51,974 - Course Physics I (Code: PHY301) added.
+2024-10-18 21:16:51,976 - Course Cloud computing (Code: ECE413) added.
+2024-10-18 21:16:51,980 - Course Computer Vision (Code: CSE351) added.
+2024-10-18 21:16:51,983 - Course Embedded Systems (Code: CSE311) added.
+2024-10-18 21:16:51,985 - Course Database Systems (Code: CSE241) added.
+2024-10-18 21:16:51,985 - Student 101 enrolled in course CSE101.
+2024-10-18 21:16:52,002 - Student 102 enrolled in course CSE101.
+2024-10-18 21:16:52,008 - Course CSE101 is full, adding student 103 to waitlist.
+2024-10-18 21:16:52,010 - Student 103 enrolled in course MATH201.
+2024-10-18 21:16:52,013 - Student 104 enrolled in course PHY301.
+2024-10-18 21:16:52,017 - Student 101 enrolled in course CSE241.
+2024-10-18 21:16:52,020 - Student 109 enrolled in course CSE241.
+2024-10-18 21:16:52,024 - Student 105 enrolled in course CSE241.
+2024-10-18 21:16:52,028 - Student 106 enrolled in course CSE311.
+2024-10-18 21:16:52,031 - Student 105 enrolled in course CSE311.
+2024-10-18 21:16:52,035 - Student 101 enrolled in course CSE351.
+2024-10-18 21:16:52,039 - Student 107 enrolled in course ECE413.
+2024-10-18 21:16:52,043 - Student 104 enrolled in course ECE413.
+2024-10-18 21:16:52,055 - Course PHY301 removed.
+2024-10-18 21:16:52,097 - Student 101 enrolled in course MATH201.
+2024-10-18 21:16:52,103 - Student 102 enrolled in course ECE413.
+2024-10-18 21:16:52,107 - Student 103 enrolled in course MATH201.
+2024-10-18 21:16:52,112 - Student 104 enrolled in course ECE413.
+2024-10-18 21:16:52,116 - Student 105 enrolled in course CSE351.
+2024-10-18 21:16:52,120 - Student 106 enrolled in course CSE241.
+2024-10-18 21:16:52,128 - Course CSE101 is full, adding student 107 to waitlist.
+2024-10-18 21:16:52,129 - Course CSE101 is full, adding student 108 to waitlist.
+2024-10-18 21:16:52,131 - Course CSE311 is full, adding student 109 to waitlist.
