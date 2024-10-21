@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,16 +12,16 @@ class TicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    // public function index()
-    // {
-    //     // $user = User::get();
-    //     $tickets = Ticket::with("event")->get();
-    //     if (auth()->user()->role !== "admin" && auth()->user()->role !== "moderator" ) {
-    //         return view("tickets.index", compact("tickets"));
-    //     }else {
-    //         return abort(403);
-    //     }
-    // }
+    public function index()
+    {
+        // $user = User::get();
+        $tickets = Ticket::with("event")->get();
+        if (auth()->user()->role == "admin" || auth()->user()->role == "moderator") {
+            return view("dashboard.tickets.index", compact("tickets"));
+        }else {
+            return abort(403);
+        }
+    }
     public function ticketStatus(string $event_id)
     {
         $event = Event::where("id", $event_id)->with("tickets")->first();
@@ -41,7 +41,7 @@ class TicketController extends Controller
     public function createTicket(string $event_id)
     {
         $event = Event::where("id", $event_id)->with("tickets")->first();
-        return view("tickets.create", compact("event"));
+        return view("dashboard.tickets.create", compact("event"));
     }
 
     /**
@@ -61,7 +61,7 @@ class TicketController extends Controller
         ]);
         // return $request;
         Ticket::create($request->all());
-        return redirect()->route("ticket-status-organizer.index", $request->event_id)->with("success", "The ticket created succsessfully");
+        return redirect()->route("ticket-status.index", $request->event_id)->with("success", "The ticket created succsessfully");
     }
 
     /**
@@ -72,7 +72,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         $organizer = Ticket::findOrFail($id)->event->organizer;
         if (auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->role != "admin") || (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id)) {
-            return view("tickets.show", compact("ticket"));
+            return view("dashboard.tickets.show", compact("ticket"));
         }else{
             return abort(403);
         }
@@ -84,12 +84,13 @@ class TicketController extends Controller
     public function edit(string $id)
     {
         $organizer = Ticket::findOrFail($id)->event->organizer;
-        if (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id) {
+        if (auth()->user()->role == "admin" || (auth()->user()->role == "moderator" && auth()->user()->id == $organizer->id)) {
             $ticket = Ticket::where("id", $id)->with("event")->first();
             $event = $ticket->event;
-            return view("tickets.edit", compact("ticket", "event"));
+            return view("dashboard.tickets.edit", compact("ticket", "event"));
         }else{
-            return abort(403);
+            return redirect()->route("tickets.index")->with("unsuccess", "You can't edit ticket for another user");
+            // return abort(403);
         }
 
     }
@@ -115,7 +116,7 @@ class TicketController extends Controller
             "available" => $new_available,
         ]);
         $ticket->update($request->all());
-        return redirect()->route("ticket-status-organizer.index", $request->event_id)->with("success", "The ticket updated succsessfully");
+        return redirect()->route("ticket-status.index", $request->event_id)->with("success", "The ticket updated succsessfully");
 
     }
 
@@ -126,7 +127,7 @@ class TicketController extends Controller
     {
         $organizer = Ticket::findOrFail($id)->event->organizer;
         $ticket = Ticket::findOrFail($id);
-        if (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id) {
+        if (auth()->user()->role == "admin" || (auth()->user()->role == "organizer" && auth()->user()->id == $organizer->id) || (auth()->user()->role == "moderator" && auth()->user()->id == $organizer->id)) {
         $ticket->delete();
         return redirect()->back()->with("success", "Ticket deleted successfully");
         }else{

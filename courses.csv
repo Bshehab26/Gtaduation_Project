@@ -1,0 +1,7 @@
+code,name,credits,capacity,enrolled_students
+CSE101,Intro to CS,3,2,"[101, 102]"
+MATH201,Calculus I,4,3,"[103, 101, 103]"
+ECE413,Cloud computing,3,5,"[107, 104, 102, 104]"
+CSE351,Computer Vision,2,3,"[101, 105]"
+CSE311,Embedded Systems,3,2,"[106, 105]"
+CSE241,Database Systems,3,5,"[101, 109, 105, 106]"

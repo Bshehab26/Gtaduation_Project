@@ -69,12 +69,14 @@
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="{{ route('dashboard.events.index') }}">
-                        <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events ({{ \App\Models\Event::count() }})</span>
+                        <i class="bi bi-calendar-week" style="font-size: 1rem;"></i><span>All events
+                            ({{ \App\Models\Event::count() }})</span>
                     </a>
                 </li>
                 @if (\App\Models\Event::latest()->first())
                     <li>
-                        <a href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <a
+                            href="{{ route('dashboard.events.show', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
                             <i class="bi bi-calendar-event" style="font-size: 1rem;"></i><span>Show events</span>
                         </a>
                     </li>
@@ -86,14 +88,16 @@
                 </li>
                 @if (\App\Models\Event::latest()->first())
                     <li>
-                        <a href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
+                        <a
+                            href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">
                             <i class="bi bi-pencil-square" style="font-size: 1rem;"></i><span>Edit events</span>
                         </a>
                     </li>
                 @endif
                 <li>
                     <a href="{{ route('dashboard.events.trash') }}">
-                        <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events ({{ \App\Models\Event::onlyTrashed()->count() }})</span>
+                        <i class="bi bi-calendar-x" style="font-size: 1rem;"></i><span>Trashed events
+                            ({{ \App\Models\Event::onlyTrashed()->count() }})</span>
                     </a>
                 </li>
             </ul>
@@ -168,10 +172,10 @@
             <ul id="tickets-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    @if (auth()->user()->role == "admin" || auth()->user()->role == "moderator")
+                    @if (auth()->user()->role == 'admin' || auth()->user()->role == 'moderator')
                         <a href="{{ route('tickets.index') }}">
-                            <i class="fs-6 bi bi-collection"></i></i><span>All Tickets
-                                ({{ \App\Models\Ticket::count() }})</span>
+                            <i class="fs-6 bi bi-collection"></i></i><span>All
+                                Tickets({{ \App\Models\Ticket::count() }})</span>
                         </a>
                     @endif
                 </li>
