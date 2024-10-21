@@ -116,6 +116,8 @@ Route::controller(EventController::class)->group(function () {
     Route::resource('/events', EventController::class)
         ->only(['index']);
 
+    // Route::get('/events', 'index')->name('events.index');
+
     Route::group(['middleware' => 'auth', 'dashboard', 'organizer'], function() {
 
         Route::get('/events/create', 'create')

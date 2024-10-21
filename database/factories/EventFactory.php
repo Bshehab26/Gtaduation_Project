@@ -18,8 +18,8 @@ class EventFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->sentence();
-        $start = fake()->dateTimeBetween('-1week', '+3days');
-        $end = fake()->dateTimeBetween($start, '+1week');
+        $start = fake()->dateTimeBetween('-5weeks', '+1month');
+        $end = fake()->dateTimeBetween($start, '+2years');
         $status = '';
         switch ($start) {
             case now() < $start:

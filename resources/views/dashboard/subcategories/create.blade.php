@@ -38,7 +38,7 @@
                 <div class="row mb-3">
                     <label for="parent-category" class="col-sm-2 col-form-label">Category:</label>
                     <div class="col-sm-10">
-                        <select name="category_id" id="parent-category" class="form-control">
+                        <select name="category_id" id="parent-category" class="form-select">
                             @foreach (\App\Models\Category::orderBy('name', 'asc')->get() as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach

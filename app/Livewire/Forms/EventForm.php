@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
+use Livewire\WithFileUploads;
 
 class EventForm extends Form
 {
@@ -28,6 +29,8 @@ class EventForm extends Form
     // #[Validate('bail|required|date')]
     public $end_time;
 
+    public $picture;
+
     public $subject;
 
     public $slug;
@@ -43,11 +46,12 @@ class EventForm extends Form
     public function rules()
     {
         $rules = [
-            'name' => 'bail|required|string|unique:events,name,',
+            'name'        => 'bail|required|string|unique:events,name,',
             'description' => 'bail|string|required',
-            'start_time' => 'bail|required|date|after_or_equal:tomorrow',
-            'end_time' => 'bail|required|date|after_or_equal:tomorrow',
-            'subject' => 'bail|string',
+            'start_time'  => 'bail|required|date|after_or_equal:tomorrow',
+            'end_time'    => 'bail|required|date|after_or_equal:tomorrow',
+            'subject'     => 'bail|string',
+            'picture'     => 'bail|'
             // 'organizer_id' => 'bail|required|int'
         ];
 
@@ -70,6 +74,7 @@ class EventForm extends Form
         $this->subcategories = $event->subcategories;
         $this->subject = $event->subject;
         $this->venue_id = $event->venue_id;
+        // $this->picture = $event->picture;
     }
 
 }

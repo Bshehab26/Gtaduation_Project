@@ -23,6 +23,24 @@
     </div>
 
     <div class="form-group w-100">
+        <label class="d-block" for="event-picture">Event Picture:</label>
+        <input
+            wire:model='form.picture'
+            id="event-picture"
+            class="form-control"
+            name="picture"
+            type="file"
+            required>
+        @if ($form->picture)
+            <div class="w-100 mt-3 text-center">
+                <img src="{{ $form->picture->temporaryUrl() }}" alt="" class="mx-auto" style="max-width: 200px; max-height: 200px;">
+            </div>
+        @endif
+        @error('form.name')
+            <p class="text-danger" style="font-size: 1rem;">*{{ $message }}</p>
+        @enderror
+    </div>
+    <div class="form-group w-100">
         <label class="d-block" for="event-name">Event Name<span class="text-danger">*</span>:</label>
         <input
             wire:model='form.name'
@@ -64,7 +82,7 @@
         @enderror
     </div>
     <div class="row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6 ps-0">
             <label for="start-time">Starts in<span class="text-danger">*</span>:</label>
             <input
                 wire:model='form.start_time'
@@ -74,7 +92,7 @@
                 type="datetime-local"
                 required>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6 ps-0">
             <label for="end-time">Ends in<span class="text-danger">*</span>:</label>
             <input
                 wire:model='form.end_time'
@@ -96,15 +114,15 @@
 
     <div class="container section-title py-0">
         <h2>Venue information<br></h2>
-        <div class="row mb-3 w-100">
-            <label for="venue-search" class="col-sm-3 col-form-label">Search for venue:</label>
-            <div class="col-9">
-                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control">
+        <div class="row mb-3">
+            <label for="venue" class="col-3 col-form-label text-start px-0">Search:</label>
+            <div class="col-9 my-2 pe-0">
+                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control" placeholder="Search for venue...">
             </div>
         </div>
-        <div class="row mb-3 w-100">
-            <label for="venue" class="col-2 col-form-label">Venue<span class="text-danger">*</span>:</label>
-            <div class="col-10">
+        <div class="row mb-3">
+            <label for="venue" class="col-3 col-form-label text-start px-0">Venue<span class="text-danger">*</span>:</label>
+            <div class="col-9 my-auto pe-0">
                 <select wire:model='form.venue_id' name="venue" class="form-select" aria-label="multiple select example">
                     @foreach ($venues as $venue)
                         <option value="{{ $venue->id }}">{{ $venue->name }}</option>

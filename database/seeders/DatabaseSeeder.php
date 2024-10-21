@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(VenueSeeder::class);
         \App\Models\Category::factory(10)->hasSubcategories(5)->create();
-        \App\Models\Event::factory(1000)->hasTickets(2)->create();
+        \App\Models\Event::factory(10)->hasTickets(2)->create();
 
 
 

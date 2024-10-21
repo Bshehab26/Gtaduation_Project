@@ -8,9 +8,11 @@ use App\Models\Event;
 use App\Models\Subcategory;
 use App\Models\Venue;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EventCreate extends Component
 {
+    use WithFileUploads;
 
     public EventForm $form;
 

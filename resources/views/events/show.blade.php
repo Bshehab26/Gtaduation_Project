@@ -30,7 +30,7 @@
 
             <div class="row">
                 <div class="col-md-6">
-                <img src="/assets/img/speaker.jpg" alt="Speaker" class="img-fluid">
+                <img src="{{ asset('storage/eventsPics/' . $event->picture) }}" alt="Event thumbnail" class="img-fluid" style="width: 100%; aspect-ration: 4/3;">
                 </div>
 
                 <div class="col-md-6 d-flex flex-column gap-2">
@@ -67,6 +67,14 @@
                             <p>{{ $event->subject }}</p>
                         </div>
                     @endif
+                    <div class="detailes row my-1">
+                        <h3>When?</h3>
+                        <p>
+                            <strong>from:</strong> {{ Carbon::parse($event->start_time)->format('y M d') . ' at ' . Carbon::parse($event->start_time)->format('H:i') }}
+                            <br>
+                            <strong>to:</strong> {{ Carbon::parse($event->end_time)->format('y M d') . ' at ' . Carbon::parse($event->end_time)->format('H:i') }}
+                        </p>
+                    </div>
                     <div class="detailes row my-1">
                         <h3>Where?</h3>
                         <p><strong>{{ $event->venue->name }}</strong>, {{ $event->venue->address }}</p>

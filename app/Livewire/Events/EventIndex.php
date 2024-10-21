@@ -4,6 +4,7 @@ namespace App\Livewire\Events;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Venue;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,8 +25,8 @@ class EventIndex extends Component
     public $orderQ;
     public $orderBy = 'start_time';
     public $orderType = 'asc';
-    public $time = 'This year';
-    public $duration;
+    public $time = 'year';
+    public $city;
 
     public function order($order)
     {
@@ -64,13 +65,17 @@ class EventIndex extends Component
         $this->filters[5] = $this->category6;
     }
 
+    public function clear()
+    {
+        $this->reset();
+    }
+
     public function render()
     {
 
         $events = Event::query();
         $search = $this->search;
         $time = $this->time;
-        $duration = $this->duration;
 
         $events->when($this->search, function ($q) use ($search){
             $q->where('name', 'like', "%$search%");
@@ -87,15 +92,22 @@ class EventIndex extends Component
             };
         }
 
+        $city = $this->city;
+        $events->when($city, function ($q) use ($city){
+            $q->whereHas('venue', function ($q) use($city){
+                $q->where('city', $city);
+            });
+        });
+
         $events->when($time, function($q) use ($time){
             switch ($time) {
-                case 'This week':
+                case 'week':
                     $q->where('start_time', '<=', Carbon::tomorrow()->addWeek()->format('Y-m-d'));
                     break;
-                case 'This month':
+                case 'month':
                     $q->where('start_time', '<=', Carbon::tomorrow()->addMonth()->format('Y-m-d'));
                     break;
-                case 'This year':
+                case 'year':
                     $q->where('start_time', '<=', Carbon::today()->addYear()->format('Y-m-d'));
                 default:
                     $q->where('start_time', '<=', Carbon::tomorrow()->addYear()->format('Y-m-d'));
@@ -104,11 +116,12 @@ class EventIndex extends Component
         });
 
         return view('livewire.events.event-index', [
-            'events' => $events->where('start_time', '>=', Carbon::tomorrow()->format('Y-m-d'))
-                        // ->where('status', 'upcoming')
-                        ->orderBy($this->orderBy, $this->orderType)
-                        ->paginate(10),
+            'events'     => $events->where('start_time', '>=', Carbon::tomorrow()->format('Y-m-d'))
+                                // ->where('status', 'upcoming')
+                                ->orderBy($this->orderBy, $this->orderType)
+                                ->paginate(10),
             'categories' => Category::with(['subcategories'])->limit(6)->get(),
+            'cities'     => Venue::select('city')->distinct()->orderBy('city')->get(),
         ]);
     }
 }
