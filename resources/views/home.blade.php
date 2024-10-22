@@ -22,13 +22,13 @@
                 $date = $startTime->format('d') . $endTime->format(' - d F');
                 $whenDate = $startTime->format('l d') . $endTime->format(' - l d F');
             } else {
-                $date = $startTime->format('d m') . $endTime->format('to d m');
-                $whenDate = $startTime->format('l d m') . $endTime->format(' - l d m');
+                $date = $startTime->format('d F') . $endTime->format(' - d F');
+                $whenDate = $startTime->format('l d F') . $endTime->format(' - l d F');
             };
         @endphp
         {{ $date }}, {{ $featuredEvent->venue->name . ', ' . $featuredEvent->venue->city }}</p>
-        <div data-aos="fade-up" data-aos-delay="300" class="">
-            <a href="{{ route('events.show', ['event' => $featuredEvent->slug]) }}" class="glightbox pulsating-play-btn mt-3"></a>
+        <div data-aos="fade-up" data-aos-delay="300" class="mt-3">
+            <a href="{{ route('events.show', ['event' => $featuredEvent->slug]) }}" class="text-white border-danger fs-6 py-2 px-4" style="background-color: #f82249; border-radius: 99px;">Know more!</a>
         </div>
     </div>
 

@@ -32,13 +32,20 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $ticket = Ticket::with(['event'])->findOrFail($request['ticket']);
+
         $attributes = $request->validate([
-            'quantity' => 'bail|required|between:1,' . $ticket->available,
+            'quantity' => 'bail|required|integer|between:1,' . $ticket->available,
         ]);
+
         $attributes['total_price'] = $request['quantity'] * $ticket->price;
         $attributes['attendee_id'] = auth()->user()->id;
         $attributes['event_id'] = $ticket->event->id;
         $attributes['ticket_id'] = $ticket->id;
+
+        if($ticket->available < $request['quantity'] || $request['quantity'] <= 0)
+        {
+            return redirect()->back()->with('failure', 'Enter a valid number of tickets.');
+        }
 
         $ticket->update(['available' => $ticket->available - $request['quantity']]);
 

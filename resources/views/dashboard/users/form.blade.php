@@ -33,7 +33,7 @@
 <div class="row mb-3">
     <label for="role" class="col-sm-2 col-form-label">Role <span class="text-danger">*</span></label>
     <div class="col-sm-10">
-        <select name="role" id="role" class="form-control">
+        <select name="role" id="role" class="form-select">
             <option selected>---------- Please select a user type ----------</option>
             @if (auth()->user()->role === 'moderator' && Route::is('users.create'))
                 <option value="customer" {{ $user->role === 'customer' ? 'selected' : '' }}>customer</option>

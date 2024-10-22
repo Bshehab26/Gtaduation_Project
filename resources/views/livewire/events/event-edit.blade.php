@@ -39,6 +39,24 @@
     </div>
 
     <div class="form-group w-100">
+        <label class="d-block" for="event-picture">Event Picture:</label>
+        <input
+            wire:model='form.picture'
+            id="event-picture"
+            class="form-control"
+            name="picture"
+            type="file"
+            required>
+        @if ($form->picture)
+            <div class="w-100 mt-3 text-center">
+                <img src="{{ $form->picture->temporaryUrl() }}" alt="" class="mx-auto" style="max-width: 200px; max-height: 200px;">
+            </div>
+        @endif
+        @error('form.name')
+            <p class="text-danger" style="font-size: 1rem;">*{{ $message }}</p>
+        @enderror
+    </div>
+    <div class="form-group w-100">
         <label class="d-block" for="event-name">Event Name<span class="text-danger">*</span>:</label>
         <input
             wire:model='form.name'
@@ -114,9 +132,8 @@
     <div class="container section-title py-0">
         <h2>Venue information<br></h2>
         <div class="row mb-3 w-100">
-            <label for="venue-search" class="col-sm-3 col-form-label">Search for venue:</label>
             <div class="col-9">
-                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control">
+                <input wire:model.live.debounce.50ms='venueSearch' id="venue-search" type="text" class="form-control" placeholder="Search for venue...">
             </div>
         </div>
         <div class="row mb-3 w-100">

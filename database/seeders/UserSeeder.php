@@ -41,5 +41,14 @@ class UserSeeder extends Seeder
             "role"       => "organizer",
             "password"   => Hash::make("123456789"),
         ]);
+
+        $user3 = User::create([
+            "username"   => "moderator",
+            "first_name" => "mode",
+            "last_name"  => "rator",
+            "email"      => "moderator@gmail.com",
+            "role"       => "moderator",
+            "password"   => Hash::make("123456789"),
+        ]);
     }
 }

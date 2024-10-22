@@ -1,9 +1,3 @@
-@php
-$isUserOwner=false;
-if(Auth::check()){
-    $isUserOwner=DB::table('users')->where('id',Auth::user()->id)->exists();}
-@endphp
-
 <header id="header" class="header d-flex align-items-center fixed-top p-0 flex-column" >
 
     <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-end px-4 gap-4 fs-6 text-white w-100" style="background-color: #00000091; max-width: none;">
@@ -28,32 +22,27 @@ if(Auth::check()){
                     aria-labelledby="navbarDropdown"
                     style="background-color: #000820;">
 
-                        @if (Auth::user()->role === 'admin')
+                        @if (Auth::user()->role === 'admin' || Auth::user()->role === 'moderator')
                             <a class="dropdown-item text-white"
                             href="{{ route('dashboard-home') }}"
                             >
                                 Dashboard
                             </a>
-                            <hr class="mx-auto" style="background-color: white; height:2px; width: 90%;">
                         @endif
 
-                        @if ($isUserOwner)
                         <a class="dropdown-item text-white"
                         href="{{ route('webusers.show', auth()->user()->id) }}"
                         >
                             Profile
                         </a>
-                        <hr class="mx-auto" style="background-color: white; height:2px; width: 90%;">
-                    @endif
 
-                    @if ($isUserOwner)
-                    <a class="dropdown-item text-white"
-                    href="{{ route('webusers.edit', auth()->user()->id) }}"
-                    >
-                        EditProfile
-                    </a>
-                    <hr class="mx-auto" style="background-color: white; height:2px; width: 90%;">
-                @endif
+                        <a class="dropdown-item text-white"
+                        href="{{ route('webusers.edit', auth()->user()->id) }}"
+                        >
+                            Edit Profile
+                        </a>
+
+                        <hr class="bg-light" style="height: 2px;">
 
                         <a class="dropdown-item text-white"
                         href="{{ route('logout') }}"
@@ -98,7 +87,7 @@ if(Auth::check()){
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
     </nav>
 
-    @if (Auth::check() && Auth::user()->role === 'admin')
+    @if (Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'moderator'))
         <a class="cta-btn d-none d-sm-block" href="{{ route('dashboard.events.create') }}">
             New event
         </a>

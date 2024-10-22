@@ -50,14 +50,14 @@
                             <td>{{ $category->description == null ? '-' : Str::words($category->description, 2, '...') }}</td>
                         <td>{{ $category->deleted_at }}</td>
                         @if (auth()->user()->role == "admin")
-                        <td>
-                            <a href="{{ route('categories.restore', $category->id) }}" class="btn btn-sm btn-success">Restore</a>
-                            <form action="{{ route('categories.forceDelete', $category->id) }}" method="POST" style="display: inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to permanently delete the category ({{ $category->name }})?');">Permanent Delete</button>
-                            </form>
-                        </td>
+                            <td>
+                                <a href="{{ route('categories.restore', $category->id) }}" class="btn btn-sm btn-success">Restore</a>
+                                <form action="{{ route('categories.forceDelete', $category->id) }}" method="POST" style="display: inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to permanently delete the category ({{ $category->name }})?');">Permanent Delete</button>
+                                </form>
+                            </td>
                         @endif
                     </tr>
                 @empty

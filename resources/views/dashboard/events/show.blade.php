@@ -22,11 +22,11 @@
                 <div class="card-body p-4">
 
                     {{-- EVENTS DROPDOWN --}}
-                    <div class="bg-light py-2 px-4 rounded d-flex">
+                    <div class="bg-light py-2 px-4 rounded d-flex justify-content-between">
                         <h6 class="my-auto" style="font-weight: bold; display: inline-block;">Event:</h6>
                         <h6
                             id="event-dropdown-toggle"
-                            class="w-75 dorpdown-toggle px-2 my-auto"
+                            class="dorpdown-toggle px-2 my-auto"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                             style="cursor: pointer; display:inline-block; font-size:1rem;"
@@ -41,7 +41,12 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">Edit this event</a>
+                        </div>
+                        <div>
+                            <a href="{{ route('events.show', ['event' => $event->slug]) }}" class="me-4">Show in website</a>
+                            @if (Auth::user()->role === 'admin')
+                                <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">Edit this event</a>
+                            @endif
                         </div>
                     </div>
                     {{-- END EVENTS DROPDOWN --}}
@@ -59,15 +64,15 @@
                         </div>
                         <div class="row my-4">
                             <h5 class="col-3">Organizer:</h5>
-                            <p class="col-9 my-auto">{{ $event->name }}</p>
+                            <p class="col-9 my-auto">{{ $event->organizer->fullName() }}</p>
                         </div>
                         <div class="row my-4">
                             <h5 class="col-3">Venue:</h5>
-                            <p class="col-9 my-auto">{{ $event->name }}</p>
+                            <p class="col-9 my-auto">{{ $event->venue->name }}</p>
                         </div>
                         <div class="row my-4">
                             <h5 class="col-3">Thumbnail:</h5>
-                            <p class="col-9 my-auto">{{ $event->name }}</p>
+                            <img src="{{ $event->image }}" alt="">
                         </div>
                         <div class="row my-4">
                             <h5 class="col-3">Categories:</h5>

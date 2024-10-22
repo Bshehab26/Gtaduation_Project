@@ -9,9 +9,12 @@ use App\Models\Subcategory;
 use App\Models\Venue;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EventEdit extends Component
 {
+
+    use WithFileUploads;
 
     public EventForm $form;
 
@@ -22,6 +25,8 @@ class EventEdit extends Component
     public $currentCategoryId;
 
     public $subcategoriesIds;
+
+    public $uploadedPicture;
 
     public function mount(Event $event)
     {
@@ -49,6 +54,7 @@ class EventEdit extends Component
         $this->validate();
 
         $this->form->slug = str_replace(' ', '-', $this->form->name);
+        $this->form->picture = $this->uploadedPicture;
 
         $this->success = $this->form->event->update($this->form->except(['event', 'subcategories']));
         $this->form->event->subcategories()->sync($this->subcategoriesIds);

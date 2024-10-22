@@ -3,6 +3,11 @@
  you show ({{$subcategory->name}})
 @endsection
 
+@section('page-title-1', 'Subcategories')
+@section('page-title-2')
+    {{ $subcategory->name }}
+@endsection
+
 @section('content')
 <nav>
     <a href="{{route('dashboard.subcategories.index')}}">All Subcategories</a>

@@ -8,13 +8,15 @@ use App\Models\Event;
 use App\Models\Subcategory;
 use App\Models\Venue;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class EventCreate extends Component
 {
+    use WithFileUploads;
 
     public EventForm $form;
 
-    private $success;
+    public Event $event;
 
     public $currentCategoryId;
 
@@ -42,11 +44,11 @@ class EventCreate extends Component
 
         $this->form->slug = str_replace(' ', '-', $this->form->name);
 
-        $this->success = Event::create($this->form->except(['event', 'subcategories']));
-        $this->success->subcategories()->syncWithoutDetaching($this->subcategoriesIds);
+        $this->event = Event::create($this->form->except(['event', 'subcategories']));
+        $this->event->subcategories()->syncWithoutDetaching($this->subcategoriesIds);
 
-        if($this->success){
-            return redirect()->route('events.show', ['event' => $this->success]);
+        if($this->event){
+            session()->flash('success', 'Event created successfully');
         }
     }
 

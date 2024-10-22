@@ -99,6 +99,7 @@ Route::group(['middleware' => ['auth', 'dashboard']], function(){
         Route::resource("/tickets", DashboardTicketController::class)->except("create");
         Route::get('/ticket/create/{id}', [DashboardTicketController::class, 'createTicket'])->name('ticket.create');
         Route::get('/ticket/status/{id}', [DashboardTicketController::class, 'ticketStatus'])->name('ticket-status.index');
+        Route::resource('/venues', DashboardVenueController::class);
     });
 });
 // Tickets Routes Website
@@ -111,7 +112,6 @@ Route::group(['middleware' => ['auth', 'NoCustomer']], function(){
 
 
 // Venues Routes
-Route::resource('/venues', DashboardVenueController::class)->middleware(['auth', 'dashboard']);
 Route::resource('/venues-user', VenueController::class); //->except(['store','edit','update','destory','create']);
 
 Route::get('/search/venue', [VenueController::class, 'searchVenues'])->name('search.venue');
@@ -156,15 +156,19 @@ Route::name('dashboard.')
                     ->name('events.show');
 
                 Route::get('/events/{event:slug}/edit', [DashboardEventController::class, 'edit'])
+                    ->middleware(['admin'])
                     ->name('events.edit');
 
                 Route::delete('/events/{event:slug}', [DashboardEventController::class, 'destroy'])
+                    ->middleware(['admin'])
                     ->name('events.destroy');
 
                 Route::post('/events/{id}/restore', [DashboardEventController::class, 'restore'])
+                    ->middleware(['admin'])
                     ->name('events.restore');
 
                 Route::delete('/events/{id}/force', [DashboardEventController::class, 'forceDelete'])
+                    ->middleware(['admin'])
                     ->name('events.forceDelete');
             }
         );
@@ -186,15 +190,19 @@ Route::name('dashboard.')
                     ->name('subcategories.show');
 
                 Route::get('/subcategories/{name}/edit', [DashboardSubcategoryController::class, 'edit'])
+                    ->middleware(['admin'])
                     ->name('subcategories.edit');
 
                 Route::delete('/subcategories/{name}', [DashboardSubcategoryController::class, 'destroy'])
+                    ->middleware(['admin'])
                     ->name('subcategories.destroy');
 
                 Route::post('/subcategories/{id}/restore', [DashboardSubcategoryController::class, 'restore'])
+                    ->middleware(['admin'])
                     ->name('subcategories.restore');
 
                 Route::delete('/subcategories/{id}/force', [DashboardSubcategoryController::class, 'forceDelete'])
+                    ->middleware(['admin'])
                     ->name('subcategories.forceDelete');
             }
         );

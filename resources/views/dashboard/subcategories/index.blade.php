@@ -8,6 +8,7 @@
 @section('page-title-2')
     All Subcategories ({{ $subcategories->count() }})
 @endsection
+
 @section('content')
 <section class="section">
     <div class="row">
@@ -36,12 +37,12 @@
                         <td>
                             <a href="{{ route('dashboard.subcategories.show', [$subcategory->name]) }}" class="btn btn-sm btn-warning">Show</a>
                             @if(auth()->user()->role == "admin")
-                            <a href="{{ route('dashboard.subcategories.edit', $subcategory->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                            <form action="{{ route('dashboard.subcategories.destroy', $subcategory->id) }}" method="POST" style="display: inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the category ({{ $subcategory->name }})?');">Delete</button>
-                            </form>
+                                <a href="{{ route('dashboard.subcategories.edit', $subcategory->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <form action="{{ route('dashboard.subcategories.destroy', $subcategory->id) }}" method="POST" style="display: inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to delete the category ({{ $subcategory->name }})?');">Delete</button>
+                                </form>
                             @endif
                         </td>
                     </tr>
