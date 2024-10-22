@@ -38,13 +38,12 @@
                 </div>
             @endif
 
-            <a href="{{ route('events.index') }}" class="btn btnbtn-sm btn-warning">All Events</a>
+            <a href="{{ route('events.show', ['event' => $event->slug]) }}" class="btn btnbtn-sm btn-warning">Back to Event</a>
             <a href="{{ route('ticket-organizer.create', $event->id) }}" class="btn btnbtn-sm btn-warning">Make Tickets to this event</a>
             <table class="table datatable">
               <thead>
                 <tr>
                     <th>#</th>
-                    <th>ID</th>
                     <th>type</th>
                     <th>price</th>
                     <th>quantity</th>
@@ -58,7 +57,6 @@
                 @forelse ($event->tickets as $ticket)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $ticket->id }}</td>
                         <td>{{ $ticket->type }}</td>
                         <td>{{ $ticket->price}}</td>
                         <td>{{ $ticket->quantity}}</td>

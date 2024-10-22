@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
-            $table->string('picture')->default('no-event-picture.jpg');
+            $table->string('picture')->nullable()->default('no-event-picture.jpg');
             $table->string('subject')->nullable();
             $table->text('description');
             $table->foreignId('organizer_id')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();

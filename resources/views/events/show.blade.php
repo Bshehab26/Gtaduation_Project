@@ -27,6 +27,11 @@
                     {{ $successMsg }}
                 </div>
             @endif
+            @if ($successMsg = Session::get('failure'))
+                <div class="alert alert-danger text-center">
+                    {{ $successMsg }}
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-md-6">
@@ -39,7 +44,7 @@
                             <a href="{{ route('events.edit', ['event' => $event->slug]) }}" class="my-1">
                                 Edit this event
                             </a>
-                        @elseif (Auth::check() && Auth::user()->role == 'admin')
+                        @elseif (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->role === 'moderator'))
                             <a href="{{ route('dashboard.events.edit', ['event' => $event->slug]) }}">
                                 Edit this event
                             </a>
@@ -77,9 +82,9 @@
                     <div class="detailes row my-1">
                         <h3>When?</h3>
                         <p>
-                            <strong>from:</strong> {{ Carbon::parse($event->start_time)->format('y M d') . ' at ' . Carbon::parse($event->start_time)->format('H:i') }}
+                            <strong>from:</strong> {{ Carbon::parse($event->start_time)->format('y M d') . ' at ' . Carbon::parse($event->start_time)->timezone('Africa/Cairo')->format('h:i A') }}
                             <br>
-                            <strong>to:</strong> {{ Carbon::parse($event->end_time)->format('y M d') . ' at ' . Carbon::parse($event->end_time)->format('H:i') }}
+                            <strong>to:</strong> {{ Carbon::parse($event->end_time)->format('y M d') . ' at ' . Carbon::parse($event->end_time)->timezone('Africa/Cairo')->format('h:i A') }}
                         </p>
                     </div>
                     <div class="detailes row my-1">
@@ -131,7 +136,12 @@
                                         <form class="text-center form-controll" action="{{ route('bookings.store', $ticket->id) }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-                                            <input type="number" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
+                                            <input type="text" class="form-control my-2" name="quantity" id="ticket_quantity" required min="1" max="{{ $ticket->available }}" value="1">
+                                            @error('quantity')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                             <button href="#" class="buy-btn">Buy Now</button>
                                         </form>
                                     </div>

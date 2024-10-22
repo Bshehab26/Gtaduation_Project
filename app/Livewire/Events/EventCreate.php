@@ -16,7 +16,7 @@ class EventCreate extends Component
 
     public EventForm $form;
 
-    private $success;
+    public Event $event;
 
     public $currentCategoryId;
 
@@ -44,11 +44,11 @@ class EventCreate extends Component
 
         $this->form->slug = str_replace(' ', '-', $this->form->name);
 
-        $this->success = Event::create($this->form->except(['event', 'subcategories']));
-        $this->success->subcategories()->syncWithoutDetaching($this->subcategoriesIds);
+        $this->event = Event::create($this->form->except(['event', 'subcategories']));
+        $this->event->subcategories()->syncWithoutDetaching($this->subcategoriesIds);
 
-        if($this->success){
-            return redirect()->route('events.show', ['event' => $this->success]);
+        if($this->event){
+            session()->flash('success', 'Event created successfully');
         }
     }
 

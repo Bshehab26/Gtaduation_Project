@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Event;
 use App\Models\Venue;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,17 +16,24 @@ class EventIndex extends Component
     use WithPagination;
 
     public $search;
+
     public $category1;
     public $category2;
     public $category3;
     public $category4;
     public $category5;
     public $category6;
+
     public $filters = [];
+
     public $orderQ;
+
     public $orderBy = 'start_time';
-    public $orderType = 'asc';
+
+    public $orderType = 'desc';
+
     public $time = 'year';
+
     public $city;
 
     public function order($order)
@@ -39,14 +47,32 @@ class EventIndex extends Component
         } else {
             $this->orderQ = $order;
             $this->orderType = 'asc';
-            switch ($order) {
-                case 'start':
-                    $this->orderBy = 'start_time';
-                    break;
-                case 'event':
-                    $this->orderBy = 'name';
-                    break;
-            }
+        }
+    }
+
+    private function sorting(Builder $events)
+    {
+        switch ($this->orderQ) {
+            case 'start':
+                $this->orderBy = 'start_time';
+                return $events->with(['venue', 'organizer'])->orderBy($this->orderBy, $this->orderType);
+            case 'event':
+                $this->orderBy = 'name';
+                return $events->with(['venue', 'organizer'])->orderBy($this->orderBy, $this->orderType);
+            case 'subject':
+                $this->orderBy = 'subject';
+                return $events->with(['venue', 'organizer'])->orderBy($this->orderBy, $this->orderType);
+            case 'organizer':
+                $this->orderBy = 'first_name';
+                return $events->with(['venue', 'organizer'])->orderBy($this->orderBy, $this->orderType);
+            case 'venue':
+                $this->orderBy = 'venues.name';
+                return $events->with(['organizer', 'venue' => function ($q) {
+                    $q->orderBy($this->orderBy, $this->orderType);
+                }]);
+            default:
+                $this->orderBy = 'start_time';
+                return $events->with(['venue', 'organizer'])->orderBy($this->orderBy, $this->orderType);
         }
     }
 
@@ -70,18 +96,16 @@ class EventIndex extends Component
         $this->reset();
     }
 
-    public function render()
+    private function searchFunciton(Builder $events, $search)
     {
-
-        $events = Event::query();
-        $search = $this->search;
-        $time = $this->time;
-
-        $events->when($this->search, function ($q) use ($search){
+        return $events->when($this->search, function ($q) use ($search){
             $q->where('name', 'like', "%$search%");
             $this->resetPage();
         });
+    }
 
+    private function filtering(Builder $events)
+    {
         if($this->filters){
             foreach($this->filters as $i){
                 $events->when($i, function($q) use ($i){
@@ -90,7 +114,7 @@ class EventIndex extends Component
                     });
                 });
             };
-        }
+        };
 
         $city = $this->city;
         $events->when($city, function ($q) use ($city){
@@ -99,6 +123,7 @@ class EventIndex extends Component
             });
         });
 
+        $time = $this->time;
         $events->when($time, function($q) use ($time){
             switch ($time) {
                 case 'week':
@@ -114,11 +139,22 @@ class EventIndex extends Component
                     break;
             }
         });
+    }
+
+    public function render()
+    {
+
+        $events = Event::query();
+
+        $this->sorting($events);
+
+        $this->searchFunciton($events, $this->search);
+
+        $this->filtering($events);
 
         return view('livewire.events.event-index', [
             'events'     => $events->where('start_time', '>=', Carbon::tomorrow()->format('Y-m-d'))
                                 // ->where('status', 'upcoming')
-                                ->orderBy($this->orderBy, $this->orderType)
                                 ->paginate(10),
             'categories' => Category::with(['subcategories'])->limit(6)->get(),
             'cities'     => Venue::select('city')->distinct()->orderBy('city')->get(),

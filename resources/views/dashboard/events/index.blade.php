@@ -39,7 +39,7 @@
                                 <th>#</th>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Description</th>
+                                <th>Organizer</th>
                                 <th>Start</th>
                                 <th>End</th>
                                 <th>Venue</th>
@@ -53,27 +53,29 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $event->id }}</td>
                                     <td>{{ Str::words($event->name, 2, '...') }}</td>
-                                    <td>{{ $event->description == null ? '-' : Str::words($event->description, 2, '...') }}</td>
+                                    <td>{{ $event->organizer->fullName() }}</td>
                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->start_time)->format('y M, d H:i') }}</td>
                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $event->end_time)->format('y M, d H:i') }}</td>
                                     <td>
-                                        This is a venue
+                                        {{ $event->venue->name }}
                                     </td>
                                     <td class="{{ $event->status }}">
                                         {{ $event->status }}
                                     </td>
                                     <td>
                                         <a href="{{ route('dashboard.events.show', [ 'event' => $event->slug] ) }}" class="btn btn-sm btn-warning" style="font-size: 0.75rem;">Show</a>
-                                        <a href="{{ route('dashboard.events.edit', [ 'event' => $event->slug]) }}" class="btn btn-sm btn-primary my-1" style="font-size: 0.75rem;">Edit</a>
-                                        <form
-                                            method="POST"
-                                            action="{{ route('dashboard.events.destroy', [ 'event' => $event->slug] ) }}"
-                                            class="my-1"
-                                            style="display: inline-block"
-                                            > @csrf
-                                            @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger" style="font-size: 0.75rem;" onclick="return confirm('Are you sure that you want to delete ({{ $event->name }})?');">Delete</button>
-                                        </form>
+                                        @if (Auth::user()->role === 'admin')
+                                            <a href="{{ route('dashboard.events.edit', [ 'event' => $event->slug]) }}" class="btn btn-sm btn-primary my-1" style="font-size: 0.75rem;">Edit</a>
+                                            <form
+                                                method="POST"
+                                                action="{{ route('dashboard.events.destroy', [ 'event' => $event->slug] ) }}"
+                                                class="my-1"
+                                                style="display: inline-block"
+                                                > @csrf
+                                                @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" style="font-size: 0.75rem;" onclick="return confirm('Are you sure that you want to delete ({{ $event->name }})?');">Delete</button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

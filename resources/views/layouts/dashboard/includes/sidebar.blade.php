@@ -86,7 +86,7 @@
                         <i class="bi bi-calendar-plus" style="font-size: 1rem;"></i><span>New event</span>
                     </a>
                 </li>
-                @if (\App\Models\Event::latest()->first())
+                @if (Auth::user()->role === 'admin' && \App\Models\Event::latest()->first())
                     <li>
                         <a
                             href="{{ route('dashboard.events.edit', ['event' => \App\Models\Event::latest()->first()->slug]) }}">

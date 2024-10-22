@@ -4,13 +4,13 @@
         <div class="alert alert-success container p-2">
             <p class="row py-2 px-4">{{ $value }}</p>
             <div class="row d-flex justify-content-around text-center">
-                <a href="{{ route('dashboard.events.show', ['event' => $form->slug]) }}" class="col-sm-4">
+                <a href="{{ route('dashboard.events.show', ['event' => $event->slug]) }}" class="col-sm-4">
                     Show event
                 </a>
-                <a href="{{ route('dashboard.events.create') }}" class="col-sm-4">
-                    Add new event
+                <a href="{{ route('ticket.create', $event->id) }}" class="col-sm-4">
+                    Add tickets
                 </a>
-                <a href="{{ route('events.show', ['event' => $form->slug]) }}" class="col-sm-4">
+                <a href="{{ route('events.show', ['event' => $event->slug]) }}" class="col-sm-4">
                     Show event in website
                 </a>
             </div>

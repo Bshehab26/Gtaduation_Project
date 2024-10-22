@@ -12,6 +12,22 @@
     </style>
 @endpush
 
+@session('success')
+    <div class="p-3">
+        <div class="alert alert-success container p-2">
+            <p class="row py-2 px-4">{{ $value }}</p>
+            <div class="row d-flex justify-content-around text-center">
+                <a href="{{ route('events.show', ['event' => $event->slug]) }}" class="col-sm-4">
+                    Show event
+                </a>
+                <a href="{{ route('ticket-organizer.create', $event->event->id) }}" class="col-sm-4">
+                    Add tickets
+                </a>
+            </div>
+        </div>
+    </div>
+@endsession
+
 <form
     method="POST"
     wire:submit='store'
@@ -29,8 +45,7 @@
             id="event-picture"
             class="form-control"
             name="picture"
-            type="file"
-            required>
+            type="file">
         @if ($form->picture)
             <div class="w-100 mt-3 text-center">
                 <img src="{{ $form->picture->temporaryUrl() }}" alt="" class="mx-auto" style="max-width: 200px; max-height: 200px;">
@@ -158,9 +173,6 @@
                     @endforelse
                 </div>
             </div>
-            @foreach ($subcategoriesIds as $id)
-                {{ $id }}
-            @endforeach
             <div class="row my-4 mx-auto">
                 <div class="p-2 rounded col-12">
                     <h5

@@ -75,6 +75,9 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        if(auth()->user()->role !== 'admin') {
+            abort(403);
+        }
         $event->delete();
         return back()->with('success', 'Event deleted successfully');
     }

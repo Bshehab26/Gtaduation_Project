@@ -34,7 +34,7 @@
                     <th>Description</th>
                     <th>Deleted At</th>
                     @if (auth()->user()->role == "admin")
-                    <th>Actions</th>
+                        <th>Actions</th>
                     @endif
                 </tr>
               </thead>
@@ -47,17 +47,17 @@
                         <td>{{ $subcategory->description == null ? '-' : Str::words($subcategory->description, 2, '...') }}</td>
                         <td>{{ $subcategory->deleted_at }}</td>
                         @if (auth()->user()->role == "admin")
-                        <td>
-                            <form action="{{ route('dashboard.subcategories.restore', $subcategory->id) }}" method="POST" style="display: inline-block">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-success">Restore</button>
-                            </form>
-                            <form action="{{ route('dashboard.subcategories.forceDelete', $subcategory->id) }}" method="POST" style="display: inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to permanently delete the category ({{ $subcategory->name }})?');">Permanent Delete</button>
-                            </form>
-                        </td>
+                            <td>
+                                <form action="{{ route('dashboard.subcategories.restore', $subcategory->id) }}" method="POST" style="display: inline-block">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-success">Restore</button>
+                                </form>
+                                <form action="{{ route('dashboard.subcategories.forceDelete', $subcategory->id) }}" method="POST" style="display: inline-block">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure that you want to permanently delete the category ({{ $subcategory->name }})?');">Permanent Delete</button>
+                                </form>
+                            </td>
                         @endif
                     </tr>
                 @empty
