@@ -49,7 +49,7 @@
               <div class="tab-pane fade show active profile-overview" id="profile-overview" role="tabpanel">
                 <h5 class="card-title">Description</h5>
                 <p class="small fst-italic">
-                    {{ $user->description == null ? 'No description.' : $user->description }}
+                  <h3>  {{ $user->bio == null ? 'No description.' : $user->bio }}</h3>
                 </p>
               </div>
 

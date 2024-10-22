@@ -34,7 +34,7 @@
 
                 <li>
                     <a href="{{ route('users.organizers') }}">
-                        <i class="fs-5 ri-user-fill"></i><span>organizer
+                        <i class="fs-5 ri-user-fill"></i><span>organizers
                             ({{ \App\Models\User::where('role', 'organizer')->count() }})</span>
                     </a>
                 </li>
